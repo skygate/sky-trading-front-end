@@ -1,0 +1,36 @@
+@import "../../../styles/variables.scss";
+
+.button {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-black3);
+  border: none;
+  gap: 10px;
+}
+
+.small {
+  height: 27px;
+  min-width: 104px;
+  border-radius: 3px;
+  padding: 5px 10px;
+}
+
+.medium {
+  min-width: 168px;
+  height: 27px;
+  border-radius: 5px;
+  padding: 6px 30px;
+}
+
+.large {
+  width: 253px;
+  padding: 7px;
+  height: 33px;
+  border-radius: 5px;
+}
+
+.color {
+  background-color: var(--color-primary);
+}

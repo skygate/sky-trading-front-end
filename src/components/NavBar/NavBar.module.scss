@@ -1,0 +1,38 @@
+@import "../../styles/variables.scss";
+
+.wrapper {
+  width: 100vw;
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 50px;
+}
+
+.leftWrapper {
+  display: flex;
+  gap: 50px;
+}
+
+.middleWrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.rightWrapper {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.smallRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

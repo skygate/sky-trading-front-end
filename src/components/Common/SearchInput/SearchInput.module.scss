@@ -1,0 +1,28 @@
+.wrapper {
+  position: relative;
+  width: 665px;
+  height: 40px;
+}
+
+.iconWrapper {
+  position: absolute;
+  transform: translateY(50%);
+  top: 0;
+  left: 10px;
+}
+
+.input {
+  width: 100%;
+  width: 665px;
+  height: 40px;
+  background-color: var(--color-black3);
+  padding: 10px 10px 10px 40px;
+  border: none;
+  border-radius: 5px;
+  color: var(--color-white);
+  font-size: var(--font-16);
+}
+
+.input:focus {
+  outline: none;
+}
