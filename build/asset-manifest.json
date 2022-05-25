@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4c8e3992.css",
+    "main.js": "/static/js/main.f7b9e4e0.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/MyWalletIcon.svg": "/static/media/MyWalletIcon.d2d632e60df742809f0e61ae67933dba.svg",
+    "static/media/HelpIcon.svg": "/static/media/HelpIcon.3e6a311619a8935038171fdbe70e4880.svg",
+    "static/media/CompasIcon.svg": "/static/media/CompasIcon.3147e79c2f8f1cd97b990d5a92a21f84.svg",
+    "static/media/ProfileIcon.svg": "/static/media/ProfileIcon.74a8cfbe95ffd1e0202ddade8d4cc91c.svg",
+    "static/media/EditIcon.svg": "/static/media/EditIcon.ec4abdf70c70081bb6e5847df190d071.svg",
+    "static/media/SearchIcon.svg": "/static/media/SearchIcon.b2c809c6b926ff76cc15a90926a0a5e8.svg",
+    "static/media/ArrowDownIcon.svg": "/static/media/ArrowDownIcon.b01fa56abb6e7b885e8ace3410c5cd6d.svg",
+    "static/media/SygnetIcon.svg": "/static/media/SygnetIcon.7c2fd51225553f2a417e2e19e0b6d4b6.svg",
+    "index.html": "/index.html",
+    "main.4c8e3992.css.map": "/static/css/main.4c8e3992.css.map",
+    "main.f7b9e4e0.js.map": "/static/js/main.f7b9e4e0.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4c8e3992.css",
+    "static/js/main.f7b9e4e0.js"
+  ]
+}
