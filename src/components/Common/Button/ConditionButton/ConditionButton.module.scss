@@ -1,0 +1,12 @@
+.wrapper {
+  height: 27px;
+  width: fit-content;
+  background-color: var(--color-conditions);
+  padding: 5px 10px;
+  font-weight: 300;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  border-radius: 5px;
+  font-size: var(--font-14);
+}

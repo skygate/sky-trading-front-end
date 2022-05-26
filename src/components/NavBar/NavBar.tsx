@@ -9,7 +9,7 @@ import {
   ProfileIcon,
   SygnetIcon,
 } from "../../assets/icons";
-import Button, { ButtonSize } from "../Common/Button/Button";
+import cx from "classnames";
 
 const NavBar = () => (
   <div className={styles.wrapper}>
@@ -24,11 +24,11 @@ const NavBar = () => (
           <CompasIocn />
           <span>Explore</span>
         </div>
-        <Button size={ButtonSize.SMALL}>
+        <div className={cx(styles.row, styles.active)}>
           <EditIcon />
           <span>Create</span>
           <ArrowDownIcon />
-        </Button>
+        </div>
       </div>
     </div>
     <div className={styles.rightWrapper}>

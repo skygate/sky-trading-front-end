@@ -1,0 +1,17 @@
+.wrapper {
+  padding: 10px;
+  background-color: var(--color-black2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 270px;
+
+  button {
+    flex: 1;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 9px;
+}
