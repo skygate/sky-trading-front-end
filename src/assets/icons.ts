@@ -19,3 +19,7 @@ export { ReactComponent as GroupIcon } from "./icons/GroupIcon.svg";
 export { ReactComponent as AddConditionIcon } from "./icons/AddConditionIcon.svg";
 export { ReactComponent as AddAssetIcon } from "./icons/AddAssetIcon.svg";
 export { ReactComponent as SeparatorIcon } from "./icons/SeparatorIcon.svg";
+export { ReactComponent as CloseIcon } from "./icons/CloseIcon.svg";
+export { ReactComponent as ChartIcon } from "./icons/ChartIcon.svg";
+export { ReactComponent as RecipeIcon } from "./icons/RecipeIcon.svg";
+export { ReactComponent as UserIcon } from "./icons/UserIcon.svg";

@@ -12,14 +12,14 @@ const AssetsBar = ({ acronym, asset, market }: AssetsBarProps) => (
   <Bar>
     {acronym && asset && market ? (
       <>
-        <OkIcon /> <span style={{ paddingLeft: "2px" }}>{acronym}</span>{" "}
+        <OkIcon /> <span style={{ paddingLeft: "2px" }}>{acronym}</span>
         <span>{asset}</span>
         <SeparatorIcon />
         <span>{market}</span>
       </>
     ) : (
       <>
-        <AddAssetIcon />{" "}
+        <AddAssetIcon />
         <span style={{ paddingLeft: "2px" }}>Add an asset</span>
       </>
     )}

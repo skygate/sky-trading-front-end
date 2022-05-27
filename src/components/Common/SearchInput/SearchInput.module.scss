@@ -1,6 +1,5 @@
 .wrapper {
   position: relative;
-  width: 665px;
   height: 40px;
 }
 
@@ -13,7 +12,7 @@
 
 .input {
   width: 100%;
-  width: 665px;
+  display: block;
   height: 40px;
   background-color: var(--color-black3);
   padding: 10px 10px 10px 40px;
