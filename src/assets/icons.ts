@@ -23,3 +23,4 @@ export { ReactComponent as CloseIcon } from "./icons/CloseIcon.svg";
 export { ReactComponent as ChartIcon } from "./icons/ChartIcon.svg";
 export { ReactComponent as RecipeIcon } from "./icons/RecipeIcon.svg";
 export { ReactComponent as UserIcon } from "./icons/UserIcon.svg";
+export { ReactComponent as HistoryIcon } from "./icons/HistoryIcon.svg";

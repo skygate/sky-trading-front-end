@@ -13,6 +13,7 @@ import EditGroup from "./components/EditGroups/EditGroups";
 import GroupBar from "./components/GroupBar/GroupBar";
 import NavBar from "./components/NavBar/NavBar";
 import OpenCloseButton from "./components/OpenCloseButton/OpenCloseButton";
+import SearchAssetsModal from "./components/SearchAssetsModal/SearchAssetsModal";
 import SetConditionsModal from "./components/SetConditionsModal/SetConditionsModal";
 import DetailsDropDown from "./components/SideBar/DetailsDropDown/DetailsDropDown";
 import OptimizeDropDown from "./components/SideBar/OptimizeDropDown/OptimizeDropDown";
@@ -42,6 +43,7 @@ function App() {
       <GroupBar />
       <SetConditionsModal />
       <ChooseConditionsModal />
+      <SearchAssetsModal />
     </>
   );
 }

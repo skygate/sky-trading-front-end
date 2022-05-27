@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChartIcon, CloseIcon, RecipeIcon, UserIcon } from "../../assets/icons";
 import SearchInput from "../Common/SearchInput/SearchInput";
 import styles from "./ChooseConditionsModal.module.scss";
 import cx from "classnames";
+import ConditionsGrid from "./ConditionsGrid/ConditionsGrid";
 
 enum ChoosedModalOptions {
   SCRIPTS = "scripts",
@@ -10,24 +11,31 @@ enum ChoosedModalOptions {
   FINANCIALS = "financials",
 }
 
+export interface OptionsInterface {
+  name: string;
+  elements: string[];
+}
+
+const technicalOptions = [
+  { name: "Indicators", elements: ["EMA", "SMA", "Stochastic", "RSI"] },
+  { name: "Chart patterns", elements: [] },
+  { name: "Candlestick patterns", elements: [] },
+  { name: "group", elements: [] },
+];
+
+const financialOptions = [
+  { name: "Income statement", elements: ["element1", "element2"] },
+  { name: "Cash flow", elements: ["element1", "element2"] },
+  { name: "Statistic", elements: ["element1", "element2"] },
+  { name: "Balance Sheet", elements: ["element1", "element2"] },
+];
+
 const ChooseConditionsModal = () => {
   const [activeOption, setActiveOption] = useState(
     ChoosedModalOptions.TECHNICALS
   );
-
-  const technicalOptions = [
-    "Indicators",
-    "Chart patterns",
-    "Candlestick patterns",
-    "group",
-  ];
-
-  const financialOptions = [
-    "Income statement",
-    "Cash flow",
-    "Statistic",
-    "Balance Sheet",
-  ];
+  const [currentData, setCurrentData] =
+    useState<OptionsInterface[]>(technicalOptions);
 
   return (
     <div className={styles.wrapper}>
@@ -40,55 +48,45 @@ const ChooseConditionsModal = () => {
       <div className={styles.bodyWrapper}>
         <div className={styles.sidebar}>
           <div
-            className={
-              activeOption === ChoosedModalOptions.SCRIPTS
-                ? cx(styles.sidebarElement, styles.active)
-                : styles.sidebarElement
-            }
-            onClick={() => setActiveOption(ChoosedModalOptions.SCRIPTS)}
+            className={cx(
+              styles.sidebarElement,
+              activeOption === ChoosedModalOptions.SCRIPTS && styles.active
+            )}
+            onClick={() => {
+              setActiveOption(ChoosedModalOptions.SCRIPTS);
+              setCurrentData([]);
+            }}
           >
             <UserIcon />
             My scripts
           </div>
           <div
-            className={
-              activeOption === ChoosedModalOptions.TECHNICALS
-                ? cx(styles.sidebarElement, styles.active)
-                : styles.sidebarElement
-            }
-            onClick={() => setActiveOption(ChoosedModalOptions.TECHNICALS)}
+            className={cx(
+              styles.sidebarElement,
+              activeOption === ChoosedModalOptions.TECHNICALS && styles.active
+            )}
+            onClick={() => {
+              setActiveOption(ChoosedModalOptions.TECHNICALS);
+              setCurrentData(technicalOptions);
+            }}
           >
             <ChartIcon /> Technicals
           </div>
           <div
-            className={
-              activeOption === ChoosedModalOptions.FINANCIALS
-                ? cx(styles.sidebarElement, styles.active)
-                : styles.sidebarElement
-            }
-            onClick={() => setActiveOption(ChoosedModalOptions.FINANCIALS)}
+            className={cx(
+              styles.sidebarElement,
+              activeOption === ChoosedModalOptions.FINANCIALS && styles.active
+            )}
+            onClick={() => {
+              setActiveOption(ChoosedModalOptions.FINANCIALS);
+              setCurrentData(financialOptions);
+            }}
           >
             <RecipeIcon />
             Financials
           </div>
         </div>
-        <div className={styles.grid}>
-          {activeOption === ChoosedModalOptions.SCRIPTS ? (
-            <div className={styles.comming}>Comming soon</div>
-          ) : (
-            <div className={styles.gridHeader}>
-              {activeOption === ChoosedModalOptions.TECHNICALS &&
-                technicalOptions.map((item) => (
-                  <div className={styles.gridHeaderOption}>{item}</div>
-                ))}
-              {activeOption === ChoosedModalOptions.FINANCIALS &&
-                financialOptions.map((item) => (
-                  <div className={styles.gridHeaderOption}>{item}</div>
-                ))}
-            </div>
-          )}
-          <div className={styles.bodyGrid}></div>
-        </div>
+        <ConditionsGrid data={currentData} />
       </div>
     </div>
   );

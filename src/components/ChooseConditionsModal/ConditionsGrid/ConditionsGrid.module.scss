@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  gap: 10px;
+}
+
+.headerElement {
+  background-color: var(--color-black3);
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-weight: 500;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 25px;
+  width: 100%;
+  min-height: 70%;
+  font-weight: 500;
+}
+
+.active {
+  background-color: var(--color-primary);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.listElement {
+  background-color: var(--color-conditions);
+  padding: 5px 10px;
+  border-radius: 3px;
+}
