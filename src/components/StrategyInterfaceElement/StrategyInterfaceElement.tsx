@@ -20,6 +20,15 @@ interface StrategyInterfaceElementProps {
   isLastChild: boolean;
 }
 
+export enum StrategyInterfaceElements {
+  OPEN = "open",
+  CLOSE = "close",
+  CONDITION = "condition",
+  ASSETS = "assets",
+  ASSETS_BAR = "assetsBar",
+  ADD_CONDITION = "addCondition",
+}
+
 const StrategyInterfaceElement = ({
   type,
   elements,
@@ -31,18 +40,20 @@ const StrategyInterfaceElement = ({
     style={isLastChild ? { borderLeft: "2px solid transparent" } : {}}
   >
     <div className={cx(styles.element, styles[type])}>
-      {type === "open" && (
+      {type === StrategyInterfaceElements.OPEN && (
         <OpenCloseButton isExpanded={isExpanded}>Open</OpenCloseButton>
       )}
-      {type === "close" && (
+      {type === StrategyInterfaceElements.CLOSE && (
         <OpenCloseButton isExpanded={isExpanded}>Close</OpenCloseButton>
       )}
-      {type === "condition" && (
+      {type === StrategyInterfaceElements.CONDITION && (
         <ConditionButton isExpanded={isExpanded}>set condition</ConditionButton>
       )}
-      {type === "assets" && <AssetsButton isExpanded={isExpanded} />}
-      {type === "assetsBar" && <AssetsBar />}
-      {type === "addCondition" && <AddConditionIcon />}
+      {type === StrategyInterfaceElements.ASSETS && (
+        <AssetsButton isExpanded={isExpanded} />
+      )}
+      {type === StrategyInterfaceElements.ASSETS_BAR && <AssetsBar />}
+      {type === StrategyInterfaceElements.ADD_CONDITION && <AddConditionIcon />}
     </div>
     {elements &&
       isExpanded &&

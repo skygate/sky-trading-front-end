@@ -3,50 +3,52 @@ import Calculate from "../../components/Calculate/Calculate";
 import DetailsDropDown from "../../components/SideBar/DetailsDropDown/DetailsDropDown";
 import OptimizeDropDown from "../../components/SideBar/OptimizeDropDown/OptimizeDropDown";
 import StrategyBar from "../../components/StrategyBar/StrategyBar";
-import StrategyInterfaceElement from "../../components/StrategyInterfaceElement/StrategyInterfaceElement";
+import StrategyInterfaceElement, {
+  StrategyInterfaceElements,
+} from "../../components/StrategyInterfaceElement/StrategyInterfaceElement";
 import TestPreview from "../../components/TestPreview/TestPreview";
 import ToolsBar from "../../components/ToolsBar/ToolsBar";
 import styles from "./CreateView.module.scss";
 
 const dummyStrategy = [
   {
-    type: "open",
+    type: StrategyInterfaceElements.OPEN,
     isExpanded: true,
     elements: [
       {
-        type: "condition",
+        type: StrategyInterfaceElements.CONDITION,
         isExpanded: true,
         elements: [
           {
-            type: "assets",
+            type: StrategyInterfaceElements.ASSETS,
             isExpanded: true,
             elements: [
               {
-                type: "assetsBar",
+                type: StrategyInterfaceElements.ASSETS_BAR,
                 elements: [],
               },
             ],
           },
           {
-            type: "addCondition",
+            type: StrategyInterfaceElements.ASSETS_BAR,
             elements: [],
           },
         ],
       },
       {
-        type: "close",
+        type: StrategyInterfaceElements.CLOSE,
         isExpanded: true,
         elements: [
           {
-            type: "condition",
+            type: StrategyInterfaceElements.CONDITION,
             isExpanded: true,
             elements: [
               {
-                type: "assets",
+                type: StrategyInterfaceElements.ASSETS,
                 isExpanded: true,
                 elements: [
                   {
-                    type: "assetsBar",
+                    type: StrategyInterfaceElements.ASSETS_BAR,
                     elements: [],
                   },
                 ],
