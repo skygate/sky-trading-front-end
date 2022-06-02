@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ChartIcon, CloseIcon, RecipeIcon, UserIcon } from "../../assets/icons";
-import SearchInput from "../Common/SearchInput/SearchInput";
+import {
+  ChartIcon,
+  CloseIcon,
+  RecipeIcon,
+  UserIcon,
+} from "../../../assets/icons";
+import SearchInput from "../../Common/SearchInput/SearchInput";
 import styles from "./ChooseConditionsModal.module.scss";
 import cx from "classnames";
 import ConditionsGrid from "./ConditionsGrid/ConditionsGrid";

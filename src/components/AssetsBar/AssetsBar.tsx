@@ -6,10 +6,11 @@ interface AssetsBarProps {
   acronym?: string;
   asset?: string;
   market?: string;
+  width?: string;
 }
 
-const AssetsBar = ({ acronym, asset, market }: AssetsBarProps) => (
-  <Bar>
+const AssetsBar = ({ acronym, asset, market, width }: AssetsBarProps) => (
+  <Bar width={width}>
     {acronym && asset && market ? (
       <>
         <OkIcon /> <span style={{ paddingLeft: "2px" }}>{acronym}</span>

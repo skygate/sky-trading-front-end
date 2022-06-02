@@ -1,5 +1,5 @@
 import React from "react";
-import Button, { ButtonSize } from "../Common/Button/Button";
+import Button, { ButtonSize } from "../Buttons/Button";
 import styles from "./Calculate.module.scss";
 
 const Calculate = () => (

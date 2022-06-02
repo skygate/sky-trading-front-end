@@ -1,14 +1,15 @@
 import React from "react";
-import { ArrowDownIcon, GroupIcon } from "../../assets/icons";
+import { ArrowDownIcon, ArrowUpIcon, GroupIcon } from "../../assets/icons";
 import Bar from "../Common/Bar/Bar";
 
 interface StrategyBarProps {
   strategyName?: string;
+  isExpanded: boolean;
 }
 
-const StrategyBar = ({ strategyName }: StrategyBarProps) => (
+const StrategyBar = ({ strategyName, isExpanded }: StrategyBarProps) => (
   <Bar>
-    <ArrowDownIcon />
+    {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
     <GroupIcon />
     <span style={{ fontWeight: 500 }}>
       {strategyName ? strategyName : "Strategy name"}

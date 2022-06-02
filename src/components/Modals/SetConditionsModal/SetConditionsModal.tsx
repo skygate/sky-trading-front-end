@@ -1,8 +1,8 @@
 import React from "react";
-import { CloseIcon } from "../../assets/icons";
-import ToggleButton from "../Common/ToggleButton/ToggleButton";
-import DragBox from "../DargBox/DragBox";
-import DoneButton from "../DoneButton/DoneButton";
+import { CloseIcon } from "../../../assets/icons";
+import ToggleButton from "../../Common/ToggleButton/ToggleButton";
+import DragBox from "../../DargBox/DragBox";
+import DoneButton from "../../Buttons/DoneButton/DoneButton";
 import styles from "./SetConditionsModal.module.scss";
 
 const SetConditionsModal = () => (
@@ -39,7 +39,7 @@ const SetConditionsModal = () => (
       <DragBox />
     </div>
     <div style={{ alignSelf: "flex-end" }}>
-      <DoneButton active />
+      <DoneButton onClick={() => {}} active />
     </div>
   </div>
 );
