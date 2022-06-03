@@ -1,6 +1,6 @@
 import React from "react";
-import { AddAssetIcon, OkIcon, SeparatorIcon } from "../../assets/icons";
-import Bar from "../Common/Bar/Bar";
+import { AddAssetIcon, OkIcon, SeparatorIcon } from "assets/icons";
+import Bar from "components/Common/Bar/Bar";
 
 interface AssetsBarProps {
   acronym?: string;

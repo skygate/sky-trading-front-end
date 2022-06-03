@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import styles from "./AllocationButton.module.scss";
-import { ArrowDownIcon } from "../../../assets/icons";
+import { ArrowDownIcon } from "assets/icons";
 
 interface AllocationButtonProps {
   children: ReactNode;

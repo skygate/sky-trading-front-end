@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchIcon } from "../../../assets/icons";
+import { SearchIcon } from "assets/icons";
 import styles from "./SearchInput.module.scss";
 
 interface SearchInputProps {

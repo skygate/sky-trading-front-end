@@ -1,5 +1,5 @@
 import React from "react";
-import { UserIcon } from "../../assets/icons";
+import { UserIcon } from "assets/icons";
 import styles from "./CommentMarker.module.scss";
 
 const CommentMarker = () => (

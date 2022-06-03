@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import StrategyBar from "../../components/StrategyBar/StrategyBar";
-import StrategyInterfaceElement from "../../components/StrategyInterface/StrategyInterfaceElement/StrategyInterfaceElement";
-import { useAppSelector } from "../../store/hooks";
+import StrategyBar from "components/StrategyBar/StrategyBar";
+import StrategyInterfaceElement from "components/StrategyInterface/StrategyInterfaceElement/StrategyInterfaceElement";
+import { useStrategyCreationSelector } from "store/hooks";
 import styles from "./StrategyInterface.module.scss";
 
 const StrategyInterface = () => {
   const [isStrategyExpanded, setStrategyExpanded] = useState(false);
-  const strategyCrationState = useAppSelector(
-    (state) => state.strategyCreation
-  );
+  const strategyState = useStrategyCreationSelector();
+
   return (
     <>
       <div
@@ -20,10 +19,10 @@ const StrategyInterface = () => {
       {isStrategyExpanded && (
         <div className={styles.strategyWrapper}>
           <StrategyInterfaceElement
-            id={strategyCrationState.id}
-            isExpanded={strategyCrationState.isExpanded}
-            type={strategyCrationState.type}
-            elements={strategyCrationState.elements}
+            id={strategyState.id}
+            isExpanded={strategyState.isExpanded}
+            type={strategyState.type}
+            elements={strategyState.elements}
             isLastChild={true}
           />
         </div>

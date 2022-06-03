@@ -1,10 +1,10 @@
 import React from "react";
-import Calculate from "../../components/Calculate/Calculate";
-import DetailsDropDown from "../../components/SideBar/DetailsDropDown/DetailsDropDown";
-import OptimizeDropDown from "../../components/SideBar/OptimizeDropDown/OptimizeDropDown";
-import StrategyInterface from "../../components/StrategyInterface/StrategyInterface";
-import TestPreview from "../../components/TestPreview/TestPreview";
-import ToolsBar from "../../components/ToolsBar/ToolsBar";
+import Calculate from "components/Calculate/Calculate";
+import DetailsDropDown from "components/SideBar/DetailsDropDown/DetailsDropDown";
+import OptimizeDropDown from "components/SideBar/OptimizeDropDown/OptimizeDropDown";
+import StrategyInterface from "components/StrategyInterface/StrategyInterface";
+import TestPreview from "components/TestPreview/TestPreview";
+import ToolsBar from "components/ToolsBar/ToolsBar";
 import styles from "./CreateView.module.scss";
 
 const CreateView = () => (

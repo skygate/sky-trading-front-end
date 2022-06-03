@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { ArrowDownIcon, ArrowUpIcon } from "../../../assets/icons";
+import { ArrowDownIcon, ArrowUpIcon } from "assets/icons";
 import styles from "./OpenCloseButton.module.scss";
 
 interface OpenCloseButtonProps {

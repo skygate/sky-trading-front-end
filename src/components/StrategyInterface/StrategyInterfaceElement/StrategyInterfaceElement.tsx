@@ -1,14 +1,14 @@
 import React from "react";
-import ConditionButton from "../../Buttons/ConditionButton/ConditionButton";
-import OpenCloseButton from "../../Buttons/OpenCloseButton/OpenCloseButton";
+import ConditionButton from "components/Buttons/ConditionButton/ConditionButton";
+import OpenCloseButton from "components/Buttons/OpenCloseButton/OpenCloseButton";
 import styles from "./StrategyInterfaceElement.module.scss";
 import cx from "classnames";
-import AssetsButton from "../../Buttons/AssetsButton/AssetsButton";
-import AssetsBar from "../../AssetsBar/AssetsBar";
-import { AddConditionIcon } from "../../../assets/icons";
-import { useAppDispatch } from "../../../store/hooks";
-import { expandItem } from "../../../store/strategyCreationSlice";
-import { StrategyInterfaceElements } from "../../../constant";
+import AssetsButton from "components/Buttons/AssetsButton/AssetsButton";
+import AssetsBar from "components/AssetsBar/AssetsBar";
+import { AddConditionIcon } from "assets/icons";
+import { useAppDispatch } from "store/hooks";
+import { expandItem } from "store/strategyCreationSlice";
+import { StrategyInterfaceElements } from "constant";
 
 interface ElementsInterface {
   id: string;
@@ -17,11 +17,7 @@ interface ElementsInterface {
   elements: ElementsInterface[];
 }
 
-interface StrategyInterfaceElementProps {
-  id: string;
-  type: StrategyInterfaceElements;
-  isExpanded: boolean;
-  elements: ElementsInterface[];
+interface StrategyInterfaceElementProps extends ElementsInterface {
   isLastChild: boolean;
 }
 
@@ -38,6 +34,27 @@ const StrategyInterfaceElement = ({
     dispatch(expandItem(id));
   };
 
+  const renderItem = () => {
+    switch (type) {
+      case StrategyInterfaceElements.OPEN:
+        return <OpenCloseButton isExpanded={isExpanded}>Open</OpenCloseButton>;
+      case StrategyInterfaceElements.CLOSE:
+        return <OpenCloseButton isExpanded={isExpanded}>Close</OpenCloseButton>;
+      case StrategyInterfaceElements.CONDITION:
+        return (
+          <ConditionButton isExpanded={isExpanded}>
+            set condition
+          </ConditionButton>
+        );
+      case StrategyInterfaceElements.ASSETS:
+        return <AssetsButton isExpanded={isExpanded} />;
+      case StrategyInterfaceElements.ASSETS_BAR:
+        return <AssetsBar />;
+      case StrategyInterfaceElements.ADD_CONDITION:
+        return <AddConditionIcon />;
+    }
+  };
+
   return (
     <div
       className={cx(styles.wrapper, styles[`${type}Wrapper`])}
@@ -47,24 +64,7 @@ const StrategyInterfaceElement = ({
         className={cx(styles.element, styles[type])}
         onClick={handleExpansion}
       >
-        {type === StrategyInterfaceElements.OPEN && (
-          <OpenCloseButton isExpanded={isExpanded}>Open</OpenCloseButton>
-        )}
-        {type === StrategyInterfaceElements.CLOSE && (
-          <OpenCloseButton isExpanded={isExpanded}>Close</OpenCloseButton>
-        )}
-        {type === StrategyInterfaceElements.CONDITION && (
-          <ConditionButton isExpanded={isExpanded}>
-            set condition
-          </ConditionButton>
-        )}
-        {type === StrategyInterfaceElements.ASSETS && (
-          <AssetsButton isExpanded={isExpanded} />
-        )}
-        {type === StrategyInterfaceElements.ASSETS_BAR && <AssetsBar />}
-        {type === StrategyInterfaceElements.ADD_CONDITION && (
-          <AddConditionIcon />
-        )}
+        {renderItem()}
       </div>
       {elements &&
         isExpanded &&
