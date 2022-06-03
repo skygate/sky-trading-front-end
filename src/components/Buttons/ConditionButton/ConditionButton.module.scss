@@ -9,4 +9,8 @@
   align-items: center;
   border-radius: 5px;
   font-size: var(--font-14);
+
+  &:hover {
+    cursor: pointer;
+  }
 }

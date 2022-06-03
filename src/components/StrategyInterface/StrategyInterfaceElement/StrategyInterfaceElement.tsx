@@ -1,14 +1,14 @@
 import React from "react";
-import ConditionButton from "../Buttons/ConditionButton/ConditionButton";
-import OpenCloseButton from "../Buttons/OpenCloseButton/OpenCloseButton";
+import ConditionButton from "../../Buttons/ConditionButton/ConditionButton";
+import OpenCloseButton from "../../Buttons/OpenCloseButton/OpenCloseButton";
 import styles from "./StrategyInterfaceElement.module.scss";
 import cx from "classnames";
-import AssetsButton from "../Buttons/AssetsButton/AssetsButton";
-import AssetsBar from "../AssetsBar/AssetsBar";
-import { AddConditionIcon } from "../../assets/icons";
-import { useAppDispatch } from "../../store/hooks";
-import { expandItem } from "../../store/strategyCreationSlice";
-import { StrategyInterfaceElements } from "../../constant";
+import AssetsButton from "../../Buttons/AssetsButton/AssetsButton";
+import AssetsBar from "../../AssetsBar/AssetsBar";
+import { AddConditionIcon } from "../../../assets/icons";
+import { useAppDispatch } from "../../../store/hooks";
+import { expandItem } from "../../../store/strategyCreationSlice";
+import { StrategyInterfaceElements } from "../../../constant";
 
 interface ElementsInterface {
   id: string;
