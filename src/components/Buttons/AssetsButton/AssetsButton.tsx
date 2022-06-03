@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowDownIcon, ArrowUpIcon } from "../../../assets/icons";
+import { ArrowDownIcon, ArrowUpIcon } from "assets/icons";
 import styles from "./AssetsButton.module.scss";
 
 interface AssetsButtonProps {

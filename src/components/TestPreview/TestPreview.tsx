@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  SmallGreenArrowUp,
-} from "../../assets/icons";
+import { ArrowDownIcon, ArrowUpIcon, SmallGreenArrowUp } from "assets/icons";
 import styles from "./TestPreview.module.scss";
-import graphImage from "../../assets/Image/PreviewTestGraph.png";
+import graphImage from "assets/Image/PreviewTestGraph.png";
 
 const TestPreview = () => {
   const [isDropDownExpanded, setDropDownExpanded] = useState(false);

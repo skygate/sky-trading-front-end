@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowDownIcon, GroupIcon } from "../../assets/icons";
+import { ArrowDownIcon, GroupIcon } from "assets/icons";
 import Bar from "../Common/Bar/Bar";
 
 const GroupBar = () => (

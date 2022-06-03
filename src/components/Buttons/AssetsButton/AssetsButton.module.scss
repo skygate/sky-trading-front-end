@@ -8,4 +8,8 @@
   align-items: center;
   gap: 5px;
   width: fit-content;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
