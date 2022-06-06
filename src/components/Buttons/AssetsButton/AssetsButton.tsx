@@ -4,10 +4,11 @@ import styles from "./AssetsButton.module.scss";
 
 interface AssetsButtonProps {
   isExpanded: boolean;
+  onClick: (e: React.MouseEvent) => void;
 }
 
-const AssetsButton = ({ isExpanded }: AssetsButtonProps) => (
-  <div className={styles.wrapper}>
+const AssetsButton = ({ isExpanded, onClick }: AssetsButtonProps) => (
+  <div className={styles.wrapper} onClick={onClick}>
     {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
     Assets
   </div>

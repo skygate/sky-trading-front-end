@@ -9,8 +9,25 @@
   align-items: center;
   border-radius: 5px;
   font-size: var(--font-14);
+  position: relative;
 
   &:hover {
     cursor: pointer;
   }
+}
+
+.editGroup {
+  position: absolute;
+  right: -80px;
+}
+
+.hoverWrapper {
+  position: relative;
+}
+
+.modalsWrapper {
+  position: absolute;
+  display: flex;
+  z-index: var(--index-modal);
+  gap: 15px;
 }

@@ -54,6 +54,12 @@ export const strategyPlaceholder = {
                 },
               ],
             },
+            {
+              id: "40ef2b6c-e27b-11ec-8fea-02426c09999",
+              isExpanded: false,
+              type: StrategyInterfaceElements.ADD_CONDITION,
+              elements: [],
+            },
           ],
         },
       ],

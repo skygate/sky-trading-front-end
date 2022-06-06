@@ -30,24 +30,34 @@ const StrategyInterfaceElement = ({
 }: StrategyInterfaceElementProps) => {
   const dispatch = useAppDispatch();
 
-  const handleExpansion = () => {
+  const handleExpansion = (e: React.MouseEvent) => {
     dispatch(expandItem(id));
   };
 
   const renderItem = () => {
     switch (type) {
       case StrategyInterfaceElements.OPEN:
-        return <OpenCloseButton isExpanded={isExpanded}>Open</OpenCloseButton>;
+        return (
+          <OpenCloseButton isExpanded={isExpanded} onClick={handleExpansion}>
+            Open
+          </OpenCloseButton>
+        );
       case StrategyInterfaceElements.CLOSE:
-        return <OpenCloseButton isExpanded={isExpanded}>Close</OpenCloseButton>;
+        return (
+          <OpenCloseButton isExpanded={isExpanded} onClick={handleExpansion}>
+            Close
+          </OpenCloseButton>
+        );
       case StrategyInterfaceElements.CONDITION:
         return (
-          <ConditionButton isExpanded={isExpanded}>
+          <ConditionButton isExpanded={isExpanded} onClick={handleExpansion}>
             set condition
           </ConditionButton>
         );
       case StrategyInterfaceElements.ASSETS:
-        return <AssetsButton isExpanded={isExpanded} />;
+        return (
+          <AssetsButton isExpanded={isExpanded} onClick={handleExpansion} />
+        );
       case StrategyInterfaceElements.ASSETS_BAR:
         return <AssetsBar />;
       case StrategyInterfaceElements.ADD_CONDITION:
@@ -60,12 +70,7 @@ const StrategyInterfaceElement = ({
       className={cx(styles.wrapper, styles[`${type}Wrapper`])}
       style={isLastChild ? { borderLeft: "2px solid transparent" } : {}}
     >
-      <div
-        className={cx(styles.element, styles[type])}
-        onClick={handleExpansion}
-      >
-        {renderItem()}
-      </div>
+      <div className={cx(styles.element, styles[type])}>{renderItem()}</div>
       {elements &&
         isExpanded &&
         elements.map((item, index, arr) => (

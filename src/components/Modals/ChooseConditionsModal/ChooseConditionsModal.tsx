@@ -30,19 +30,30 @@ const financialOptions = [
   { name: "Balance Sheet", elements: ["element1", "element2"] },
 ];
 
-const ChooseConditionsModal = () => {
+interface SetConditionsModalProps {
+  setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
   const [activeOption, setActiveOption] = useState(
     ChoosedModalOptions.TECHNICALS
   );
   const [currentData, setCurrentData] =
     useState<OptionsInterface[]>(technicalOptions);
 
+  const handleModalsVisibility = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setModalsShown(false);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <span>Chose Conditions</span>
 
-        <CloseIcon />
+        <div onClick={handleModalsVisibility}>
+          <CloseIcon />
+        </div>
       </div>
       <SearchInput placeholder="Search for conditions" />
       <div className={styles.bodyWrapper}>
