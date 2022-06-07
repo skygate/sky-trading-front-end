@@ -1,34 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ChartIcon, CloseIcon, RecipeIcon, UserIcon } from "assets/icons";
 import SearchInput from "components/Common/SearchInput/SearchInput";
 import styles from "./ChooseConditionsModal.module.scss";
 import cx from "classnames";
 import ConditionsGrid from "./ConditionsGrid/ConditionsGrid";
+import { CONDITIONS, ConditionsType } from "constant/conditions";
 
 enum ChoosedModalOptions {
   SCRIPTS = "scripts",
   TECHNICALS = "technicals",
   FINANCIALS = "financials",
 }
-
-export interface OptionsInterface {
-  name: string;
-  elements: string[];
-}
-
-const technicalOptions = [
-  { name: "Indicators", elements: ["EMA", "SMA", "Stochastic", "RSI"] },
-  { name: "Chart patterns", elements: [] },
-  { name: "Candlestick patterns", elements: [] },
-  { name: "group", elements: [] },
-];
-
-const financialOptions = [
-  { name: "Income statement", elements: ["element1", "element2"] },
-  { name: "Cash flow", elements: ["element1", "element2"] },
-  { name: "Statistic", elements: ["element1", "element2"] },
-  { name: "Balance Sheet", elements: ["element1", "element2"] },
-];
 
 interface SetConditionsModalProps {
   setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,8 +20,7 @@ const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
   const [activeOption, setActiveOption] = useState(
     ChoosedModalOptions.TECHNICALS
   );
-  const [currentData, setCurrentData] =
-    useState<OptionsInterface[]>(technicalOptions);
+  const [currentData, setCurrentData] = useState<ConditionsType>(CONDITIONS);
 
   const handleModalsVisibility = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -51,7 +32,7 @@ const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
       <div className={styles.header}>
         <span>Chose Conditions</span>
 
-        <div onClick={handleModalsVisibility}>
+        <div onClick={handleModalsVisibility} className={styles.closeIcon}>
           <CloseIcon />
         </div>
       </div>
@@ -78,7 +59,7 @@ const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
             )}
             onClick={() => {
               setActiveOption(ChoosedModalOptions.TECHNICALS);
-              setCurrentData(technicalOptions);
+              setCurrentData(CONDITIONS);
             }}
           >
             <ChartIcon /> Technicals
@@ -90,7 +71,7 @@ const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
             )}
             onClick={() => {
               setActiveOption(ChoosedModalOptions.FINANCIALS);
-              setCurrentData(financialOptions);
+              setCurrentData([]);
             }}
           >
             <RecipeIcon />

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styles from "./ConditionsGrid.module.scss";
 import cx from "classnames";
-import { OptionsInterface } from "../ChooseConditionsModal";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import { ConditionsType } from "constant/conditions";
+import Condition from "components/Condition/Condition";
 
 interface ConditionsGridProps {
-  data: OptionsInterface[];
+  data: ConditionsType;
 }
 
 const ConditionsGrid = ({ data }: ConditionsGridProps) => {
@@ -12,7 +14,7 @@ const ConditionsGrid = ({ data }: ConditionsGridProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        {data.length ? (
+        {data.length !== 0 ? (
           data.map((item, index) => (
             <div
               className={cx(
@@ -20,6 +22,7 @@ const ConditionsGrid = ({ data }: ConditionsGridProps) => {
                 activeOption === index && styles.active
               )}
               onClick={() => setActiveOption(index)}
+              key={index}
             >
               {item.name}
             </div>
@@ -28,12 +31,31 @@ const ConditionsGrid = ({ data }: ConditionsGridProps) => {
           <div className={styles.noData}>Comming soon</div>
         )}
       </div>
-      <div className={styles.list}>
-        {data.length > 0 &&
-          data[activeOption].elements.map((item) => (
-            <div className={styles.listElement}>{item}</div>
-          ))}
-      </div>
+
+      <Droppable droppableId={`droppable-choose-${activeOption}`}>
+        {(provided) => (
+          <div
+            className={styles.list}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {data.length > 0 &&
+              data[activeOption].elements.map((item, index) => (
+                <Draggable draggableId={item.id} index={index} key={item.id}>
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Condition condition={item} />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 };

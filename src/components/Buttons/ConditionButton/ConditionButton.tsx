@@ -2,8 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { ArrowDownIcon, ArrowUpIcon } from "assets/icons";
 import styles from "./ConditionButton.module.scss";
 import EditGroup from "../../EditGroups/EditGroups";
-import SetConditionsModal from "../../Modals/SetConditionsModal/SetConditionsModal";
-import ChooseConditionsModal from "../../Modals/ChooseConditionsModal/ChooseConditionsModal";
+import ConditionsModals from "./ConditionsModals/ConditionsModals";
 
 interface ConditionButtonProps {
   children: ReactNode;
@@ -35,12 +34,7 @@ const ConditionButton = ({
           </div>
         )}
       </div>
-      {isModalsShown && (
-        <div className={styles.modalsWrapper}>
-          <SetConditionsModal setModalsShown={setModalsShown} />
-          <ChooseConditionsModal setModalsShown={setModalsShown} />
-        </div>
-      )}
+      {isModalsShown && <ConditionsModals setModalsShown={setModalsShown} />}
     </div>
   );
 };

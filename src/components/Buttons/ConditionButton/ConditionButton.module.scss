@@ -24,10 +24,3 @@
 .hoverWrapper {
   position: relative;
 }
-
-.modalsWrapper {
-  position: absolute;
-  display: flex;
-  z-index: var(--index-modal);
-  gap: 15px;
-}
