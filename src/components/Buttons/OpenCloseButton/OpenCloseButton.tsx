@@ -5,10 +5,15 @@ import styles from "./OpenCloseButton.module.scss";
 interface OpenCloseButtonProps {
   children: ReactNode;
   isExpanded: boolean;
+  onClick: (e: React.MouseEvent) => void;
 }
 
-const OpenCloseButton = ({ children, isExpanded }: OpenCloseButtonProps) => (
-  <div className={styles.wrapper}>
+const OpenCloseButton = ({
+  children,
+  isExpanded,
+  onClick,
+}: OpenCloseButtonProps) => (
+  <div className={styles.wrapper} onClick={onClick}>
     {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
     {children}
   </div>

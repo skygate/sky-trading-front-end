@@ -2,15 +2,29 @@
   height: 27px;
   width: fit-content;
   background-color: var(--color-conditions);
-  padding: 5px 10px;
+  padding: var(--spacer-5) var(--spacer-10);
   font-weight: 300;
   display: flex;
-  gap: 5px;
+  gap: var(--spacer-5);
   align-items: center;
   border-radius: 5px;
   font-size: var(--font-14);
+  position: relative;
 
   &:hover {
     cursor: pointer;
   }
+}
+
+.editGroup {
+  position: absolute;
+  right: -80px;
+}
+
+.hoverWrapper {
+  position: relative;
+}
+
+.ifText {
+  font-weight: 700;
 }

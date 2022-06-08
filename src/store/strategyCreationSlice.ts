@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { StrategyInterfaceElements } from "../constant";
-import { strategyPlaceholder } from "./strategyPlaceholder";
+import { strategyPlaceholder } from "./strategyInitialState";
 
 interface StrategyCreationState {
   id: string;

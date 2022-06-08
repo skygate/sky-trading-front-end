@@ -1,0 +1,7 @@
+.modalsWrapper {
+  position: absolute;
+  display: flex;
+  z-index: var(--index-modal);
+  gap: var(--spacer-15);
+  top: 32px;
+}

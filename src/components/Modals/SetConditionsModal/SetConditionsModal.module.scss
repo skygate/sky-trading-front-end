@@ -2,10 +2,10 @@
   width: 368px;
   height: 329px;
   border-radius: 10px;
-  padding: 15px;
+  padding: var(--spacer-15);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: var(--spacer-15);
   background-color: var(--color-black2);
 }
 
@@ -15,12 +15,27 @@
   align-items: center;
 }
 
-.sectionStart {
+.sectionStart,
+.sectionStartFilter {
   display: flex;
-  gap: 15px;
+  gap: var(--spacer-15);
   justify-content: flex-start;
+}
+
+.sectionStartFilter {
+  font-size: var(--font-12);
 }
 
 .close:hover {
   cursor: pointer;
+}
+
+.dropList {
+  display: flex;
+  gap: var(--spacer-15);
+  align-items: center;
+}
+
+.buttonWrapper {
+  align-self: flex-end;
 }

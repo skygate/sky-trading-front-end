@@ -2,12 +2,11 @@
   height: 427px;
   width: 644px;
   border-radius: 10px;
-  padding: 15px;
+  padding: var(--spacer-15);
   background-color: var(--color-black2);
-  gap: 15px;
+  gap: var(--spacer-15);
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 .header {
@@ -18,8 +17,8 @@
 
 .sidebarElement {
   display: flex;
-  gap: 10px;
-  padding: 5px;
+  gap: var(--spacer-10);
+  padding: var(--spacer-5);
   border-radius: 3px;
   align-items: center;
 
@@ -32,7 +31,7 @@
   width: 140px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: var(--spacer-15);
 }
 
 .active {
@@ -42,6 +41,12 @@
 .bodyWrapper {
   display: flex;
   font-size: var(--font-14);
-  gap: 25px;
+  gap: var(--spacer-25);
   width: 100%;
+}
+
+.closeIcon {
+  &:hover {
+    cursor: pointer;
+  }
 }

@@ -1,47 +1,89 @@
 import React from "react";
-import { CloseIcon } from "../../../assets/icons";
-import ToggleButton from "../../Common/ToggleButton/ToggleButton";
-import DragBox from "../../DargBox/DragBox";
-import DoneButton from "../../Buttons/DoneButton/DoneButton";
+import { CloseIcon } from "assets/icons";
+import ToggleButton from "components/Common/ToggleButton/ToggleButton";
+import DragBox from "components/DargBox/DragBox";
+import DoneButton from "components/Buttons/DoneButton/DoneButton";
 import styles from "./SetConditionsModal.module.scss";
+import { Droppable } from "react-beautiful-dnd";
+import { SetConditionsInterface } from "components/Modals/ConditionsModals/ConditionsModals";
+import Condition from "components/Condition/Condition";
+import { setConditionDroppableElements } from "constant/conditions";
 
-const SetConditionsModal = () => (
-  <div className={styles.wrapper}>
-    <div className={styles.sectionSpace}>
-      Set conditions
-      <div className={styles.close}>
-        <CloseIcon />
+interface SetConditionsModalProps {
+  setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
+  conditions: SetConditionsInterface;
+}
+
+const SetConditionsModal = ({
+  setModalsShown,
+  conditions,
+}: SetConditionsModalProps) => {
+  const renderDragPlace = (type: setConditionDroppableElements) => (
+    <Droppable droppableId={type}>
+      {(provided) => (
+        <div ref={provided.innerRef} {...provided.droppableProps}>
+          {conditions[type] ? (
+            <Condition condition={conditions[type]} />
+          ) : (
+            <DragBox />
+          )}
+        </div>
+      )}
+    </Droppable>
+  );
+
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.sectionSpace}>
+        Set conditions
+        <div
+          className={styles.close}
+          onClick={(e) => {
+            e.stopPropagation();
+            setModalsShown(false);
+          }}
+        >
+          <CloseIcon />
+        </div>
+      </div>
+      <div className={styles.sectionStart}>
+        if
+        {conditions.if.map((item, index) => (
+          <Droppable droppableId={`if_${index}`} key={index}>
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                className={styles.dropList}
+              >
+                {item ? <Condition condition={item} /> : <DragBox />}
+              </div>
+            )}
+          </Droppable>
+        ))}
+      </div>
+      <div className={styles.sectionStart}>
+        then open
+        {renderDragPlace(setConditionDroppableElements.THEN)}
+      </div>
+      <div className={styles.sectionSpace}>
+        Optimize
+        <ToggleButton isToggleActive />
+      </div>
+      <div className={styles.sectionStartFilter}>Filters</div>
+      <div className={styles.sectionStart}>
+        chart type
+        {renderDragPlace(setConditionDroppableElements.CHART)}
+      </div>
+      <div className={styles.sectionStart}>
+        interval
+        {renderDragPlace(setConditionDroppableElements.INTERVAL)}
+      </div>
+      <div className={styles.buttonWrapper}>
+        <DoneButton onClick={() => {}} active />
       </div>
     </div>
-    <div className={styles.sectionStart}>
-      if
-      <DragBox />
-      <DragBox />
-      <DragBox />
-    </div>
-    <div className={styles.sectionStart}>
-      then open
-      <DragBox />
-    </div>
-    <div className={styles.sectionSpace}>
-      Optimize
-      <ToggleButton isToggleActive />
-    </div>
-    <div className={styles.sectionStart} style={{ fontSize: "var(--font-12)" }}>
-      Filters
-    </div>
-    <div className={styles.sectionStart}>
-      chart type
-      <DragBox />
-    </div>
-    <div className={styles.sectionStart}>
-      interval
-      <DragBox />
-    </div>
-    <div style={{ alignSelf: "flex-end" }}>
-      <DoneButton onClick={() => {}} active />
-    </div>
-  </div>
-);
+  );
+};
 
 export default SetConditionsModal;

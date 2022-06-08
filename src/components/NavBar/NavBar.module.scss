@@ -6,40 +6,40 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 25px 50px;
+  padding: var(--spacer-25) var(--spacer-50);
 }
 
 .leftWrapper {
   display: flex;
-  gap: 50px;
+  gap: var(--spacer-50);
 }
 
 .middleWrapper {
   display: flex;
-  gap: 20px;
+  gap: var(--spacer-20);
 }
 
 .rightWrapper {
   display: flex;
   align-items: center;
-  gap: 38px;
+  gap: var(--spacer-38);
 }
 
 .row {
   display: flex;
-  gap: 10px;
+  gap: var(--spacer-10);
   align-items: center;
 }
 
 .smallRow {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacer-6);
 }
 
 .active {
   background-color: var(--color-black2);
-  padding: 5px 10px;
+  padding: var(--spacer-5) var(--spacer-10);
   display: flex;
   align-items: center;
   border-radius: 5px;

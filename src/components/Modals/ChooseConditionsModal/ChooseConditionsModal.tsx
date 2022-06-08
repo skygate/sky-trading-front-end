@@ -1,48 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ChartIcon, CloseIcon, RecipeIcon, UserIcon } from "assets/icons";
 import SearchInput from "components/Common/SearchInput/SearchInput";
 import styles from "./ChooseConditionsModal.module.scss";
 import cx from "classnames";
 import ConditionsGrid from "./ConditionsGrid/ConditionsGrid";
+import { CONDITIONS, ConditionsType } from "constant/conditions";
 
-enum ChoosedModalOptions {
+enum chosenModalOptions {
   SCRIPTS = "scripts",
   TECHNICALS = "technicals",
   FINANCIALS = "financials",
 }
 
-export interface OptionsInterface {
-  name: string;
-  elements: string[];
+interface SetConditionsModalProps {
+  setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const technicalOptions = [
-  { name: "Indicators", elements: ["EMA", "SMA", "Stochastic", "RSI"] },
-  { name: "Chart patterns", elements: [] },
-  { name: "Candlestick patterns", elements: [] },
-  { name: "group", elements: [] },
-];
-
-const financialOptions = [
-  { name: "Income statement", elements: ["element1", "element2"] },
-  { name: "Cash flow", elements: ["element1", "element2"] },
-  { name: "Statistic", elements: ["element1", "element2"] },
-  { name: "Balance Sheet", elements: ["element1", "element2"] },
-];
-
-const ChooseConditionsModal = () => {
+const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
   const [activeOption, setActiveOption] = useState(
-    ChoosedModalOptions.TECHNICALS
+    chosenModalOptions.TECHNICALS
   );
-  const [currentData, setCurrentData] =
-    useState<OptionsInterface[]>(technicalOptions);
+  const [currentData, setCurrentData] = useState<ConditionsType>(CONDITIONS);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <span>Chose Conditions</span>
 
-        <CloseIcon />
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            setModalsShown(false);
+          }}
+          className={styles.closeIcon}
+        >
+          <CloseIcon />
+        </div>
       </div>
       <SearchInput placeholder="Search for conditions" />
       <div className={styles.bodyWrapper}>
@@ -50,10 +43,10 @@ const ChooseConditionsModal = () => {
           <div
             className={cx(
               styles.sidebarElement,
-              activeOption === ChoosedModalOptions.SCRIPTS && styles.active
+              activeOption === chosenModalOptions.SCRIPTS && styles.active
             )}
             onClick={() => {
-              setActiveOption(ChoosedModalOptions.SCRIPTS);
+              setActiveOption(chosenModalOptions.SCRIPTS);
               setCurrentData([]);
             }}
           >
@@ -63,11 +56,11 @@ const ChooseConditionsModal = () => {
           <div
             className={cx(
               styles.sidebarElement,
-              activeOption === ChoosedModalOptions.TECHNICALS && styles.active
+              activeOption === chosenModalOptions.TECHNICALS && styles.active
             )}
             onClick={() => {
-              setActiveOption(ChoosedModalOptions.TECHNICALS);
-              setCurrentData(technicalOptions);
+              setActiveOption(chosenModalOptions.TECHNICALS);
+              setCurrentData(CONDITIONS);
             }}
           >
             <ChartIcon /> Technicals
@@ -75,11 +68,11 @@ const ChooseConditionsModal = () => {
           <div
             className={cx(
               styles.sidebarElement,
-              activeOption === ChoosedModalOptions.FINANCIALS && styles.active
+              activeOption === chosenModalOptions.FINANCIALS && styles.active
             )}
             onClick={() => {
-              setActiveOption(ChoosedModalOptions.FINANCIALS);
-              setCurrentData(financialOptions);
+              setActiveOption(chosenModalOptions.FINANCIALS);
+              setCurrentData([]);
             }}
           >
             <RecipeIcon />

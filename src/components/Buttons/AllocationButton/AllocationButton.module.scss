@@ -1,11 +1,11 @@
 .wrapper {
   background-color: var(--color-allocations);
-  padding: 5px 10px;
+  padding: var(--spacer-5) var(--spacer-10);
   border-radius: 5px;
   font-size: var(--font-14);
   font-weight: 300;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--spacer-5);
   width: fit-content;
 }

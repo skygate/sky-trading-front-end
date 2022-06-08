@@ -2,11 +2,11 @@
   display: flex;
   width: 368px;
   border-radius: 10px;
-  padding: 15px;
+  padding: var(--spacer-15);
   height: 176px;
   background-color: var(--color-black2);
   flex-direction: column;
-  gap: 15px;
+  gap: var(--spacer-15);
 }
 
 .header {
@@ -17,7 +17,7 @@
 
 .type {
   display: flex;
-  gap: 15px;
+  gap: var(--spacer-15);
   align-items: center;
 }
 

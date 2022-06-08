@@ -1,12 +1,12 @@
 .wrapper {
   width: fit-content;
   height: fit-content;
-  padding: 10px;
+  padding: var(--spacer-10);
   border-radius: 10px;
   background-color: var(--color-black2);
   display: grid;
   grid-template-columns: auto auto;
-  gap: 10px;
+  gap: var(--spacer-10);
 }
 
 .headerIcon {
