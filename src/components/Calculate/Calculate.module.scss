@@ -1,9 +1,9 @@
 .wrapper {
-  padding: 10px;
+  padding: var(--spacer-10);
   background-color: var(--color-black2);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacer-10);
   width: 270px;
 
   button {
@@ -13,5 +13,5 @@
 
 .row {
   display: flex;
-  gap: 9px;
+  gap: var(--spacer-9);
 }

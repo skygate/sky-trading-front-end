@@ -6,19 +6,17 @@ interface EditGroupProps {
   setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EditGroup = ({ setModalsShown }: EditGroupProps) => {
-  const handleModalVisibility = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setModalsShown(true);
-  };
-
-  return (
-    <div className={styles.wrapper}>
-      <EditIcon onClick={handleModalVisibility} />
-      <CopyIcon />
-      <TrashIcon />
-    </div>
-  );
-};
+const EditGroup = ({ setModalsShown }: EditGroupProps) => (
+  <div className={styles.wrapper}>
+    <EditIcon
+      onClick={(e) => {
+        e.stopPropagation();
+        setModalsShown(true);
+      }}
+    />
+    <CopyIcon />
+    <TrashIcon />
+  </div>
+);
 
 export default EditGroup;

@@ -15,9 +15,9 @@
   display: block;
   height: 40px;
   background-color: var(--color-black3);
-  padding: 10px 10px 10px 40px;
+  padding: var(--spacer-10) var(--spacer-10) var(--spacer-10) var(--spacer-40);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--spacer-5);
   color: var(--color-white);
   font-size: var(--font-16);
 }

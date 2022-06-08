@@ -1,8 +1,8 @@
 import React, { ReactNode, useState } from "react";
 import { ArrowDownIcon, ArrowUpIcon } from "assets/icons";
 import styles from "./ConditionButton.module.scss";
-import EditGroup from "../../EditGroups/EditGroups";
-import ConditionsModals from "./ConditionsModals/ConditionsModals";
+import EditGroup from "components/EditGroups/EditGroups";
+import ConditionsModals from "../../Modals/ConditionsModals/ConditionsModals";
 
 interface ConditionButtonProps {
   children: ReactNode;
@@ -15,8 +15,8 @@ const ConditionButton = ({
   isExpanded,
   onClick,
 }: ConditionButtonProps) => {
-  const [isHover, setHover] = useState(false);
-  const [isModalsShown, setModalsShown] = useState(false);
+  const [hover, setHover] = useState(false);
+  const [areModalsShown, setModalsShown] = useState(false);
 
   return (
     <div
@@ -26,15 +26,15 @@ const ConditionButton = ({
     >
       <div className={styles.wrapper} onClick={onClick}>
         {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
-        <span style={{ fontWeight: 700 }}>If</span>
+        <span className={styles.ifText}>If</span>
         {children}
-        {isHover && !isModalsShown && (
+        {hover && !areModalsShown && (
           <div className={styles.editGroup}>
             <EditGroup setModalsShown={setModalsShown} />
           </div>
         )}
       </div>
-      {isModalsShown && <ConditionsModals setModalsShown={setModalsShown} />}
+      {areModalsShown && <ConditionsModals setModalsShown={setModalsShown} />}
     </div>
   );
 };

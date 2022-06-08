@@ -5,22 +5,22 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
-  padding: 10px 0;
+  gap: var(--spacer-10);
+  padding: var(--spacer-10) 0;
 }
 
 .listElement {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 0 10px;
+  gap: var(--spacer-5);
+  padding: 0 var(--spacer-10);
 }
 
 .header {
-  padding: 2px 8px 2px 8px;
+  padding: var(--spacer-2) var(--spacer-8);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--spacer-5);
   width: 100%;
 
   &:hover {

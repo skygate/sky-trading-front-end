@@ -6,7 +6,7 @@ import cx from "classnames";
 import ConditionsGrid from "./ConditionsGrid/ConditionsGrid";
 import { CONDITIONS, ConditionsType } from "constant/conditions";
 
-enum ChoosedModalOptions {
+enum chosenModalOptions {
   SCRIPTS = "scripts",
   TECHNICALS = "technicals",
   FINANCIALS = "financials",
@@ -18,21 +18,22 @@ interface SetConditionsModalProps {
 
 const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
   const [activeOption, setActiveOption] = useState(
-    ChoosedModalOptions.TECHNICALS
+    chosenModalOptions.TECHNICALS
   );
   const [currentData, setCurrentData] = useState<ConditionsType>(CONDITIONS);
-
-  const handleModalsVisibility = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setModalsShown(false);
-  };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <span>Chose Conditions</span>
 
-        <div onClick={handleModalsVisibility} className={styles.closeIcon}>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            setModalsShown(false);
+          }}
+          className={styles.closeIcon}
+        >
           <CloseIcon />
         </div>
       </div>
@@ -42,10 +43,10 @@ const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
           <div
             className={cx(
               styles.sidebarElement,
-              activeOption === ChoosedModalOptions.SCRIPTS && styles.active
+              activeOption === chosenModalOptions.SCRIPTS && styles.active
             )}
             onClick={() => {
-              setActiveOption(ChoosedModalOptions.SCRIPTS);
+              setActiveOption(chosenModalOptions.SCRIPTS);
               setCurrentData([]);
             }}
           >
@@ -55,10 +56,10 @@ const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
           <div
             className={cx(
               styles.sidebarElement,
-              activeOption === ChoosedModalOptions.TECHNICALS && styles.active
+              activeOption === chosenModalOptions.TECHNICALS && styles.active
             )}
             onClick={() => {
-              setActiveOption(ChoosedModalOptions.TECHNICALS);
+              setActiveOption(chosenModalOptions.TECHNICALS);
               setCurrentData(CONDITIONS);
             }}
           >
@@ -67,10 +68,10 @@ const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
           <div
             className={cx(
               styles.sidebarElement,
-              activeOption === ChoosedModalOptions.FINANCIALS && styles.active
+              activeOption === chosenModalOptions.FINANCIALS && styles.active
             )}
             onClick={() => {
-              setActiveOption(ChoosedModalOptions.FINANCIALS);
+              setActiveOption(chosenModalOptions.FINANCIALS);
               setCurrentData([]);
             }}
           >

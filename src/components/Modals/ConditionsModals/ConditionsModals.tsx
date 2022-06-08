@@ -15,6 +15,7 @@ interface ConditionsModalsProps {
 }
 
 export interface SetConditionsInterface {
+  [index: string]: any;
   if: (null | ConditionInterface)[];
   then: null | ConditionInterface;
   chart: null | ConditionInterface;
@@ -33,28 +34,23 @@ const ConditionsModals = ({ setModalsShown }: ConditionsModalsProps) => {
     const id = result.draggableId;
     const dropType = result.destination?.droppableId;
     const foundCondition = findCondition(id);
+    if (!foundCondition) return;
 
-    if (
-      foundCondition &&
-      foundCondition.type === ConditionTypes.INDICATORS &&
-      dropType === setConditionDroppableElements.IF_2
-    ) {
-      setConditions((prev) => ({
-        ...prev,
-        if: [prev.if[0], prev.if[1], foundCondition],
-      }));
+    const temp = { ...conditions };
+
+    switch (dropType) {
+      case setConditionDroppableElements.IF_2:
+        if (foundCondition.type === ConditionTypes.INDICATORS)
+          temp.if = [temp.if[0], temp.if[1], foundCondition];
+        break;
+
+      case setConditionDroppableElements.CHART:
+        if (foundCondition.type === ConditionTypes.CHART)
+          temp.chart = foundCondition;
+        break;
     }
 
-    if (
-      foundCondition &&
-      foundCondition.type === ConditionTypes.CHART &&
-      dropType === setConditionDroppableElements.CHART
-    ) {
-      setConditions((prev) => ({
-        ...prev,
-        chart: foundCondition,
-      }));
-    }
+    setConditions(temp);
   };
 
   return (

@@ -1,4 +1,3 @@
-import React from "react";
 import ConditionButton from "components/Buttons/ConditionButton/ConditionButton";
 import OpenCloseButton from "components/Buttons/OpenCloseButton/OpenCloseButton";
 import styles from "./StrategyInterfaceElement.module.scss";
@@ -30,7 +29,7 @@ const StrategyInterfaceElement = ({
 }: StrategyInterfaceElementProps) => {
   const dispatch = useAppDispatch();
 
-  const handleExpansion = (e: React.MouseEvent) => {
+  const handleExpansion = () => {
     dispatch(expandItem(id));
   };
 

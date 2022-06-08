@@ -5,7 +5,7 @@ import DragBox from "components/DargBox/DragBox";
 import DoneButton from "components/Buttons/DoneButton/DoneButton";
 import styles from "./SetConditionsModal.module.scss";
 import { Droppable } from "react-beautiful-dnd";
-import { SetConditionsInterface } from "components/Buttons/ConditionButton/ConditionsModals/ConditionsModals";
+import { SetConditionsInterface } from "components/Modals/ConditionsModals/ConditionsModals";
 import Condition from "components/Condition/Condition";
 import { setConditionDroppableElements } from "constant/conditions";
 
@@ -18,16 +18,31 @@ const SetConditionsModal = ({
   setModalsShown,
   conditions,
 }: SetConditionsModalProps) => {
-  const handleModalsVisibility = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setModalsShown(false);
-  };
+  const renderDragPlace = (type: setConditionDroppableElements) => (
+    <Droppable droppableId={type}>
+      {(provided) => (
+        <div ref={provided.innerRef} {...provided.droppableProps}>
+          {conditions[type] ? (
+            <Condition condition={conditions[type]} />
+          ) : (
+            <DragBox />
+          )}
+        </div>
+      )}
+    </Droppable>
+  );
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.sectionSpace}>
         Set conditions
-        <div className={styles.close} onClick={handleModalsVisibility}>
+        <div
+          className={styles.close}
+          onClick={(e) => {
+            e.stopPropagation();
+            setModalsShown(false);
+          }}
+        >
           <CloseIcon />
         </div>
       </div>
@@ -41,11 +56,7 @@ const SetConditionsModal = ({
                 {...provided.droppableProps}
                 className={styles.dropList}
               >
-                {item ? (
-                  <Condition condition={item} />
-                ) : (
-                  <DragBox key={index} />
-                )}
+                {item ? <Condition condition={item} /> : <DragBox />}
               </div>
             )}
           </Droppable>
@@ -53,77 +64,22 @@ const SetConditionsModal = ({
       </div>
       <div className={styles.sectionStart}>
         then open
-        <Droppable droppableId={setConditionDroppableElements.THEN}>
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              {conditions.then ? (
-                <div className={styles.conditionElement}>
-                  {conditions.then ? (
-                    <Condition condition={conditions.then} />
-                  ) : (
-                    <DragBox />
-                  )}
-                </div>
-              ) : (
-                <DragBox />
-              )}
-            </div>
-          )}
-        </Droppable>
+        {renderDragPlace(setConditionDroppableElements.THEN)}
       </div>
       <div className={styles.sectionSpace}>
         Optimize
         <ToggleButton isToggleActive />
       </div>
-      <div
-        className={styles.sectionStart}
-        style={{ fontSize: "var(--font-12)" }}
-      >
-        Filters
-      </div>
+      <div className={styles.sectionStartFilter}>Filters</div>
       <div className={styles.sectionStart}>
         chart type
-        <Droppable droppableId={setConditionDroppableElements.CHART}>
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              {conditions.chart ? (
-                <div className={styles.conditionElement}>
-                  {conditions.chart ? (
-                    <Condition condition={conditions.chart} />
-                  ) : (
-                    <DragBox />
-                  )}
-                </div>
-              ) : (
-                <DragBox />
-              )}
-            </div>
-          )}
-        </Droppable>
+        {renderDragPlace(setConditionDroppableElements.CHART)}
       </div>
       <div className={styles.sectionStart}>
         interval
-        <Droppable droppableId={setConditionDroppableElements.INTERVAL}>
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {conditions.interval ? (
-                  <div className={styles.conditionElement}>
-                    {conditions.interval ? (
-                      <Condition condition={conditions.interval} />
-                    ) : (
-                      <DragBox />
-                    )}
-                  </div>
-                ) : (
-                  <DragBox />
-                )}
-              </div>
-            </div>
-          )}
-        </Droppable>
+        {renderDragPlace(setConditionDroppableElements.INTERVAL)}
       </div>
-      <div style={{ alignSelf: "flex-end" }}>
+      <div className={styles.buttonWrapper}>
         <DoneButton onClick={() => {}} active />
       </div>
     </div>

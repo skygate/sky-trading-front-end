@@ -1,6 +1,6 @@
 .wrapper {
   background-color: var(--color-black2);
-  padding: 10px;
+  padding: var(--spacer-10);
   border-radius: 10px;
   left: 0;
   display: flex;
@@ -11,7 +11,7 @@
 .dropWrapper {
   height: 100%;
   display: flex;
-  gap: 6px;
+  gap: var(--spacer-6);
   align-items: center;
 
   &:hover {
@@ -24,11 +24,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 10px;
+  padding-bottom: var(--spacer-10);
 }
 
 .listElement {
-  padding: 10px 0;
+  padding: var(--spacer-10) 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

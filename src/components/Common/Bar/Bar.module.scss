@@ -4,8 +4,8 @@
   background-color: var(--color-black2);
   width: 982px;
   height: 50px;
-  padding: 15px;
+  padding: var(--spacer-15);
   border-radius: 10px;
-  gap: 10px;
+  gap: var(--spacer-10);
   align-items: center;
 }
