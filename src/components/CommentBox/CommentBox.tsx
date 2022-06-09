@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UserIcon } from "assets/icons";
-import TextInput from "components/Common/Input/TextInput";
+import TextInput from "components/Common/TextInput/TextInput";
 import DoneButton from "components/Buttons/DoneButton/DoneButton";
 import styles from "./CommentBox.module.scss";
 

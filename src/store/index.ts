@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import strategyCreationReducer from "./strategyCreationSlice";
+import strategyDetailsReducer from "./strategyDetailsSlice";
 
 export const store = configureStore({
   reducer: {
     strategyCreation: strategyCreationReducer,
+    strategyDetails: strategyDetailsReducer,
   },
 });
 
