@@ -68,7 +68,7 @@ const DetailsDropDown = () => {
                 onClick={() => setNameInputActive(true)}
                 className={styles.inputSpan}
               >
-                {name ? name : "New strategy"}
+                {name || "New strategy"}
               </span>
             )}
           </div>
@@ -88,9 +88,7 @@ const DetailsDropDown = () => {
                 onClick={() => setDescriptionInputActive(true)}
                 className={styles.inputSpan}
               >
-                {description
-                  ? description
-                  : "Write something more about your strategy"}
+                {description || "Write something more about your strategy"}
               </span>
             )}
           </div>

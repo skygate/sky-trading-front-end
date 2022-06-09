@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useStrategyDetailsSelector } from "store/hooks";
 import { editName } from "store/strategyDetailsSlice";
-import { ArrowDownIcon, ArrowUpIcon, GroupIcon } from "../../assets/icons";
-import Bar from "../Common/Bar/Bar";
+import { ArrowDownIcon, ArrowUpIcon, GroupIcon } from "assets/icons";
+import Bar from "components/Common/Bar/Bar";
 import styles from "./StrategyBar.module.scss";
 
 interface StrategyBarProps {
@@ -51,7 +51,7 @@ const StrategyBar = ({ isExpanded }: StrategyBarProps) => {
           }}
           className={styles.inputSpan}
         >
-          {strategyName ? strategyName : "New strategy"}
+          {strategyName || "New strategy"}
         </span>
       )}
     </Bar>
