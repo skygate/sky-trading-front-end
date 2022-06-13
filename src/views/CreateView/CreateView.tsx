@@ -11,14 +11,18 @@ import { ActionCreators } from "redux-undo";
 
 const CreateView = () => {
   const dispatch = useDispatch();
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && !e.shiftKey && e.code === "KeyZ") {
+      dispatch(ActionCreators.undo());
+    } else if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.code === "KeyZ") {
+      dispatch(ActionCreators.redo());
+    }
+  };
   useEffect(() => {
-    document.addEventListener("keydown", (e) => {
-      if ((e.metaKey || e.ctrlKey) && !e.shiftKey && e.code === "KeyZ") {
-        dispatch(ActionCreators.undo());
-      } else if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.code === "KeyZ") {
-        dispatch(ActionCreators.redo());
-      }
-    });
+    document.addEventListener("keydown", handleKeyDown);
+
+    return document.removeEventListener("keydown", handleKeyDown);
   });
 
   return (
