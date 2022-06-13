@@ -8,16 +8,15 @@ import { Droppable } from "react-beautiful-dnd";
 import { SetConditionsInterface } from "components/Modals/ConditionsModals/ConditionsModals";
 import Condition from "components/Condition/Condition";
 import { setConditionDroppableElements } from "constant/conditions";
+import { useCloseModal } from "store/hooks";
 
 interface SetConditionsModalProps {
-  setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
   conditions: SetConditionsInterface;
+  id: string;
 }
 
-const SetConditionsModal = ({
-  setModalsShown,
-  conditions,
-}: SetConditionsModalProps) => {
+const SetConditionsModal = ({ conditions, id }: SetConditionsModalProps) => {
+  const hideModal = useCloseModal(id);
   const renderDragPlace = (type: setConditionDroppableElements) => (
     <Droppable droppableId={type}>
       {(provided) => (
@@ -40,7 +39,7 @@ const SetConditionsModal = ({
           className={styles.close}
           onClick={(e) => {
             e.stopPropagation();
-            setModalsShown(false);
+            hideModal();
           }}
         >
           <CloseIcon />
@@ -80,7 +79,7 @@ const SetConditionsModal = ({
         {renderDragPlace(setConditionDroppableElements.INTERVAL)}
       </div>
       <div className={styles.buttonWrapper}>
-        <DoneButton onClick={() => {}} active />
+        <DoneButton onClick={hideModal} active />
       </div>
     </div>
   );

@@ -1,22 +1,27 @@
 import React from "react";
 import { CopyIcon, EditIcon, TrashIcon } from "assets/icons";
 import styles from "./EditGroup.module.scss";
+import { useOpenModal } from "store/hooks";
 
 interface EditGroupProps {
-  setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
+  id: string;
 }
 
-const EditGroup = ({ setModalsShown }: EditGroupProps) => (
-  <div className={styles.wrapper}>
-    <EditIcon
-      onClick={(e) => {
-        e.stopPropagation();
-        setModalsShown(true);
-      }}
-    />
-    <CopyIcon />
-    <TrashIcon />
-  </div>
-);
+const EditGroup = ({ id }: EditGroupProps) => {
+  const showModal = useOpenModal(id);
+
+  return (
+    <div className={styles.wrapper}>
+      <EditIcon
+        onClick={(e) => {
+          e.stopPropagation();
+          showModal();
+        }}
+      />
+      <CopyIcon />
+      <TrashIcon />
+    </div>
+  );
+};
 
 export default EditGroup;

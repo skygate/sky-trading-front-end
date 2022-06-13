@@ -5,6 +5,7 @@ import styles from "./ChooseConditionsModal.module.scss";
 import cx from "classnames";
 import ConditionsGrid from "./ConditionsGrid/ConditionsGrid";
 import { CONDITIONS, ConditionsType } from "constant/conditions";
+import { useCloseModal } from "store/hooks";
 
 enum chosenModalOptions {
   SCRIPTS = "scripts",
@@ -13,10 +14,11 @@ enum chosenModalOptions {
 }
 
 interface SetConditionsModalProps {
-  setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
+  id: string;
 }
 
-const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
+const ChooseConditionsModal = ({ id }: SetConditionsModalProps) => {
+  const hideModal = useCloseModal(id);
   const [activeOption, setActiveOption] = useState(
     chosenModalOptions.TECHNICALS
   );
@@ -30,7 +32,7 @@ const ChooseConditionsModal = ({ setModalsShown }: SetConditionsModalProps) => {
         <div
           onClick={(e) => {
             e.stopPropagation();
-            setModalsShown(false);
+            hideModal();
           }}
           className={styles.closeIcon}
         >

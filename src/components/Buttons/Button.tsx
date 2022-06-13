@@ -14,7 +14,16 @@ interface ButtonProps {
   color?: boolean;
 }
 
-const Button = ({ children, size, color, ...props }: ButtonProps) => (
+interface RestButtonProps {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+const Button = ({
+  children,
+  size,
+  color,
+  ...props
+}: ButtonProps & RestButtonProps) => (
   <button
     className={
       color

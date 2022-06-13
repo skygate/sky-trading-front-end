@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ConditionsModals.module.scss";
 import SetConditionsModal from "components/Modals/SetConditionsModal/SetConditionsModal";
 import ChooseConditionsModal from "components/Modals/ChooseConditionsModal/ChooseConditionsModal";
@@ -9,9 +9,11 @@ import {
   setConditionDroppableElements,
 } from "constant/conditions";
 import { findCondition } from "helpers/findCondition";
+import { useAppDispatch, useConditionsSelector } from "store/hooks";
+import { updateCondition } from "store/conditionsSlice";
 
 interface ConditionsModalsProps {
-  setModalsShown: React.Dispatch<React.SetStateAction<boolean>>;
+  elementId: string;
 }
 
 export interface SetConditionsInterface {
@@ -22,13 +24,20 @@ export interface SetConditionsInterface {
   interval: null | ConditionInterface;
 }
 
-const ConditionsModals = ({ setModalsShown }: ConditionsModalsProps) => {
+const ConditionsModals = ({ elementId }: ConditionsModalsProps) => {
   const [conditions, setConditions] = useState<SetConditionsInterface>({
     if: [null, null, null],
     then: null,
     chart: null,
     interval: null,
   });
+
+  const dispatch = useAppDispatch();
+  const globalConditions = useConditionsSelector(elementId);
+
+  useEffect(() => {
+    if (globalConditions) setConditions(globalConditions.details);
+  }, [globalConditions]);
 
   const handleOnDragEnd: OnDragEndResponder = (result) => {
     const id = result.draggableId;
@@ -51,16 +60,20 @@ const ConditionsModals = ({ setModalsShown }: ConditionsModalsProps) => {
     }
 
     setConditions(temp);
+    dispatch(
+      updateCondition({
+        id: elementId,
+        details: temp,
+        optimize: false,
+      })
+    );
   };
 
   return (
     <div className={styles.modalsWrapper}>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <SetConditionsModal
-          setModalsShown={setModalsShown}
-          conditions={conditions}
-        />
-        <ChooseConditionsModal setModalsShown={setModalsShown} />
+        <SetConditionsModal conditions={conditions} id={elementId} />
+        <ChooseConditionsModal id={elementId} />
       </DragDropContext>
     </div>
   );
