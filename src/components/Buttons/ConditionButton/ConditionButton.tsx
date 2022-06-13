@@ -37,7 +37,7 @@ const ConditionButton = ({
           </div>
         )}
       </div>
-      {modal?.isOpen && <ConditionsModals elementId={id} />}
+      {modal?.isOpen && <ConditionsModals id={id} />}
     </div>
   );
 };
