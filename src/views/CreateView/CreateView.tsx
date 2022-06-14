@@ -6,24 +6,28 @@ import StrategyInterface from "components/StrategyInterface/StrategyInterface";
 import TestPreview from "components/TestPreview/TestPreview";
 import ToolsBar from "components/ToolsBar/ToolsBar";
 import styles from "./CreateView.module.scss";
+import NavBar from "components/NavBar/NavBar";
 
 const CreateView = () => (
-  <div className={styles.wrapper}>
-    <div className={styles.leftSidebar}>
-      <DetailsDropDown />
-      <OptimizeDropDown />
-      <Calculate />
-    </div>
+  <>
+    <NavBar />
+    <div className={styles.wrapper}>
+      <div className={styles.leftSidebar}>
+        <DetailsDropDown />
+        <OptimizeDropDown />
+        <Calculate />
+      </div>
 
-    <div className={styles.content}>
-      <StrategyInterface />
-    </div>
+      <div className={styles.content}>
+        <StrategyInterface />
+      </div>
 
-    <div className={styles.rightSidebar}>
-      <ToolsBar />
-      <TestPreview />
+      <div className={styles.rightSidebar}>
+        <ToolsBar />
+        <TestPreview />
+      </div>
     </div>
-  </div>
+  </>
 );
 
 export default CreateView;

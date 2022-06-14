@@ -2,15 +2,14 @@
 
 .wrapper {
   width: 100vw;
-  height: 7vh;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   padding: var(--spacer-25) var(--spacer-50);
 }
 
 .leftWrapper {
   display: flex;
+  align-items: center;
   gap: var(--spacer-50);
 }
 
@@ -28,19 +27,95 @@
 .row {
   display: flex;
   gap: var(--spacer-10);
+  padding: var(--spacer-5) var(--spacer-10);
   align-items: center;
+}
+
+.listHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacer-10);
+  padding: var(--spacer-5) var(--spacer-10) var(--spacer-7) var(--spacer-10);
+  z-index: var(--index-dropdown);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.listHeaderRow {
+  display: flex;
+  gap: var(--spacer-10);
+}
+
+.navLink,
+.listNavLink {
+  display: flex;
+  gap: var(--spacer-10);
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  padding: var(--spacer-5) 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.navLink {
+  padding: var(--spacer-5) var(--spacer-10);
+}
+
+.listNavLink {
+  border-top: 1px solid rgba(250, 251, 251, 0.2);
+  white-space: nowrap;
+}
+
+.crateListElement {
+  display: flex;
+  align-items: center;
+  gap: var(--spacer-10);
+}
+
+.createList {
+  display: flex;
+  border-radius: 5px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.active {
+  background-color: var(--color-black2);
+  display: flex;
+  align-items: center;
+  border-radius: var(--spacer-5);
+}
+
+.headerExpanded {
+  background-color: var(--color-black2);
+  display: flex;
+  align-items: center;
+  border-radius: var(--spacer-5);
+  gap: 5.5rem;
+  border-radius: 5px 5px 0 0;
+}
+
+.dropDown {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  overflow: hidden;
+  z-index: var(--index-dropdown);
+  padding: 0 var(--spacer-10);
+  background-color: var(--color-black2);
 }
 
 .smallRow {
   display: flex;
   align-items: center;
   gap: var(--spacer-6);
-}
-
-.active {
-  background-color: var(--color-black2);
-  padding: var(--spacer-5) var(--spacer-10);
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
 }
