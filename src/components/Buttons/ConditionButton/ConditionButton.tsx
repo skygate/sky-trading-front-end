@@ -3,20 +3,23 @@ import { ArrowDownIcon, ArrowUpIcon } from "assets/icons";
 import styles from "./ConditionButton.module.scss";
 import EditGroup from "components/EditGroups/EditGroups";
 import ConditionsModals from "../../Modals/ConditionsModals/ConditionsModals";
+import { useModalsSelector } from "store/hooks";
 
 interface ConditionButtonProps {
+  id: string;
   children: ReactNode;
   isExpanded: boolean;
   onClick: (e: React.MouseEvent) => void;
 }
 
 const ConditionButton = ({
+  id,
   children,
   isExpanded,
   onClick,
 }: ConditionButtonProps) => {
   const [hover, setHover] = useState(false);
-  const [areModalsShown, setModalsShown] = useState(false);
+  const modal = useModalsSelector(id);
 
   return (
     <div
@@ -28,13 +31,13 @@ const ConditionButton = ({
         {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
         <span className={styles.ifText}>If</span>
         {children}
-        {hover && !areModalsShown && (
+        {hover && !modal?.isOpen && (
           <div className={styles.editGroup}>
-            <EditGroup setModalsShown={setModalsShown} />
+            <EditGroup id={id} />
           </div>
         )}
       </div>
-      {areModalsShown && <ConditionsModals setModalsShown={setModalsShown} />}
+      {modal?.isOpen && <ConditionsModals id={id} />}
     </div>
   );
 };

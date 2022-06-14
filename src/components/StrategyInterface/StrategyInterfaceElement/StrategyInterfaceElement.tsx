@@ -49,7 +49,11 @@ const StrategyInterfaceElement = ({
         );
       case StrategyInterfaceElements.CONDITION:
         return (
-          <ConditionButton isExpanded={isExpanded} onClick={handleExpansion}>
+          <ConditionButton
+            isExpanded={isExpanded}
+            onClick={handleExpansion}
+            id={id}
+          >
             set condition
           </ConditionButton>
         );

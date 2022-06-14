@@ -8,6 +8,10 @@
   background-color: var(--color-black3);
   border: none;
   gap: var(--spacer-10);
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .small {
