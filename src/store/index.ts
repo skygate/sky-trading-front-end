@@ -4,6 +4,7 @@ import strategyDetailsReducer from "./strategyDetailsSlice";
 import conditionsReducer from "./conditionsSlice";
 import undoable from "redux-undo";
 import modalsReducer from "./modalsSlice";
+import assetsReducer from "./assetsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         strategyDetails: strategyDetailsReducer,
         conditions: conditionsReducer,
         modals: modalsReducer,
+        assets: assetsReducer,
       })
     ),
   },

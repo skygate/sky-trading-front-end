@@ -7,6 +7,11 @@
   flex-direction: column;
   gap: var(--spacer-15);
   background-color: var(--color-black2);
+  position: absolute;
+  z-index: var(--index-modal);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .header {
@@ -60,4 +65,8 @@
 .row {
   display: flex;
   gap: var(--spacer-15);
+}
+
+.closeButton:hover {
+  cursor: pointer;
 }

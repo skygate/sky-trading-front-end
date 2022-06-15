@@ -3,54 +3,8 @@ import { CloseIcon, HistoryIcon } from "../../../assets/icons";
 import SearchInput from "../../Common/SearchInput/SearchInput";
 import styles from "./SearchAssetsModal.module.scss";
 import cx from "classnames";
-
-const assetsArr = [
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "ETH",
-    description: "Ethereum",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "XRP",
-    description: "Xrp",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "DOGE",
-    description: "DogeCoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "SOL",
-    description: "Solana",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-];
+import { useCloseModal } from "store/hooks";
+import { accessibleAssets } from "constant/assets";
 
 enum SearchAssetsModalOptions {
   ALL = "all",
@@ -62,16 +16,29 @@ enum SearchAssetsModalOptions {
   BOND = "bond",
 }
 
-const SearchAssetsModal = () => {
+interface SearchAssetsModalProps {
+  id: string;
+}
+
+const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
   const [activeOption, setActiveOption] = useState(
     SearchAssetsModalOptions.ALL
   );
+  const closeModal = useCloseModal(id);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         Assets
-        <CloseIcon />
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            closeModal();
+          }}
+          className={styles.closeButton}
+        >
+          <CloseIcon />
+        </div>
       </div>
       <SearchInput placeholder="Search for assets" />
       <div className={styles.navBar}>
@@ -144,7 +111,7 @@ const SearchAssetsModal = () => {
         <div className={styles.gridHeaderItem}>Description</div>
         <div className={styles.gridHeaderItem}>Market</div>
 
-        {assetsArr.map((item) => (
+        {accessibleAssets.map((item) => (
           <>
             <div className={cx(styles.gridItem, styles.row)}>
               <HistoryIcon />

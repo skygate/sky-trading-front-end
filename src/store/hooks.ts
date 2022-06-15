@@ -21,6 +21,11 @@ export const useModalsSelector = (id: string) =>
     state.undoReducer.present.modals.find((item) => item.id === id)
   );
 
+export const useAssetsSelector = (id: string) =>
+  useAppSelector((state) =>
+    state.undoReducer.present.assets.find((item) => item.id === id)
+  );
+
 export const useCloseModal = (id: string) => {
   const dispatch = useDispatch();
   return () =>
