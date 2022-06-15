@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Calculate from "components/Calculate/Calculate";
 import DetailsDropDown from "components/SideBar/DetailsDropDown/DetailsDropDown";
 import OptimizeDropDown from "components/SideBar/OptimizeDropDown/OptimizeDropDown";
@@ -7,9 +7,27 @@ import TestPreview from "components/TestPreview/TestPreview";
 import ToolsBar from "components/ToolsBar/ToolsBar";
 import styles from "./CreateView.module.scss";
 import NavBar from "components/NavBar/NavBar";
+import { useDispatch } from "react-redux";
+import { ActionCreators } from "redux-undo";
 
-const CreateView = () => (
-  <>
+const CreateView = () => {
+  const dispatch = useDispatch();
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && !e.shiftKey && e.code === "KeyZ") {
+      dispatch(ActionCreators.undo());
+    } else if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.code === "KeyZ") {
+      dispatch(ActionCreators.redo());
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  });
+
+  return (
+    <>
     <NavBar />
     <div className={styles.wrapper}>
       <div className={styles.leftSidebar}>
@@ -17,7 +35,7 @@ const CreateView = () => (
         <OptimizeDropDown />
         <Calculate />
       </div>
-
+      
       <div className={styles.content}>
         <StrategyInterface />
       </div>
@@ -28,6 +46,7 @@ const CreateView = () => (
       </div>
     </div>
   </>
-);
+  );
+};
 
 export default CreateView;

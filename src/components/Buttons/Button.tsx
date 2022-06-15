@@ -8,7 +8,11 @@ export enum ButtonSize {
   SMALL = "small",
 }
 
-interface ButtonProps {
+interface RestButtonProps {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+interface ButtonProps extends RestButtonProps {
   children: ReactNode;
   size: ButtonSize;
   color?: boolean;
