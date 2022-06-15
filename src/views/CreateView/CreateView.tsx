@@ -6,6 +6,7 @@ import StrategyInterface from "components/StrategyInterface/StrategyInterface";
 import TestPreview from "components/TestPreview/TestPreview";
 import ToolsBar from "components/ToolsBar/ToolsBar";
 import styles from "./CreateView.module.scss";
+import NavBar from "components/NavBar/NavBar";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "redux-undo";
 
@@ -26,13 +27,15 @@ const CreateView = () => {
   });
 
   return (
+    <>
+    <NavBar />
     <div className={styles.wrapper}>
       <div className={styles.leftSidebar}>
         <DetailsDropDown />
         <OptimizeDropDown />
         <Calculate />
       </div>
-
+      
       <div className={styles.content}>
         <StrategyInterface />
       </div>
@@ -42,6 +45,7 @@ const CreateView = () => {
         <TestPreview />
       </div>
     </div>
+  </>
   );
 };
 
