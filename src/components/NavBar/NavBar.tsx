@@ -22,11 +22,7 @@ const NavBar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname.includes("/create")) {
-      setCreateViewDisplayed(true);
-    } else {
-      setCreateViewDisplayed(false);
-    }
+    setCreateViewDisplayed(location.pathname.includes("/create"));
   }, [location.pathname]);
 
   return (
