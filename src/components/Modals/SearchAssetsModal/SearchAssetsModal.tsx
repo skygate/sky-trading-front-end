@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CloseIcon, HistoryIcon } from "../../../assets/icons";
 import SearchInput from "../../Common/SearchInput/SearchInput";
 import styles from "./SearchAssetsModal.module.scss";
@@ -26,6 +26,7 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
   const [activeOption, setActiveOption] = useState(
     SearchAssetsModalOptions.ALL
   );
+  const [displayedAssets, setDisplayedAssets] = useState(accessibleAssets);
   const closeModal = useCloseModal(id);
   const dispatch = useAppDispatch();
 
@@ -38,6 +39,22 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
     dispatch(setIsAssetSet(id));
     closeModal();
   };
+
+  const filterAssets = () => {
+    if (activeOption === SearchAssetsModalOptions.ALL) {
+      setDisplayedAssets(accessibleAssets);
+    } else {
+      setDisplayedAssets(
+        accessibleAssets.filter(
+          (item) => item.market.toLowerCase() === activeOption.toLowerCase()
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    filterAssets();
+  }, [activeOption]);
 
   return (
     <div className={styles.wrapper}>
@@ -60,7 +77,9 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
             styles.navBarItem,
             activeOption === SearchAssetsModalOptions.ALL && styles.active
           )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.ALL)}
+          onClick={() => {
+            setActiveOption(SearchAssetsModalOptions.ALL);
+          }}
         >
           All
         </div>
@@ -69,7 +88,9 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
             styles.navBarItem,
             activeOption === SearchAssetsModalOptions.STOCKS && styles.active
           )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.STOCKS)}
+          onClick={() => {
+            setActiveOption(SearchAssetsModalOptions.STOCKS);
+          }}
         >
           Stocks
         </div>
@@ -78,7 +99,9 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
             styles.navBarItem,
             activeOption === SearchAssetsModalOptions.CONTRACTS && styles.active
           )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.CONTRACTS)}
+          onClick={() => {
+            setActiveOption(SearchAssetsModalOptions.CONTRACTS);
+          }}
         >
           Contracts
         </div>
@@ -87,7 +110,9 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
             styles.navBarItem,
             activeOption === SearchAssetsModalOptions.FOREX && styles.active
           )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.FOREX)}
+          onClick={() => {
+            setActiveOption(SearchAssetsModalOptions.FOREX);
+          }}
         >
           Forex
         </div>
@@ -96,7 +121,9 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
             styles.navBarItem,
             activeOption === SearchAssetsModalOptions.CRYPTO && styles.active
           )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.CRYPTO)}
+          onClick={() => {
+            setActiveOption(SearchAssetsModalOptions.CRYPTO);
+          }}
         >
           Crypto
         </div>
@@ -105,7 +132,9 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
             styles.navBarItem,
             activeOption === SearchAssetsModalOptions.INDEX && styles.active
           )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.INDEX)}
+          onClick={() => {
+            setActiveOption(SearchAssetsModalOptions.INDEX);
+          }}
         >
           Index
         </div>
@@ -114,7 +143,9 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
             styles.navBarItem,
             activeOption === SearchAssetsModalOptions.BOND && styles.active
           )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.BOND)}
+          onClick={() => {
+            setActiveOption(SearchAssetsModalOptions.BOND);
+          }}
         >
           Bond
         </div>
@@ -129,7 +160,7 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
             </tr>
           </thead>
           <tbody>
-            {accessibleAssets.map((item) => (
+            {displayedAssets.map((item) => (
               <tr
                 className={styles.rowWrapper}
                 onClick={() => setAssetsItem(item)}
