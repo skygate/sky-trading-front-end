@@ -45,26 +45,61 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, min-content);
-  justify-content: space-between;
-  justify-items: stretch;
-  gap: var(--spacer-15);
   overflow-y: scroll;
+  width: 100%;
 
   &::-webkit-scrollbar {
     padding-left: var(--spacer-10);
   }
 }
 
-.gridHeaderItem {
-  opacity: 0.8;
-  font-size: 12px;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.row {
+th:last-child,
+td:last-child {
+  text-align: right;
+}
+
+th {
+  opacity: 0.8;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: left;
+}
+
+tbody {
+  width: 100%;
+
+  tr:hover {
+    cursor: pointer;
+    background-color: var(--color-black3);
+  }
+}
+
+tr {
   display: flex;
-  gap: var(--spacer-15);
+  justify-content: flex-start;
+  width: 100%;
+  padding: 15px;
+}
+
+td,
+th {
+  flex: 1;
+}
+
+thead {
+  tr:first-child {
+    padding: 0 15px 0 15px;
+  }
+}
+
+th:nth-last-child(2n),
+td:nth-last-child(2n) {
+  flex: 0.4;
 }
 
 .closeButton:hover {

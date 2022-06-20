@@ -1,4 +1,3 @@
-import React from "react";
 import { AddAssetIcon, OkIcon, SeparatorIcon } from "assets/icons";
 import Bar from "components/Common/Bar/Bar";
 import {
@@ -29,9 +28,9 @@ const AssetsBar = ({ width, id }: AssetsBarProps) => {
           openModal();
         }}
       >
-        {assetInfo ? (
+        {assetInfo && assetInfo.asset ? (
           <>
-            <OkIcon />{" "}
+            <OkIcon />
             <span style={{ paddingLeft: "2px" }}>
               {assetInfo.asset?.symbol}
             </span>

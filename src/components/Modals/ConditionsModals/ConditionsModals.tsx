@@ -65,6 +65,7 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
         id: id,
         details: temp,
         optimize: false,
+        isAssetSet: false,
       })
     );
   };

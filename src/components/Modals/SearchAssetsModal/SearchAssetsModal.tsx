@@ -3,8 +3,10 @@ import { CloseIcon, HistoryIcon } from "../../../assets/icons";
 import SearchInput from "../../Common/SearchInput/SearchInput";
 import styles from "./SearchAssetsModal.module.scss";
 import cx from "classnames";
-import { useCloseModal } from "store/hooks";
-import { accessibleAssets } from "constant/assets";
+import { useAppDispatch, useCloseModal } from "store/hooks";
+import { accessibleAssets, assetsElement } from "constant/assets";
+import { setAsset } from "store/assetsSlice";
+import { setIsAssetSet } from "store/conditionsSlice";
 
 enum SearchAssetsModalOptions {
   ALL = "all",
@@ -25,6 +27,17 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
     SearchAssetsModalOptions.ALL
   );
   const closeModal = useCloseModal(id);
+  const dispatch = useAppDispatch();
+
+  const setAssetsItem = (assetItem: assetsElement) => {
+    const payload = {
+      id,
+      asset: assetItem,
+    };
+    dispatch(setAsset(payload));
+    dispatch(setIsAssetSet(id));
+    closeModal();
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -107,22 +120,30 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
         </div>
       </div>
       <div className={styles.grid}>
-        <div className={styles.gridHeaderItem}>Symbol</div>
-        <div className={styles.gridHeaderItem}>Description</div>
-        <div className={styles.gridHeaderItem}>Market</div>
-
-        {accessibleAssets.map((item) => (
-          <>
-            <div className={cx(styles.gridItem, styles.row)}>
-              <HistoryIcon />
-              {item.symbol}
-            </div>
-            <div className={styles.gridItem}>{item.description}</div>
-            <div className={styles.gridItem} style={{ textAlign: "end" }}>
-              {item.market}
-            </div>
-          </>
-        ))}
+        <table>
+          <thead>
+            <tr className={styles.gridHeaderWrapper}>
+              <th className={styles.gridHeaderItem}>Symbol</th>
+              <th className={styles.gridHeaderItem}>Description</th>
+              <th className={styles.gridHeaderItem}>Market</th>
+            </tr>
+          </thead>
+          <tbody>
+            {accessibleAssets.map((item) => (
+              <tr
+                className={styles.rowWrapper}
+                onClick={() => setAssetsItem(item)}
+              >
+                <td className={styles.gridItem}>
+                  <HistoryIcon />
+                  {item.symbol}
+                </td>
+                <td className={styles.gridItem}>{item.description}</td>
+                <td className={styles.gridItem}>{item.market}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

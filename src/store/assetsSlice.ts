@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { assetsElement } from "constant/assets";
 
 interface AssetsState {
@@ -8,11 +8,11 @@ interface AssetsState {
 
 const initialState: AssetsState[] = [
   {
-    id: "40ef2b6c-e27b-11ec-8fea-0242ac1rtf02",
+    id: "assetBar-0",
     asset: null,
   },
   {
-    id: "40ef2b6c-e27b-11ec-8fea-0242cds20002",
+    id: "assetBar-1",
     asset: null,
   },
 ];
@@ -20,7 +20,13 @@ const initialState: AssetsState[] = [
 const assetsSlice = createSlice({
   name: "assets",
   initialState,
-  reducers: {},
+  reducers: {
+    setAsset(state, action: PayloadAction<AssetsState>) {
+      const found = state.find((item) => item.id === action.payload.id);
+      if (found) found.asset = action.payload.asset;
+    },
+  },
 });
 
+export const { setAsset } = assetsSlice.actions;
 export default assetsSlice.reducer;
