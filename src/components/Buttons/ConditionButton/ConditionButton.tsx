@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { ArrowDownIcon, ArrowUpIcon, ErrorIcon } from "assets/icons";
 import styles from "./ConditionButton.module.scss";
 import EditGroup from "components/EditGroups/EditGroups";
-import ConditionsModals from "../../Modals/ConditionsModals/ConditionsModals";
+import ConditionsModals from "components/Modals/ConditionsModals/ConditionsModals";
 import { useConditionsSelector, useModalsSelector } from "store/hooks";
 import cx from "classnames";
 
@@ -19,16 +19,19 @@ const ConditionButton = ({
   isExpanded,
   onClick,
 }: ConditionButtonProps) => {
-  const [hover, setHover] = useState(false);
-  const [isErrorHover, setErrorHover] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isErrorHovered, setErrorHovered] = useState(false);
   const modal = useModalsSelector(id);
   const condition = useConditionsSelector(id);
 
   return (
-    <div className={styles.hoverWrapper} onMouseLeave={() => setHover(false)}>
+    <div
+      className={styles.hoverWrapper}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className={styles.wrapper}>
         <div
-          onMouseEnter={() => setHover(true)}
+          onMouseEnter={() => setIsHovered(true)}
           className={cx(
             styles.insideWrapper,
             condition?.isAssetSet && styles.errorWrapper
@@ -38,7 +41,7 @@ const ConditionButton = ({
           {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
           <span className={styles.ifText}>If</span>
           {children}
-          {hover && !modal?.isOpen && (
+          {isHovered && !modal?.isOpen && (
             <div className={styles.editGroup}>
               <EditGroup id={id} />
             </div>
@@ -49,13 +52,13 @@ const ConditionButton = ({
             <div
               className={styles.errorIcon}
               onMouseEnter={() => {
-                setErrorHover(true);
+                setErrorHovered(true);
               }}
-              onMouseLeave={() => setErrorHover(false)}
+              onMouseLeave={() => setErrorHovered(false)}
             >
               <ErrorIcon />
             </div>
-            {isErrorHover && (
+            {isErrorHovered && (
               <div className={styles.errorMessage}>
                 You have to set conditions
               </div>

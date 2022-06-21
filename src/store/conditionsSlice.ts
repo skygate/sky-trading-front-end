@@ -46,8 +46,8 @@ const conditionsSlice = createSlice({
       }
     },
     setIsAssetSet(state, action: PayloadAction<string>) {
-      const index = parseInt(action.payload.split("-")[1]);
-      state[index].isAssetSet = true;
+      const index = Number(action.payload.split("-")[1]);
+      if (!isNaN(index)) state[index].isAssetSet = true;
     },
   },
 });

@@ -27,7 +27,7 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
     SearchAssetsModalOptions.ALL
   );
   const [displayedAssets, setDisplayedAssets] = useState(accessibleAssets);
-  const [filteredByTypeAssets, setFilteredByTypeAssets] =
+  const [assetsFilteredByType, setAssetsFilteredByType] =
     useState(accessibleAssets);
   const [searchValue, setSearchValue] = useState("");
   const closeModal = useCloseModal(id);
@@ -45,7 +45,7 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
 
   const filterByText = () => {
     setDisplayedAssets(
-      filteredByTypeAssets.filter(
+      assetsFilteredByType.filter(
         (item) =>
           item.description.toLowerCase().includes(searchValue.toLowerCase()) ||
           item.symbol.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -55,15 +55,14 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
   };
 
   const filterAssets = () => {
-    if (activeOption === SearchAssetsModalOptions.ALL) {
-      setFilteredByTypeAssets(accessibleAssets);
-    } else {
-      setFilteredByTypeAssets(
-        accessibleAssets.filter(
-          (item) => item.market.toLowerCase() === activeOption.toLowerCase()
-        )
-      );
-    }
+    if (activeOption === SearchAssetsModalOptions.ALL)
+      return setAssetsFilteredByType(accessibleAssets);
+
+    setAssetsFilteredByType(
+      accessibleAssets.filter(
+        (item) => item.market.toLowerCase() === activeOption.toLowerCase()
+      )
+    );
   };
 
   useEffect(() => {
@@ -72,7 +71,7 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
 
   useEffect(() => {
     filterByText();
-  }, [searchValue, filteredByTypeAssets]);
+  }, [searchValue, assetsFilteredByType]);
 
   return (
     <div className={styles.wrapper}>
