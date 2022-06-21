@@ -27,6 +27,9 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
     SearchAssetsModalOptions.ALL
   );
   const [displayedAssets, setDisplayedAssets] = useState(accessibleAssets);
+  const [filteredByTypeAssets, setFilteredByTypeAssets] =
+    useState(accessibleAssets);
+  const [searchValue, setSearchValue] = useState("");
   const closeModal = useCloseModal(id);
   const dispatch = useAppDispatch();
 
@@ -40,11 +43,22 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
     closeModal();
   };
 
+  const filterByText = () => {
+    setDisplayedAssets(
+      filteredByTypeAssets.filter(
+        (item) =>
+          item.description.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item.symbol.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item.market.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+  };
+
   const filterAssets = () => {
     if (activeOption === SearchAssetsModalOptions.ALL) {
-      setDisplayedAssets(accessibleAssets);
+      setFilteredByTypeAssets(accessibleAssets);
     } else {
-      setDisplayedAssets(
+      setFilteredByTypeAssets(
         accessibleAssets.filter(
           (item) => item.market.toLowerCase() === activeOption.toLowerCase()
         )
@@ -55,6 +69,10 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
   useEffect(() => {
     filterAssets();
   }, [activeOption]);
+
+  useEffect(() => {
+    filterByText();
+  }, [searchValue, filteredByTypeAssets]);
 
   return (
     <div className={styles.wrapper}>
@@ -70,7 +88,13 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
           <CloseIcon />
         </div>
       </div>
-      <SearchInput placeholder="Search for assets" />
+      <SearchInput
+        placeholder="Search for assets"
+        value={searchValue}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setSearchValue(e.target.value)
+        }
+      />
       <div className={styles.navBar}>
         <div
           className={cx(
