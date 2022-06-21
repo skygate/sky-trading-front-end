@@ -4,7 +4,7 @@
 }
 
 .insideWrapper {
-  height: 27px;
+  height: 2.7rem;
   width: fit-content;
   background-color: var(--color-conditions);
   padding: var(--spacer-5) var(--spacer-10);
@@ -27,8 +27,8 @@
 
 .errorIcon {
   position: absolute;
-  height: 20px;
-  right: -30px;
+  height: 2rem;
+  right: -3rem;
   top: 0;
   bottom: 0;
   margin: auto;
@@ -36,7 +36,7 @@
 
 .editGroup {
   position: absolute;
-  right: -80px;
+  right: -8rem;
   z-index: var(--index-modal);
 }
 

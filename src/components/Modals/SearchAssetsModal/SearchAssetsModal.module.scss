@@ -38,6 +38,10 @@
   &:hover {
     cursor: pointer;
   }
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .active {
@@ -53,53 +57,48 @@
   }
 }
 
-table {
+.table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th:last-child,
-td:last-child {
-  text-align: right;
-}
-
-th {
-  opacity: 0.8;
-  font-size: 12px;
-  font-weight: 400;
-  text-align: left;
-}
-
-tbody {
+.tableBody {
   width: 100%;
 
-  tr:hover {
+  .tableRow:hover {
     cursor: pointer;
     background-color: var(--color-black3);
   }
 }
 
-tr {
+.tableRow {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  padding: 15px;
+  padding: var(--spacer-15);
 }
 
-td,
-th {
+.tableHeaderRow {
+  padding: 0 var(--spacer-15);
+}
+
+.tableItem {
   flex: 1;
-}
 
-thead {
-  tr:first-child {
-    padding: 0 15px 0 15px;
+  &:last-child {
+    text-align: right;
+  }
+
+  &:nth-last-child(2n) {
+    flex: 0.4;
   }
 }
 
-th:nth-last-child(2n),
-td:nth-last-child(2n) {
-  flex: 0.4;
+.tableHeaderItem {
+  opacity: 0.8;
+  font-size: 1.2rem;
+  font-weight: 400;
+  text-align: left;
 }
 
 .closeButton:hover {

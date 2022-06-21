@@ -96,105 +96,47 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
         }
       />
       <div className={styles.navBar}>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.ALL && styles.active
-          )}
-          onClick={() => {
-            setActiveOption(SearchAssetsModalOptions.ALL);
-          }}
-        >
-          All
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.STOCKS && styles.active
-          )}
-          onClick={() => {
-            setActiveOption(SearchAssetsModalOptions.STOCKS);
-          }}
-        >
-          Stocks
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.CONTRACTS && styles.active
-          )}
-          onClick={() => {
-            setActiveOption(SearchAssetsModalOptions.CONTRACTS);
-          }}
-        >
-          Contracts
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.FOREX && styles.active
-          )}
-          onClick={() => {
-            setActiveOption(SearchAssetsModalOptions.FOREX);
-          }}
-        >
-          Forex
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.CRYPTO && styles.active
-          )}
-          onClick={() => {
-            setActiveOption(SearchAssetsModalOptions.CRYPTO);
-          }}
-        >
-          Crypto
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.INDEX && styles.active
-          )}
-          onClick={() => {
-            setActiveOption(SearchAssetsModalOptions.INDEX);
-          }}
-        >
-          Index
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.BOND && styles.active
-          )}
-          onClick={() => {
-            setActiveOption(SearchAssetsModalOptions.BOND);
-          }}
-        >
-          Bond
-        </div>
+        {Object.entries(SearchAssetsModalOptions).map(([, value]) => (
+          <div
+            className={cx(
+              styles.navBarItem,
+              activeOption === value && styles.active
+            )}
+            onClick={() => {
+              setActiveOption(value);
+            }}
+          >
+            {value}
+          </div>
+        ))}
       </div>
       <div className={styles.grid}>
-        <table>
-          <thead>
-            <tr className={styles.gridHeaderWrapper}>
-              <th className={styles.gridHeaderItem}>Symbol</th>
-              <th className={styles.gridHeaderItem}>Description</th>
-              <th className={styles.gridHeaderItem}>Market</th>
+        <table className={styles.table}>
+          <thead className={styles.tableHeader}>
+            <tr className={cx(styles.tableRow, styles.tableHeaderRow)}>
+              <th className={cx(styles.tableItem, styles.tableHeaderItem)}>
+                Symbol
+              </th>
+              <th className={cx(styles.tableItem, styles.tableHeaderItem)}>
+                Description
+              </th>
+              <th className={cx(styles.tableItem, styles.tableHeaderItem)}>
+                Market
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className={styles.tableBody}>
             {displayedAssets.map((item) => (
               <tr
-                className={styles.rowWrapper}
+                className={styles.tableRow}
                 onClick={() => setAssetsItem(item)}
               >
-                <td className={styles.gridItem}>
+                <td className={styles.tableItem}>
                   <HistoryIcon />
                   {item.symbol}
                 </td>
-                <td className={styles.gridItem}>{item.description}</td>
-                <td className={styles.gridItem}>{item.market}</td>
+                <td className={styles.tableItem}>{item.description}</td>
+                <td className={styles.tableItem}>{item.market}</td>
               </tr>
             ))}
           </tbody>
