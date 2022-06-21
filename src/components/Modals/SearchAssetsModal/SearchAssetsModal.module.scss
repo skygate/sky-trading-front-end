@@ -7,6 +7,11 @@
   flex-direction: column;
   gap: var(--spacer-15);
   background-color: var(--color-black2);
+  position: absolute;
+  z-index: var(--index-modal);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .header {
@@ -33,6 +38,10 @@
   &:hover {
     cursor: pointer;
   }
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .active {
@@ -40,24 +49,58 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, min-content);
-  justify-content: space-between;
-  justify-items: stretch;
-  gap: var(--spacer-15);
   overflow-y: scroll;
+  width: 100%;
 
   &::-webkit-scrollbar {
     padding-left: var(--spacer-10);
   }
 }
 
-.gridHeaderItem {
-  opacity: 0.8;
-  font-size: 12px;
+.table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.row {
+.tableBody {
+  width: 100%;
+
+  .tableRow:hover {
+    cursor: pointer;
+    background-color: var(--color-black3);
+  }
+}
+
+.tableRow {
   display: flex;
-  gap: var(--spacer-15);
+  justify-content: flex-start;
+  width: 100%;
+  padding: var(--spacer-15);
+}
+
+.tableHeaderRow {
+  padding: 0 var(--spacer-15);
+}
+
+.tableItem {
+  flex: 1;
+
+  &:last-child {
+    text-align: right;
+  }
+
+  &:nth-last-child(2n) {
+    flex: 0.4;
+  }
+}
+
+.tableHeaderItem {
+  opacity: 0.8;
+  font-size: 1.2rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+.closeButton:hover {
+  cursor: pointer;
 }

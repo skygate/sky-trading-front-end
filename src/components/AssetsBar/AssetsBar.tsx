@@ -1,30 +1,53 @@
-import React from "react";
 import { AddAssetIcon, OkIcon, SeparatorIcon } from "assets/icons";
 import Bar from "components/Common/Bar/Bar";
+import {
+  useOpenModal,
+  useModalsSelector,
+  useAssetsSelector,
+} from "store/hooks";
+import SearchAssetsModal from "components/Modals/SearchAssetsModal/SearchAssetsModal";
+import styles from "./AssetsBar.module.scss";
 
 interface AssetsBarProps {
-  acronym?: string;
-  asset?: string;
-  market?: string;
   width?: string;
+  id: string;
 }
 
-const AssetsBar = ({ acronym, asset, market, width }: AssetsBarProps) => (
-  <Bar width={width}>
-    {acronym && asset && market ? (
-      <>
-        <OkIcon /> <span style={{ paddingLeft: "2px" }}>{acronym}</span>
-        <span>{asset}</span>
-        <SeparatorIcon />
-        <span>{market}</span>
-      </>
-    ) : (
-      <>
-        <AddAssetIcon />
-        <span style={{ paddingLeft: "2px" }}>Add an asset</span>
-      </>
-    )}
-  </Bar>
-);
+const AssetsBar = ({ width, id }: AssetsBarProps) => {
+  const openModal = useOpenModal(id);
+  const modal = useModalsSelector(id);
+  const assetInfo = useAssetsSelector(id);
+
+  return (
+    <div className={styles.wrapper}>
+      <Bar
+        width={width}
+        className={styles.bar}
+        onClick={(e) => {
+          e.stopPropagation();
+          openModal();
+        }}
+      >
+        {assetInfo && assetInfo.asset ? (
+          <>
+            <OkIcon />
+            <span style={{ paddingLeft: "2px" }}>
+              {assetInfo.asset?.symbol}
+            </span>
+            <span>{assetInfo.asset?.description}</span>
+            <SeparatorIcon />
+            <span>{assetInfo.asset?.market}</span>
+          </>
+        ) : (
+          <>
+            <AddAssetIcon />
+            <span style={{ paddingLeft: "2px" }}>Add an asset</span>
+          </>
+        )}
+      </Bar>
+      {modal?.isOpen && <SearchAssetsModal id={id} />}
+    </div>
+  );
+};
 
 export default AssetsBar;

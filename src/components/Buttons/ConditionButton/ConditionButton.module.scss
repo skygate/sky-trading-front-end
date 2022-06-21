@@ -1,5 +1,10 @@
 .wrapper {
-  height: 27px;
+  width: fit-content;
+  position: relative;
+}
+
+.insideWrapper {
+  height: 2.7rem;
   width: fit-content;
   background-color: var(--color-conditions);
   padding: var(--spacer-5) var(--spacer-10);
@@ -16,9 +21,23 @@
   }
 }
 
+.errorWrapper {
+  border: 2px solid var(--color-red);
+}
+
+.errorIcon {
+  position: absolute;
+  height: 2rem;
+  right: -3rem;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
 .editGroup {
   position: absolute;
-  right: -80px;
+  right: -8rem;
+  z-index: var(--index-modal);
 }
 
 .hoverWrapper {
@@ -27,4 +46,30 @@
 
 .ifText {
   font-weight: 700;
+}
+
+.errorMessage {
+  padding: var(--spacer-5) var(--spacer-10);
+  width: fit-content;
+  border-radius: 5px;
+  background-color: var(--color-red);
+  font-size: var(--font-14);
+  font-weight: 500;
+  position: absolute;
+  white-space: nowrap;
+  left: calc(100% + 3.5rem);
+  bottom: 0;
+
+  &::before {
+    content: "";
+    width: 0;
+    height: 12;
+    border-right: 4px solid var(--color-red);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }

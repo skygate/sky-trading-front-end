@@ -1,56 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CloseIcon, HistoryIcon } from "../../../assets/icons";
 import SearchInput from "../../Common/SearchInput/SearchInput";
 import styles from "./SearchAssetsModal.module.scss";
 import cx from "classnames";
-
-const assetsArr = [
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "ETH",
-    description: "Ethereum",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "XRP",
-    description: "Xrp",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "DOGE",
-    description: "DogeCoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "SOL",
-    description: "Solana",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-  {
-    symbol: "BTC",
-    description: "Bitcoin",
-    market: "CRYPTO",
-  },
-];
+import { useAppDispatch, useCloseModal } from "store/hooks";
+import { accessibleAssets, assetsElement } from "constant/assets";
+import { setAsset } from "store/assetsSlice";
+import { setIsAssetSet } from "store/conditionsSlice";
 
 enum SearchAssetsModalOptions {
   ALL = "all",
@@ -62,100 +18,128 @@ enum SearchAssetsModalOptions {
   BOND = "bond",
 }
 
-const SearchAssetsModal = () => {
+interface SearchAssetsModalProps {
+  id: string;
+}
+
+const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
   const [activeOption, setActiveOption] = useState(
     SearchAssetsModalOptions.ALL
   );
+  const [displayedAssets, setDisplayedAssets] = useState(accessibleAssets);
+  const [assetsFilteredByType, setAssetsFilteredByType] =
+    useState(accessibleAssets);
+  const [searchValue, setSearchValue] = useState("");
+  const closeModal = useCloseModal(id);
+  const dispatch = useAppDispatch();
+
+  const setAssetsItem = (assetItem: assetsElement) => {
+    const payload = {
+      id,
+      asset: assetItem,
+    };
+    dispatch(setAsset(payload));
+    dispatch(setIsAssetSet(id));
+    closeModal();
+  };
+
+  const filterByText = () => {
+    setDisplayedAssets(
+      assetsFilteredByType.filter(
+        (item) =>
+          item.description.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item.symbol.toLowerCase().includes(searchValue.toLowerCase()) ||
+          item.market.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+  };
+
+  const filterAssets = () => {
+    if (activeOption === SearchAssetsModalOptions.ALL)
+      return setAssetsFilteredByType(accessibleAssets);
+
+    setAssetsFilteredByType(
+      accessibleAssets.filter(
+        (item) => item.market.toLowerCase() === activeOption.toLowerCase()
+      )
+    );
+  };
+
+  useEffect(() => {
+    filterAssets();
+  }, [activeOption]);
+
+  useEffect(() => {
+    filterByText();
+  }, [searchValue, assetsFilteredByType]);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         Assets
-        <CloseIcon />
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            closeModal();
+          }}
+          className={styles.closeButton}
+        >
+          <CloseIcon />
+        </div>
       </div>
-      <SearchInput placeholder="Search for assets" />
+      <SearchInput
+        placeholder="Search for assets"
+        value={searchValue}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setSearchValue(e.target.value)
+        }
+      />
       <div className={styles.navBar}>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.ALL && styles.active
-          )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.ALL)}
-        >
-          All
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.STOCKS && styles.active
-          )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.STOCKS)}
-        >
-          Stocks
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.CONTRACTS && styles.active
-          )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.CONTRACTS)}
-        >
-          Contracts
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.FOREX && styles.active
-          )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.FOREX)}
-        >
-          Forex
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.CRYPTO && styles.active
-          )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.CRYPTO)}
-        >
-          Crypto
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.INDEX && styles.active
-          )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.INDEX)}
-        >
-          Index
-        </div>
-        <div
-          className={cx(
-            styles.navBarItem,
-            activeOption === SearchAssetsModalOptions.BOND && styles.active
-          )}
-          onClick={() => setActiveOption(SearchAssetsModalOptions.BOND)}
-        >
-          Bond
-        </div>
+        {Object.entries(SearchAssetsModalOptions).map(([, value]) => (
+          <div
+            className={cx(
+              styles.navBarItem,
+              activeOption === value && styles.active
+            )}
+            onClick={() => {
+              setActiveOption(value);
+            }}
+          >
+            {value}
+          </div>
+        ))}
       </div>
       <div className={styles.grid}>
-        <div className={styles.gridHeaderItem}>Symbol</div>
-        <div className={styles.gridHeaderItem}>Description</div>
-        <div className={styles.gridHeaderItem}>Market</div>
-
-        {assetsArr.map((item) => (
-          <>
-            <div className={cx(styles.gridItem, styles.row)}>
-              <HistoryIcon />
-              {item.symbol}
-            </div>
-            <div className={styles.gridItem}>{item.description}</div>
-            <div className={styles.gridItem} style={{ textAlign: "end" }}>
-              {item.market}
-            </div>
-          </>
-        ))}
+        <table className={styles.table}>
+          <thead className={styles.tableHeader}>
+            <tr className={cx(styles.tableRow, styles.tableHeaderRow)}>
+              <th className={cx(styles.tableItem, styles.tableHeaderItem)}>
+                Symbol
+              </th>
+              <th className={cx(styles.tableItem, styles.tableHeaderItem)}>
+                Description
+              </th>
+              <th className={cx(styles.tableItem, styles.tableHeaderItem)}>
+                Market
+              </th>
+            </tr>
+          </thead>
+          <tbody className={styles.tableBody}>
+            {displayedAssets.map((item) => (
+              <tr
+                className={styles.tableRow}
+                onClick={() => setAssetsItem(item)}
+              >
+                <td className={styles.tableItem}>
+                  <HistoryIcon />
+                  {item.symbol}
+                </td>
+                <td className={styles.tableItem}>{item.description}</td>
+                <td className={styles.tableItem}>{item.market}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

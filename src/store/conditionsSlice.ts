@@ -5,11 +5,12 @@ interface ConditionsState {
   id: string;
   details: SetConditionsInterface;
   optimize: boolean;
+  isAssetSet: boolean;
 }
 
 const initialState: ConditionsState[] = [
   {
-    id: "40ef2b6c-e27b-11ec-43ea-0242ac120002",
+    id: "condition-0",
     details: {
       if: [null, null, null],
       then: null,
@@ -17,9 +18,10 @@ const initialState: ConditionsState[] = [
       interval: null,
     },
     optimize: false,
+    isAssetSet: false,
   },
   {
-    id: "40ef2b6c-e27b-11ec-8fea-024poiu120002",
+    id: "condition-1",
     details: {
       if: [null, null, null],
       then: null,
@@ -27,6 +29,7 @@ const initialState: ConditionsState[] = [
       interval: null,
     },
     optimize: false,
+    isAssetSet: false,
   },
 ];
 
@@ -42,8 +45,12 @@ const conditionsSlice = createSlice({
         state.push(action.payload);
       }
     },
+    setIsAssetSet(state, action: PayloadAction<string>) {
+      const index = Number(action.payload.split("-")[1]);
+      if (!isNaN(index)) state[index].isAssetSet = true;
+    },
   },
 });
 
-export const { updateCondition } = conditionsSlice.actions;
+export const { updateCondition, setIsAssetSet } = conditionsSlice.actions;
 export default conditionsSlice.reducer;

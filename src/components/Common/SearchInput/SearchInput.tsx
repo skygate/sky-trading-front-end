@@ -4,14 +4,22 @@ import styles from "./SearchInput.module.scss";
 
 interface SearchInputProps {
   placeholder: string;
+  onChange?: React.ChangeEventHandler;
+  value?: string;
 }
 
-const SearchInput = ({ placeholder }: SearchInputProps) => (
+const SearchInput = ({ placeholder, onChange, value }: SearchInputProps) => (
   <div className={styles.wrapper}>
     <div className={styles.iconWrapper}>
       <SearchIcon />
     </div>
-    <input type="text" placeholder={placeholder} className={styles.input} />
+    <input
+      type="text"
+      placeholder={placeholder}
+      className={styles.input}
+      value={value}
+      onChange={onChange}
+    />
   </div>
 );
 

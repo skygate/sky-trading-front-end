@@ -62,7 +62,7 @@ const StrategyInterfaceElement = ({
           <AssetsButton isExpanded={isExpanded} onClick={handleExpansion} />
         );
       case StrategyInterfaceElements.ASSETS_BAR:
-        return <AssetsBar />;
+        return <AssetsBar id={id} />;
       case StrategyInterfaceElements.ADD_CONDITION:
         return <AddConditionIcon />;
     }

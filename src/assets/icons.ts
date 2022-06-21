@@ -29,4 +29,5 @@ export { ReactComponent as CandlestickChartIcon } from "./icons/CandlestickChart
 export { ReactComponent as HollowCandlestickChartIcon } from "./icons/HollowCandlestickChartIcon.svg";
 export { ReactComponent as LineChartIcon } from "./icons/LineChartIcon.svg";
 export { ReactComponent as HistoryIcon } from "./icons/HistoryIcon.svg";
+export { ReactComponent as ErrorIcon } from "./icons/ErrorIcon.svg";
 export { ReactComponent as NewStrategyIcon } from "./icons/NewStrategyIcon.svg";
