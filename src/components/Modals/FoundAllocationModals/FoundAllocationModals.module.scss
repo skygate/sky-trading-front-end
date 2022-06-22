@@ -1,0 +1,7 @@
+.wrapper {
+  position: absolute;
+  z-index: var(--index-modal);
+  top: calc(100% + 0.5rem);
+  display: flex;
+  gap: var(--spacer-15);
+}

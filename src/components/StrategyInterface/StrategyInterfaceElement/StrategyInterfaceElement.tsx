@@ -8,6 +8,7 @@ import { AddConditionIcon } from "assets/icons";
 import { useAppDispatch } from "store/hooks";
 import { expandItem } from "store/strategyCreationSlice";
 import { StrategyInterfaceElements } from "constant";
+import AllocationButton from "components/Buttons/AllocationButton/AllocationButton";
 
 interface ElementsInterface {
   id: string;
@@ -65,6 +66,8 @@ const StrategyInterfaceElement = ({
         return <AssetsBar id={id} />;
       case StrategyInterfaceElements.ADD_CONDITION:
         return <AddConditionIcon />;
+      case StrategyInterfaceElements.ALLOCATION:
+        return <AllocationButton id={id} />;
     }
   };
 

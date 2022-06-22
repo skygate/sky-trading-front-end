@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { StrategyInterfaceElements } from "../constant";
 import { strategyPlaceholder } from "./strategyInitialState";
 
@@ -9,7 +9,26 @@ interface StrategyCreationState {
   elements: StrategyCreationState[];
 }
 
+interface PushElementPayload {
+  parentId: string;
+  element: StrategyCreationState;
+}
+
 const initialState: StrategyCreationState = strategyPlaceholder;
+
+const recursivePushElement = (
+  elements: StrategyCreationState[],
+  id: string,
+  element: StrategyCreationState
+) => {
+  const found = elements.find((item) => item.id === id);
+  if (found) found.elements.push(element);
+  elements.forEach((item) => {
+    if (item.elements) {
+      return recursivePushElement(item.elements, id, element);
+    }
+  });
+};
 
 const recursiveHandleItemExpanding = (
   elements: StrategyCreationState[],
@@ -38,8 +57,15 @@ const strategyCreationSlice = createSlice({
         recursiveHandleItemExpanding(state.elements, action.payload);
       }
     },
+    pushElement(state, action: PayloadAction<PushElementPayload>) {
+      recursivePushElement(
+        state.elements,
+        action.payload.parentId,
+        action.payload.element
+      );
+    },
   },
 });
 
-export const { expandItem } = strategyCreationSlice.actions;
+export const { expandItem, pushElement } = strategyCreationSlice.actions;
 export default strategyCreationSlice.reducer;

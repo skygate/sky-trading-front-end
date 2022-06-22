@@ -30,7 +30,14 @@ const modalsSlice = createSlice({
   reducers: {
     handleVisibility(state, action: PayloadAction<ModalsState>) {
       const found = state.find((item) => item.id === action.payload.id);
-      if (found) found.isOpen = action.payload.isOpen;
+      if (found) {
+        found.isOpen = action.payload.isOpen;
+      } else {
+        state.push({
+          id: action.payload.id,
+          isOpen: action.payload.isOpen,
+        });
+      }
     },
   },
 });

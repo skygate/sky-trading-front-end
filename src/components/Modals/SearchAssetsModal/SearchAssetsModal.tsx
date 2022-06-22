@@ -7,6 +7,8 @@ import { useAppDispatch, useCloseModal } from "store/hooks";
 import { accessibleAssets, assetsElement } from "constant/assets";
 import { setAsset } from "store/assetsSlice";
 import { setIsAssetSet } from "store/conditionsSlice";
+import { pushElement } from "store/strategyCreationSlice";
+import { StrategyInterfaceElements } from "constant";
 
 enum SearchAssetsModalOptions {
   ALL = "all",
@@ -34,12 +36,22 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
   const dispatch = useAppDispatch();
 
   const setAssetsItem = (assetItem: assetsElement) => {
-    const payload = {
+    const assetPayload = {
       id,
       asset: assetItem,
     };
-    dispatch(setAsset(payload));
+    const allocationPayload = {
+      parentId: id,
+      element: {
+        id: "allocation-0",
+        isExpanded: false,
+        type: StrategyInterfaceElements.ALLOCATION,
+        elements: [],
+      },
+    };
+    dispatch(setAsset(assetPayload));
     dispatch(setIsAssetSet(id));
+    dispatch(pushElement(allocationPayload));
     closeModal();
   };
 

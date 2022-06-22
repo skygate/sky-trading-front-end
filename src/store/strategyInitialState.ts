@@ -17,7 +17,7 @@ export const strategyPlaceholder = {
           elements: [
             {
               id: "assetBar-0",
-              isExpanded: false,
+              isExpanded: true,
               type: StrategyInterfaceElements.ASSETS_BAR,
               elements: [],
             },
@@ -48,7 +48,7 @@ export const strategyPlaceholder = {
               elements: [
                 {
                   id: "assetBar-1",
-                  isExpanded: false,
+                  isExpanded: true,
                   type: StrategyInterfaceElements.ASSETS_BAR,
                   elements: [],
                 },
