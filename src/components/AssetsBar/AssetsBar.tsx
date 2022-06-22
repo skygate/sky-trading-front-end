@@ -7,6 +7,7 @@ import {
 } from "store/hooks";
 import SearchAssetsModal from "components/Modals/SearchAssetsModal/SearchAssetsModal";
 import styles from "./AssetsBar.module.scss";
+import DarkOverlay from "components/DarkOverlay/DarkOverlay";
 
 interface AssetsBarProps {
   width?: string;
@@ -45,7 +46,12 @@ const AssetsBar = ({ width, id }: AssetsBarProps) => {
           </>
         )}
       </Bar>
-      {modal?.isOpen && <SearchAssetsModal id={id} />}
+      {modal?.isOpen && (
+        <>
+          <DarkOverlay modal />
+          <SearchAssetsModal id={id} />
+        </>
+      )}
     </div>
   );
 };

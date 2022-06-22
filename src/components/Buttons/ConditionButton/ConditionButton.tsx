@@ -5,6 +5,7 @@ import EditGroup from "components/EditGroups/EditGroups";
 import ConditionsModals from "components/Modals/ConditionsModals/ConditionsModals";
 import { useConditionsSelector, useModalsSelector } from "store/hooks";
 import cx from "classnames";
+import DarkOverlay from "components/DarkOverlay/DarkOverlay";
 
 interface ConditionButtonProps {
   id: string;
@@ -66,7 +67,12 @@ const ConditionButton = ({
           </>
         )}
       </div>
-      {modal?.isOpen && <ConditionsModals id={id} />}
+      {modal?.isOpen && (
+        <>
+          <DarkOverlay modal />
+          <ConditionsModals id={id} />
+        </>
+      )}
     </div>
   );
 };
