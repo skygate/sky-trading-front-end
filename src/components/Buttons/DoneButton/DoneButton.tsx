@@ -9,7 +9,7 @@ interface DoneButtonProps {
 
 const DoneButton = ({ active, onClick }: DoneButtonProps) => (
   <button
-    onClick={onClick}
+    onClick={active ? onClick : undefined}
     className={active ? cx(styles.button, styles.active) : styles.button}
   >
     <span>Done</span>

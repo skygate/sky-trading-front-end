@@ -10,7 +10,8 @@ export enum AllocationTypes {
 interface AllocationState {
   id: string;
   type: AllocationTypes;
-  value: number | null;
+  value: string | null;
+  submitted: boolean;
 }
 
 const initialState: AllocationState[] = [];
@@ -24,12 +25,17 @@ const allocationSlice = createSlice({
       if (found) {
         found.type = action.payload.type;
         found.value = action.payload.value;
+        found.submitted = action.payload.submitted;
       } else {
         state.push(action.payload);
       }
     },
+    submitAllocation(state, action: PayloadAction<string>) {
+      const found = state.find((item) => item.id === action.payload);
+      if (found) found.submitted = true;
+    },
   },
 });
 
-export const { setAllocation } = allocationSlice.actions;
+export const { setAllocation, submitAllocation } = allocationSlice.actions;
 export default allocationSlice.reducer;

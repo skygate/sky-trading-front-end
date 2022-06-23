@@ -25,9 +25,6 @@ const ChooseFoundAllocationModal = ({
   sizeInputValue,
   setSizeInputValue,
 }: ChooseFoundAllocationModalProps) => {
-  const [percent, setPercent] = useState("");
-  const [amount, setAmount] = useState("");
-  const [size, setSize] = useState("");
   const closeModal = useCloseModal(id);
 
   return (
@@ -55,9 +52,10 @@ const ChooseFoundAllocationModal = ({
                 >
                   %
                   <TinyInput
-                    value={percent}
-                    setValue={setPercent}
-                    maxLength={2}
+                    value={percentageInputValue}
+                    setValue={setPercentageInputValue}
+                    min={0}
+                    max={100}
                   />
                 </div>
               )}
@@ -71,7 +69,11 @@ const ChooseFoundAllocationModal = ({
                   {...provided.dragHandleProps}
                 >
                   Amount
-                  <TinyInput value={amount} setValue={setAmount} />
+                  <TinyInput
+                    value={amountInputValue}
+                    setValue={setAmountInputValue}
+                    min={0}
+                  />
                 </div>
               )}
             </Draggable>
@@ -84,7 +86,11 @@ const ChooseFoundAllocationModal = ({
                   {...provided.dragHandleProps}
                 >
                   Size
-                  <TinyInput value={size} setValue={setSize} />
+                  <TinyInput
+                    value={sizeInputValue}
+                    setValue={setSizeInputValue}
+                    min={0}
+                  />
                 </div>
               )}
             </Draggable>

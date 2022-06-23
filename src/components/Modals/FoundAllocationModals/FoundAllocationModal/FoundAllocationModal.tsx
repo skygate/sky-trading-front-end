@@ -7,14 +7,24 @@ import DoneButton from "components/Buttons/DoneButton/DoneButton";
 import { useAllocationSelector, useCloseModal } from "store/hooks";
 import { Droppable } from "react-beautiful-dnd";
 import { formatAllocationType } from "helpers/formatAllocationType";
+import { useDispatch } from "react-redux";
+import { submitAllocation } from "store/allocationSlice";
 
 interface FoundAllocationModalProps {
   id: string;
 }
 
+export const putAllocationId = "puAllocation";
+
 const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
   const closeModal = useCloseModal(id);
   const allocation = useAllocationSelector(id);
+  const dispatch = useDispatch();
+
+  const handleSubmitAllocation = () => {
+    dispatch(submitAllocation(id));
+    closeModal();
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -26,7 +36,7 @@ const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
       </div>
       <div className={styles.type}>
         type
-        <Droppable droppableId="allocationDropID">
+        <Droppable droppableId={putAllocationId}>
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {allocation ? (
@@ -45,7 +55,10 @@ const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
         <ToggleButton isToggleActive />
       </div>
       <div className={styles.button}>
-        <DoneButton onClick={closeModal} />
+        <DoneButton
+          active={allocation ? true : false}
+          onClick={handleSubmitAllocation}
+        />
       </div>
     </div>
   );

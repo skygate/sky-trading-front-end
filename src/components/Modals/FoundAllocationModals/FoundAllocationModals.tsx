@@ -1,7 +1,9 @@
 import DarkOverlay from "components/DarkOverlay/DarkOverlay";
 import styles from "./FoundAllocationModals.module.scss";
 import ChooseFoundAllocationModal from "./ChooseFoundAllocationModal/ChooseFoundAllocationModal";
-import FoundAllocationModal from "./FoundAllocationModal/FoundAllocationModal";
+import FoundAllocationModal, {
+  putAllocationId,
+} from "./FoundAllocationModal/FoundAllocationModal";
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -20,14 +22,23 @@ const FoundAllocationModals = ({ id }: FoundAllocationModalsProps) => {
   const handleOnDragEnd: OnDragEndResponder = (result) => {
     const type = result.draggableId as AllocationTypes;
     console.log(result);
+    const switchValue = {
+      [AllocationTypes.AMOUNT]: amountInputValue,
+      [AllocationTypes.PERCENT]: percentageInputValue,
+      [AllocationTypes.SIZE]: sizeInputValue,
+      [AllocationTypes.CAPITAL]: null,
+    };
 
-    dispatch(
-      setAllocation({
-        id,
-        type,
-        value: null,
-      })
-    );
+    if (result.destination?.droppableId === putAllocationId) {
+      dispatch(
+        setAllocation({
+          id,
+          type,
+          value: switchValue[type],
+          submitted: false,
+        })
+      );
+    }
   };
   return (
     <>
