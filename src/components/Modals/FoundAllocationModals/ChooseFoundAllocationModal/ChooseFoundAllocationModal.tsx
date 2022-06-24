@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { AllocationTypes } from "store/allocationSlice";
 import { useCloseModal } from "store/hooks";
-import { CloseIcon } from "../../../../assets/icons";
-import TinyInput from "../../../Common/TinyInput/TinyInput";
+import { CloseIcon } from "assets/icons";
+import TinyInput from "components/Common/TinyInput/TinyInput";
 import styles from "./ChooseFoundAllocationModal.module.scss";
 
 interface ChooseFoundAllocationModalProps {

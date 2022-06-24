@@ -56,7 +56,7 @@ const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
       </div>
       <div className={styles.button}>
         <DoneButton
-          active={allocation ? true : false}
+          active={allocation?.type ? true : false}
           onClick={handleSubmitAllocation}
         />
       </div>
