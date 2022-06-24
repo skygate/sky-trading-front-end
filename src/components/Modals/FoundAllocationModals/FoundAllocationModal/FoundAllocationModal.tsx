@@ -8,13 +8,13 @@ import { useAllocationSelector, useCloseModal } from "store/hooks";
 import { Droppable } from "react-beautiful-dnd";
 import { formatAllocationType } from "helpers/formatAllocationType";
 import { useDispatch } from "react-redux";
-import { submitAllocation } from "store/allocationSlice";
+import { submitAllocationAction } from "store/allocationSlice";
 
 interface FoundAllocationModalProps {
   id: string;
 }
 
-export const putAllocationId = "puAllocation";
+export const putAllocationId = "putAllocation";
 
 const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
   const closeModal = useCloseModal(id);
@@ -22,7 +22,7 @@ const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
   const dispatch = useDispatch();
 
   const handleSubmitAllocation = () => {
-    dispatch(submitAllocation(id));
+    dispatch(submitAllocationAction(id));
     closeModal();
   };
 
@@ -39,7 +39,7 @@ const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
         <Droppable droppableId={putAllocationId}>
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
-              {allocation ? (
+              {allocation?.type ? (
                 <div className={styles.droppedElement}>
                   {formatAllocationType(allocation.type, allocation.value)}
                 </div>

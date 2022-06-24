@@ -9,9 +9,16 @@ export enum AllocationTypes {
 
 interface AllocationState {
   id: string;
+  index: number;
+  type: AllocationTypes | null;
+  value: string | null;
+  submitted?: boolean;
+}
+
+interface UpdateAllocationPayload {
+  id: string;
   type: AllocationTypes;
   value: string | null;
-  submitted: boolean;
 }
 
 const initialState: AllocationState[] = [];
@@ -20,22 +27,28 @@ const allocationSlice = createSlice({
   name: "allocation",
   initialState,
   reducers: {
-    setAllocation(state, action: PayloadAction<AllocationState>) {
-      let found = state.find((item) => item.id === action.payload.id);
+    addAllocation(state, action: PayloadAction<AllocationState>) {
+      const found = state.find((item) => item.id === action.payload.id);
+      if (!found) state.push(action.payload);
+    },
+
+    updateAllocationAction(
+      state,
+      action: PayloadAction<UpdateAllocationPayload>
+    ) {
+      const found = state.find((item) => item.id === action.payload.id);
       if (found) {
         found.type = action.payload.type;
         found.value = action.payload.value;
-        found.submitted = action.payload.submitted;
-      } else {
-        state.push(action.payload);
       }
     },
-    submitAllocation(state, action: PayloadAction<string>) {
+    submitAllocationAction(state, action: PayloadAction<string>) {
       const found = state.find((item) => item.id === action.payload);
       if (found) found.submitted = true;
     },
   },
 });
 
-export const { setAllocation, submitAllocation } = allocationSlice.actions;
+export const { addAllocation, updateAllocationAction, submitAllocationAction } =
+  allocationSlice.actions;
 export default allocationSlice.reducer;

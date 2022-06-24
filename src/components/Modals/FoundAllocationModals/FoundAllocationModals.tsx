@@ -7,13 +7,15 @@ import FoundAllocationModal, {
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AllocationTypes, setAllocation } from "store/allocationSlice";
+import { AllocationTypes, updateAllocationAction } from "store/allocationSlice";
 
 interface FoundAllocationModalsProps {
-  id: string;
+  allocationId: string;
 }
 
-const FoundAllocationModals = ({ id }: FoundAllocationModalsProps) => {
+const FoundAllocationModals = ({
+  allocationId,
+}: FoundAllocationModalsProps) => {
   const [percentageInputValue, setPercentageInputValue] = useState("");
   const [amountInputValue, setAmountInputValue] = useState("");
   const [sizeInputValue, setSizeInputValue] = useState("");
@@ -21,7 +23,8 @@ const FoundAllocationModals = ({ id }: FoundAllocationModalsProps) => {
 
   const handleOnDragEnd: OnDragEndResponder = (result) => {
     const type = result.draggableId as AllocationTypes;
-    console.log(result);
+    let isValueValid = true;
+
     const switchValue = {
       [AllocationTypes.AMOUNT]: amountInputValue,
       [AllocationTypes.PERCENT]: percentageInputValue,
@@ -29,13 +32,14 @@ const FoundAllocationModals = ({ id }: FoundAllocationModalsProps) => {
       [AllocationTypes.CAPITAL]: null,
     };
 
-    if (result.destination?.droppableId === putAllocationId) {
+    if (type !== AllocationTypes.CAPITAL && !parseFloat(switchValue[type]))
+      isValueValid = false;
+    if (result.destination?.droppableId === putAllocationId && isValueValid) {
       dispatch(
-        setAllocation({
-          id,
+        updateAllocationAction({
+          id: allocationId,
           type,
           value: switchValue[type],
-          submitted: false,
         })
       );
     }
@@ -44,9 +48,9 @@ const FoundAllocationModals = ({ id }: FoundAllocationModalsProps) => {
     <>
       <div className={styles.wrapper}>
         <DragDropContext onDragEnd={handleOnDragEnd}>
-          <FoundAllocationModal id={id} />
+          <FoundAllocationModal id={allocationId} />
           <ChooseFoundAllocationModal
-            id={id}
+            id={allocationId}
             percentageInputValue={percentageInputValue}
             setPercentageInputValue={setPercentageInputValue}
             amountInputValue={amountInputValue}

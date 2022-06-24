@@ -28,7 +28,7 @@ const modalsSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
-    handleVisibility(state, action: PayloadAction<ModalsState>) {
+    handleModalVisibilityAction(state, action: PayloadAction<ModalsState>) {
       const found = state.find((item) => item.id === action.payload.id);
       if (found) {
         found.isOpen = action.payload.isOpen;
@@ -42,5 +42,5 @@ const modalsSlice = createSlice({
   },
 });
 
-export const { handleVisibility } = modalsSlice.actions;
+export const { handleModalVisibilityAction } = modalsSlice.actions;
 export default modalsSlice.reducer;

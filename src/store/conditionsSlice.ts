@@ -3,14 +3,21 @@ import { SetConditionsInterface } from "components/Modals/ConditionsModals/Condi
 
 interface ConditionsState {
   id: string;
+  index: number;
   details: SetConditionsInterface;
   optimize: boolean;
   isAssetSet: boolean;
 }
 
+interface UpdateConditionActionPayload {
+  id: string;
+  details: SetConditionsInterface;
+}
+
 const initialState: ConditionsState[] = [
   {
     id: "condition-0",
+    index: 0,
     details: {
       if: [null, null, null],
       then: null,
@@ -22,6 +29,7 @@ const initialState: ConditionsState[] = [
   },
   {
     id: "condition-1",
+    index: 1,
     details: {
       if: [null, null, null],
       then: null,
@@ -37,20 +45,20 @@ const conditionsSlice = createSlice({
   name: "conditions",
   initialState,
   reducers: {
-    updateCondition(state, action: PayloadAction<ConditionsState>) {
+    updateConditionAction(
+      state,
+      action: PayloadAction<UpdateConditionActionPayload>
+    ) {
       const found = state.find((item) => item.id === action.payload.id);
-      if (found) {
-        found.details = action.payload.details;
-      } else {
-        state.push(action.payload);
-      }
+      if (found) found.details = action.payload.details;
     },
-    setIsAssetSet(state, action: PayloadAction<string>) {
+    setIsAssetSetAction(state, action: PayloadAction<string>) {
       const index = Number(action.payload.split("-")[1]);
       if (!isNaN(index)) state[index].isAssetSet = true;
     },
   },
 });
 
-export const { updateCondition, setIsAssetSet } = conditionsSlice.actions;
+export const { updateConditionAction, setIsAssetSetAction } =
+  conditionsSlice.actions;
 export default conditionsSlice.reducer;

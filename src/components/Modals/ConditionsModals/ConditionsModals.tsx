@@ -10,7 +10,7 @@ import {
 } from "constant/conditions";
 import { findCondition } from "helpers/findCondition";
 import { useAppDispatch, useConditionsSelector } from "store/hooks";
-import { updateCondition } from "store/conditionsSlice";
+import { updateConditionAction } from "store/conditionsSlice";
 
 interface ConditionsModalsProps {
   id: string;
@@ -61,11 +61,9 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
 
     setConditions(temp);
     dispatch(
-      updateCondition({
+      updateConditionAction({
         id: id,
         details: temp,
-        optimize: false,
-        isAssetSet: false,
       })
     );
   };

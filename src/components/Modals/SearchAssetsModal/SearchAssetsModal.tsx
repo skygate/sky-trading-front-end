@@ -3,12 +3,18 @@ import { CloseIcon, HistoryIcon } from "../../../assets/icons";
 import SearchInput from "../../Common/SearchInput/SearchInput";
 import styles from "./SearchAssetsModal.module.scss";
 import cx from "classnames";
-import { useAppDispatch, useCloseModal } from "store/hooks";
+import {
+  useAppDispatch,
+  useAssetsSelector,
+  useCloseModal,
+  useStrategyElementCreationSelector,
+} from "store/hooks";
 import { accessibleAssets, assetsElement } from "constant/assets";
-import { setAsset } from "store/assetsSlice";
-import { setIsAssetSet } from "store/conditionsSlice";
-import { pushElement } from "store/strategyCreationSlice";
+import { setAssetAction } from "store/assetsSlice";
+import { setIsAssetSetAction } from "store/conditionsSlice";
+import { pushStrategyElementAction } from "store/strategyCreationSlice";
 import { StrategyInterfaceElements } from "constant";
+import { addAllocation } from "store/allocationSlice";
 
 enum SearchAssetsModalOptions {
   ALL = "all",
@@ -34,25 +40,41 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
   const [searchValue, setSearchValue] = useState("");
   const closeModal = useCloseModal(id);
   const dispatch = useAppDispatch();
+  const asset = useAssetsSelector(id);
+  const allocation = useStrategyElementCreationSelector(
+    `allocation-${id.split("-")[1]}`
+  );
 
   const setAssetsItem = (assetItem: assetsElement) => {
-    const assetPayload = {
-      id,
-      asset: assetItem,
-    };
-    const allocationPayload = {
-      parentId: id,
-      element: {
-        id: "allocation-0",
-        isExpanded: false,
-        type: StrategyInterfaceElements.ALLOCATION,
-        elements: [],
-      },
-    };
-    dispatch(setAsset(assetPayload));
-    dispatch(setIsAssetSet(id));
-    dispatch(pushElement(allocationPayload));
-    closeModal();
+    if (asset) {
+      const assetPayload = {
+        id,
+        asset: assetItem,
+      };
+      const allocationStrategyTreePayload = {
+        parentId: id,
+        element: {
+          id: `allocation-${asset.index}`,
+          isExpanded: false,
+          type: StrategyInterfaceElements.ALLOCATION,
+          elements: [],
+        },
+      };
+      const allocationPayload = {
+        id: `allocation-${asset.index}`,
+        index: asset.index,
+        type: null,
+        value: null,
+        submitted: false,
+      };
+      dispatch(setAssetAction(assetPayload));
+      dispatch(setIsAssetSetAction(id));
+      if (!allocation) {
+        dispatch(pushStrategyElementAction(allocationStrategyTreePayload));
+        dispatch(addAllocation(allocationPayload));
+      }
+      closeModal();
+    }
   };
 
   const filterByText = () => {

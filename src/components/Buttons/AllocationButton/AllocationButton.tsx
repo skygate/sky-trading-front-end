@@ -21,12 +21,14 @@ const AllocationButton = ({ id }: AllocationButtonProps) => {
     <>
       <div className={styles.wrapper} onClick={() => openModal()}>
         <ArrowDownIcon />
-        <span style={{ fontWeight: 500 }}>FoundAllocation</span>
-        {allocation?.submitted
-          ? formatAllocationType(allocation.type, allocation.value)
-          : "set type"}
+        <span className={styles.title}>FoundAllocation</span>
+        <span className={styles.content}>
+          {allocation?.submitted && allocation?.type
+            ? formatAllocationType(allocation.type, allocation.value)
+            : "set type"}
+        </span>
       </div>
-      {modal?.isOpen && <FoundAllocationModals id={id} />}
+      {modal?.isOpen && <FoundAllocationModals allocationId={id} />}
     </>
   );
 };

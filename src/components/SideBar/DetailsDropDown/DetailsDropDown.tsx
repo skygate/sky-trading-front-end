@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { ArrowDownIcon, ArrowUpIcon } from "assets/icons";
 import styles from "./DetailsDropDown.module.scss";
 import { useAppDispatch, useStrategyDetailsSelector } from "store/hooks";
-import { editDescription, editName } from "store/strategyDetailsSlice";
+import {
+  editDescriptionAction,
+  editNameAction,
+} from "store/strategyDetailsSlice";
 
 const DetailsDropDown = () => {
   const [isListShown, setListShown] = useState(false);
@@ -31,12 +34,12 @@ const DetailsDropDown = () => {
 
   const handleNameFocusOff = () => {
     setNameInputActive(false);
-    dispatch(editName(name));
+    dispatch(editNameAction(name));
   };
 
   const handleDescriptionFocusOff = () => {
     setDescriptionInputActive(false);
-    dispatch(editDescription(description));
+    dispatch(editDescriptionAction(description));
   };
 
   return (

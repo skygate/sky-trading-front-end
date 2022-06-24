@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useStrategyDetailsSelector } from "store/hooks";
-import { editName } from "store/strategyDetailsSlice";
+import { editNameAction } from "store/strategyDetailsSlice";
 import { ArrowDownIcon, ArrowUpIcon, GroupIcon } from "assets/icons";
 import Bar from "components/Common/Bar/Bar";
 import styles from "./StrategyBar.module.scss";
@@ -26,7 +26,7 @@ const StrategyBar = ({ isExpanded }: StrategyBarProps) => {
 
   const handleFocusOff = () => {
     setInputActive(false);
-    dispatch(editName(strategyName));
+    dispatch(editNameAction(strategyName));
   };
 
   return (

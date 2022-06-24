@@ -6,7 +6,7 @@ import AssetsButton from "components/Buttons/AssetsButton/AssetsButton";
 import AssetsBar from "components/AssetsBar/AssetsBar";
 import { AddConditionIcon } from "assets/icons";
 import { useAppDispatch } from "store/hooks";
-import { expandItem } from "store/strategyCreationSlice";
+import { expandStrategyItemAction } from "store/strategyCreationSlice";
 import { StrategyInterfaceElements } from "constant";
 import AllocationButton from "components/Buttons/AllocationButton/AllocationButton";
 
@@ -31,7 +31,7 @@ const StrategyInterfaceElement = ({
   const dispatch = useAppDispatch();
 
   const handleExpansion = () => {
-    dispatch(expandItem(id));
+    dispatch(expandStrategyItemAction(id));
   };
 
   const renderItem = () => {
