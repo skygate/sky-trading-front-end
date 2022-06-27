@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SetConditionsInterface } from "components/Modals/ConditionsModals/ConditionsModals";
+import { SetConditionsInterface } from "components/Modals/SetConditionsModal/types";
 
 interface ConditionsState {
   id: string;

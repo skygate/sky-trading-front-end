@@ -1,9 +1,7 @@
-import DarkOverlay from "components/DarkOverlay/DarkOverlay";
+import DarkOverlay from "components/DarkOverlay";
 import styles from "./FoundAllocationModals.module.scss";
-import ChooseFoundAllocationModal from "./ChooseFoundAllocationModal/ChooseFoundAllocationModal";
-import FoundAllocationModal, {
-  putAllocationId,
-} from "./FoundAllocationModal/FoundAllocationModal";
+import ChooseFoundAllocationModal from "./ChooseFoundAllocationModal";
+import FoundAllocationModal, { putAllocationId } from "./FoundAllocationModal";
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";

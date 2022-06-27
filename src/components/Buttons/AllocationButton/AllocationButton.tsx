@@ -5,7 +5,7 @@ import {
   useModalsSelector,
   useOpenModal,
 } from "store/hooks";
-import FoundAllocationModals from "components/Modals/FoundAllocationModals/FoundAllocationModals";
+import FoundAllocationModals from "components/Modals/FoundAllocationModals";
 import { formatAllocationType } from "helpers/formatAllocationType";
 
 interface AllocationButtonProps {
@@ -19,7 +19,7 @@ const AllocationButton = ({ id }: AllocationButtonProps) => {
 
   return (
     <>
-      <div className={styles.wrapper} onClick={() => openModal()}>
+      <div className={styles.wrapper} onClick={openModal}>
         <ArrowDownIcon />
         <span className={styles.title}>FoundAllocation</span>
         <span className={styles.content}>

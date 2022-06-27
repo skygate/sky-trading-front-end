@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ConditionsModals.module.scss";
-import SetConditionsModal from "components/Modals/SetConditionsModal/SetConditionsModal";
-import ChooseConditionsModal from "components/Modals/ChooseConditionsModal/ChooseConditionsModal";
+import SetConditionsModal from "components/Modals/SetConditionsModal";
+import ChooseConditionsModal from "components/Modals/ChooseConditionsModal";
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import {
-  ConditionInterface,
   ConditionTypes,
   setConditionDroppableElements,
 } from "constant/conditions";
 import { findCondition } from "helpers/findCondition";
 import { useAppDispatch, useConditionsSelector } from "store/hooks";
 import { updateConditionAction } from "store/conditionsSlice";
+import { SetConditionsInterface } from "components/Modals/SetConditionsModal/types";
 
 interface ConditionsModalsProps {
   id: string;
-}
-
-export interface SetConditionsInterface {
-  [index: string]: any;
-  if: (null | ConditionInterface)[];
-  then: null | ConditionInterface;
-  chart: null | ConditionInterface;
-  interval: null | ConditionInterface;
 }
 
 const ConditionsModals = ({ id }: ConditionsModalsProps) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CloseIcon, HistoryIcon } from "assets/icons";
-import SearchInput from "components/Common/SearchInput/SearchInput";
+import SearchInput from "components/Common/SearchInput";
 import styles from "./SearchAssetsModal.module.scss";
 import cx from "classnames";
 import {

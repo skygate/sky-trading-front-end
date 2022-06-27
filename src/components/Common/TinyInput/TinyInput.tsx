@@ -27,7 +27,6 @@ const TinyInput = ({
     if (min === 0 && value.startsWith("-")) {
       valueToSet = "0";
     }
-    console.log(valueToSet);
     setValue(valueToSet);
   };
 

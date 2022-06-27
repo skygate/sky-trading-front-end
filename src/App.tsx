@@ -1,10 +1,9 @@
-import React from "react";
 import "App.scss";
-import CreateView from "views/CreateView/CreateView";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router";
-import ExploreView from "views/ExploreView/ExploreView";
-import WalletView from "views/WalletView/WalletView";
+import CreateView from "views/CreateView";
+import ExploreView from "views/ExploreView";
+import WalletView from "views/WalletView";
 
 function App() {
   return (

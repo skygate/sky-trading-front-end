@@ -3,7 +3,7 @@ import styles from "./FoundAllocationModal.module.scss";
 import { CloseIcon } from "assets/icons";
 import DragBox from "components/DargBox/DragBox";
 import ToggleButton from "components/Common/ToggleButton/ToggleButton";
-import DoneButton from "components/Buttons/DoneButton/DoneButton";
+import DoneButton from "components/Buttons/DoneButton";
 import { useAllocationSelector, useCloseModal } from "store/hooks";
 import { Droppable } from "react-beautiful-dnd";
 import { formatAllocationType } from "helpers/formatAllocationType";
@@ -56,7 +56,7 @@ const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
       </div>
       <div className={styles.button}>
         <DoneButton
-          active={allocation?.type ? true : false}
+          active={!!allocation?.type}
           onClick={handleSubmitAllocation}
         />
       </div>

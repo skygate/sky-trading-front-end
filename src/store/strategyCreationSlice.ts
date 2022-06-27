@@ -29,7 +29,8 @@ const strategyCreationSlice = createSlice({
           state.elements,
           action.payload
         );
-        elementToExpand.isExpanded = !elementToExpand.isExpanded;
+        if (elementToExpand)
+          elementToExpand.isExpanded = !elementToExpand.isExpanded;
       }
     },
     pushStrategyElementAction(
@@ -40,7 +41,7 @@ const strategyCreationSlice = createSlice({
         state.elements,
         action.payload.parentId
       );
-      parentElement.elements.push(action.payload.element);
+      if (parentElement) parentElement.elements.push(action.payload.element);
     },
   },
 });

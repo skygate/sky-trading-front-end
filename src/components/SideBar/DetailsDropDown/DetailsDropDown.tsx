@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, RefObject } from "react";
 import { ArrowDownIcon, ArrowUpIcon } from "assets/icons";
 import styles from "./DetailsDropDown.module.scss";
 import { useAppDispatch, useStrategyDetailsSelector } from "store/hooks";
@@ -13,8 +13,8 @@ const DetailsDropDown = () => {
   const [isDescriptionInputActive, setDescriptionInputActive] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const nameRef: React.RefObject<HTMLInputElement> = useRef(null);
-  const descriptionRef: React.RefObject<HTMLTextAreaElement> = useRef(null);
+  const nameRef: RefObject<HTMLInputElement> = useRef(null);
+  const descriptionRef: RefObject<HTMLTextAreaElement> = useRef(null);
   const dispatch = useAppDispatch();
   const details = useStrategyDetailsSelector();
 

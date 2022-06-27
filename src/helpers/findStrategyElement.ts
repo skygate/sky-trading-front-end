@@ -1,6 +1,6 @@
 import { StrategyCreationState } from "store/strategyCreationSlice";
 
-export const findStrategyElement: any = (
+export const findStrategyElement = (
   elements: StrategyCreationState[],
   id: string
 ) => {

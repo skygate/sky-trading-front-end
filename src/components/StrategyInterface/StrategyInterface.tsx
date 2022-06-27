@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import StrategyBar from "components/StrategyBar/StrategyBar";
-import StrategyInterfaceElement from "components/StrategyInterface/StrategyInterfaceElement/StrategyInterfaceElement";
+import { useState } from "react";
+import StrategyBar from "components/StrategyBar";
+import StrategyInterfaceElement from "components/StrategyInterface/StrategyInterfaceElement";
 import { useStrategyCreationSelector } from "store/hooks";
 import styles from "./StrategyInterface.module.scss";
 

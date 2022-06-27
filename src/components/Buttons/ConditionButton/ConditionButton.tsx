@@ -1,11 +1,11 @@
 import React, { ReactNode, useState } from "react";
 import { ArrowDownIcon, ArrowUpIcon, ErrorIcon } from "assets/icons";
 import styles from "./ConditionButton.module.scss";
-import EditGroup from "components/EditGroups/EditGroups";
-import ConditionsModals from "components/Modals/ConditionsModals/ConditionsModals";
+import EditGroup from "components/EditGroups";
+import ConditionsModals from "components/Modals/ConditionsModals";
 import { useConditionsSelector, useModalsSelector } from "store/hooks";
 import cx from "classnames";
-import DarkOverlay from "components/DarkOverlay/DarkOverlay";
+import DarkOverlay from "components/DarkOverlay";
 
 interface ConditionButtonProps {
   id: string;
