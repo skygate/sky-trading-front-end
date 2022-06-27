@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ToggleButton from "../../Common/ToggleButton/ToggleButton";
+import { useState } from "react";
+import ToggleButton from "components/Common/ToggleButton";
 import styles from "./OptimizeDropDown.module.scss";
 import {
   ArrowDownIcon,
@@ -7,7 +7,7 @@ import {
   MultiCastIcon,
   SmallGreenArrowUp,
   SmallRedArrowDown,
-} from "../../../assets/icons";
+} from "assets/icons";
 
 const OptimizeDropDown = () => {
   const [isActive, setActive] = useState(true);

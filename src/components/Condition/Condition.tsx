@@ -1,4 +1,4 @@
-import TinyInput from "components/Common/TinyInput/TinyInput";
+import TinyInput from "components/Common/TinyInput";
 import { ConditionInterface } from "constant/conditions";
 import React from "react";
 import styles from "./Condition.module.scss";

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, RefObject } from "react";
 import { useAppDispatch, useStrategyDetailsSelector } from "store/hooks";
-import { editName } from "store/strategyDetailsSlice";
+import { editNameAction } from "store/strategyDetailsSlice";
 import { ArrowDownIcon, ArrowUpIcon, GroupIcon } from "assets/icons";
-import Bar from "components/Common/Bar/Bar";
+import Bar from "components/Common/Bar";
 import styles from "./StrategyBar.module.scss";
 
 interface StrategyBarProps {
@@ -11,7 +11,7 @@ interface StrategyBarProps {
 
 const StrategyBar = ({ isExpanded }: StrategyBarProps) => {
   const [isInputActive, setInputActive] = useState(false);
-  const ref: React.RefObject<HTMLInputElement> = useRef(null);
+  const ref: RefObject<HTMLInputElement> = useRef(null);
   const [strategyName, setStrategyName] = useState("");
   const { name: globalStateName } = useStrategyDetailsSelector();
   const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ const StrategyBar = ({ isExpanded }: StrategyBarProps) => {
 
   const handleFocusOff = () => {
     setInputActive(false);
-    dispatch(editName(strategyName));
+    dispatch(editNameAction(strategyName));
   };
 
   return (

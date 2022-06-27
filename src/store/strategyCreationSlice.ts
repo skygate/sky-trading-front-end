@@ -1,45 +1,51 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { findStrategyElement } from "helpers/findStrategyElement";
 import { StrategyInterfaceElements } from "../constant";
 import { strategyPlaceholder } from "./strategyInitialState";
 
-interface StrategyCreationState {
+export interface StrategyCreationState {
   id: string;
   isExpanded: boolean;
   type: StrategyInterfaceElements;
   elements: StrategyCreationState[];
 }
 
-const initialState: StrategyCreationState = strategyPlaceholder;
+interface PushElementPayload {
+  parentId: string;
+  element: StrategyCreationState;
+}
 
-const recursiveHandleItemExpanding = (
-  elements: StrategyCreationState[],
-  id: string
-) => {
-  const found = elements.find((item) => item.id === id);
-  if (found) {
-    found.isExpanded = !found.isExpanded;
-  } else {
-    elements.forEach((item) => {
-      if (item.elements) {
-        return recursiveHandleItemExpanding(item.elements, id);
-      }
-    });
-  }
-};
+const initialState: StrategyCreationState = strategyPlaceholder;
 
 const strategyCreationSlice = createSlice({
   name: "strategyCreation",
   initialState,
   reducers: {
-    expandItem(state, action: PayloadAction<string>) {
+    expandStrategyItemAction(state, action: PayloadAction<string>) {
       if (state.id === action.payload) {
         state.isExpanded = !state.isExpanded;
       } else {
-        recursiveHandleItemExpanding(state.elements, action.payload);
+        const elementToExpand = findStrategyElement(
+          state.elements,
+          action.payload
+        );
+        if (elementToExpand)
+          elementToExpand.isExpanded = !elementToExpand.isExpanded;
       }
+    },
+    pushStrategyElementAction(
+      state,
+      action: PayloadAction<PushElementPayload>
+    ) {
+      const parentElement = findStrategyElement(
+        state.elements,
+        action.payload.parentId
+      );
+      if (parentElement) parentElement.elements.push(action.payload.element);
     },
   },
 });
 
-export const { expandItem } = strategyCreationSlice.actions;
+export const { expandStrategyItemAction, pushStrategyElementAction } =
+  strategyCreationSlice.actions;
 export default strategyCreationSlice.reducer;

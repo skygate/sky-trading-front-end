@@ -5,6 +5,7 @@ import conditionsReducer from "./conditionsSlice";
 import undoable from "redux-undo";
 import modalsReducer from "./modalsSlice";
 import assetsReducer from "./assetsSlice";
+import allocationReducer from "./allocationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
         conditions: conditionsReducer,
         modals: modalsReducer,
         assets: assetsReducer,
+        allocation: allocationReducer,
       })
     ),
   },

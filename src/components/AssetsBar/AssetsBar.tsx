@@ -1,13 +1,13 @@
 import { AddAssetIcon, OkIcon, SeparatorIcon } from "assets/icons";
-import Bar from "components/Common/Bar/Bar";
+import Bar from "components/Common/Bar";
 import {
   useOpenModal,
   useModalsSelector,
   useAssetsSelector,
 } from "store/hooks";
-import SearchAssetsModal from "components/Modals/SearchAssetsModal/SearchAssetsModal";
+import SearchAssetsModal from "components/Modals/SearchAssetsModal";
 import styles from "./AssetsBar.module.scss";
-import DarkOverlay from "components/DarkOverlay/DarkOverlay";
+import DarkOverlay from "components/DarkOverlay";
 
 interface AssetsBarProps {
   width?: string;

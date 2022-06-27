@@ -28,12 +28,19 @@ const modalsSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
-    handleVisibility(state, action: PayloadAction<ModalsState>) {
+    handleModalVisibilityAction(state, action: PayloadAction<ModalsState>) {
       const found = state.find((item) => item.id === action.payload.id);
-      if (found) found.isOpen = action.payload.isOpen;
+      if (found) {
+        found.isOpen = action.payload.isOpen;
+        return;
+      }
+      state.push({
+        id: action.payload.id,
+        isOpen: action.payload.isOpen,
+      });
     },
   },
 });
 
-export const { handleVisibility } = modalsSlice.actions;
+export const { handleModalVisibilityAction } = modalsSlice.actions;
 export default modalsSlice.reducer;

@@ -1,16 +1,36 @@
-import React, { ReactNode } from "react";
 import styles from "./AllocationButton.module.scss";
 import { ArrowDownIcon } from "assets/icons";
+import {
+  useAllocationSelector,
+  useModalsSelector,
+  useOpenModal,
+} from "store/hooks";
+import FoundAllocationModals from "components/Modals/FoundAllocationModals";
+import { formatAllocationType } from "helpers/formatAllocationType";
 
 interface AllocationButtonProps {
-  children: ReactNode;
+  id: string;
 }
 
-const AllocationButton = ({ children }: AllocationButtonProps) => (
-  <div className={styles.wrapper}>
-    <ArrowDownIcon /> <span style={{ fontWeight: 500 }}>FoundAllocation</span>
-    {children}
-  </div>
-);
+const AllocationButton = ({ id }: AllocationButtonProps) => {
+  const modal = useModalsSelector(id);
+  const openModal = useOpenModal(id);
+  const allocation = useAllocationSelector(id);
+
+  return (
+    <>
+      <div className={styles.wrapper} onClick={openModal}>
+        <ArrowDownIcon />
+        <span className={styles.title}>FoundAllocation</span>
+        <span className={styles.content}>
+          {allocation?.submitted && allocation?.type
+            ? formatAllocationType(allocation.type, allocation.value)
+            : "set type"}
+        </span>
+      </div>
+      {modal?.isOpen && <FoundAllocationModals allocationId={id} />}
+    </>
+  );
+};
 
 export default AllocationButton;

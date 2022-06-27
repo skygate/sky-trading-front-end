@@ -1,5 +1,5 @@
 import React from "react";
-import Button, { ButtonSize } from "components/Buttons/Button";
+import Button, { ButtonSize } from "components/Buttons";
 import styles from "./Calculate.module.scss";
 import { ActionCreators } from "redux-undo";
 import { useAppDispatch } from "store/hooks";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CursorIcon, SpeechBubbleIcon } from "assets/icons";
 import styles from "./ToolsBar.module.scss";
 import cx from "classnames";

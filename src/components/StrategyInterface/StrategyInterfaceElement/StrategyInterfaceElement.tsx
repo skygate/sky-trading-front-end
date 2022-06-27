@@ -1,13 +1,14 @@
-import ConditionButton from "components/Buttons/ConditionButton/ConditionButton";
-import OpenCloseButton from "components/Buttons/OpenCloseButton/OpenCloseButton";
+import ConditionButton from "components/Buttons/ConditionButton";
+import OpenCloseButton from "components/Buttons/OpenCloseButton";
 import styles from "./StrategyInterfaceElement.module.scss";
 import cx from "classnames";
-import AssetsButton from "components/Buttons/AssetsButton/AssetsButton";
-import AssetsBar from "components/AssetsBar/AssetsBar";
+import AssetsButton from "components/Buttons/AssetsButton";
+import AssetsBar from "components/AssetsBar";
 import { AddConditionIcon } from "assets/icons";
 import { useAppDispatch } from "store/hooks";
-import { expandItem } from "store/strategyCreationSlice";
+import { expandStrategyItemAction } from "store/strategyCreationSlice";
 import { StrategyInterfaceElements } from "constant";
+import AllocationButton from "components/Buttons/AllocationButton";
 
 interface ElementsInterface {
   id: string;
@@ -30,7 +31,7 @@ const StrategyInterfaceElement = ({
   const dispatch = useAppDispatch();
 
   const handleExpansion = () => {
-    dispatch(expandItem(id));
+    dispatch(expandStrategyItemAction(id));
   };
 
   const renderItem = () => {
@@ -65,6 +66,8 @@ const StrategyInterfaceElement = ({
         return <AssetsBar id={id} />;
       case StrategyInterfaceElements.ADD_CONDITION:
         return <AddConditionIcon />;
+      case StrategyInterfaceElements.ALLOCATION:
+        return <AllocationButton id={id} />;
     }
   };
 

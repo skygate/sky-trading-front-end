@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowDownIcon, GroupIcon } from "assets/icons";
-import Bar from "../Common/Bar/Bar";
+import Bar from "components/Common/Bar";
 
 const GroupBar = () => (
   <Bar>

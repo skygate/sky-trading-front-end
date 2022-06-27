@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChartIcon, CloseIcon, RecipeIcon, UserIcon } from "assets/icons";
-import SearchInput from "components/Common/SearchInput/SearchInput";
+import SearchInput from "components/Common/SearchInput";
 import styles from "./ChooseConditionsModal.module.scss";
 import cx from "classnames";
-import ConditionsGrid from "./ConditionsGrid/ConditionsGrid";
+import ConditionsGrid from "./ConditionsGrid";
 import { CONDITIONS, ConditionsType } from "constant/conditions";
 import { useCloseModal } from "store/hooks";
 

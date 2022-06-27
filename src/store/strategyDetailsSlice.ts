@@ -14,14 +14,15 @@ const strategyDetailsSlice = createSlice({
   name: "strategyDetails",
   initialState,
   reducers: {
-    editName(state, action: PayloadAction<string>) {
+    editNameAction(state, action: PayloadAction<string>) {
       state.name = action.payload;
     },
-    editDescription(state, action: PayloadAction<string>) {
+    editDescriptionAction(state, action: PayloadAction<string>) {
       state.description = action.payload;
     },
   },
 });
 
 export default strategyDetailsSlice.reducer;
-export const { editName, editDescription } = strategyDetailsSlice.actions;
+export const { editNameAction, editDescriptionAction } =
+  strategyDetailsSlice.actions;

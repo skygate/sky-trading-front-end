@@ -50,6 +50,7 @@ $elementsMap: (
   "addCondition": "conditions",
   "open": "black2",
   "assetsBar": "assets",
+  "allocation": "allocations",
 );
 
 @each $name, $color in $elementsMap {

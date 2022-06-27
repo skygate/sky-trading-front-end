@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./NavBar.module.scss";
 import {
   ArrowDownIcon,
@@ -14,7 +14,7 @@ import {
 } from "assets/icons";
 import cx from "classnames";
 import { NavLink, useLocation } from "react-router-dom";
-import DarkOverlay from "components/DarkOverlay/DarkOverlay";
+import DarkOverlay from "components/DarkOverlay";
 
 const NavBar = () => {
   const [isCreateListExpanded, setCreateListExpanded] = useState(false);

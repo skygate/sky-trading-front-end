@@ -32,3 +32,18 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+.closeWrapper:hover {
+  cursor: pointer;
+}
+
+.droppedElement {
+  background-color: var(--color-allocations);
+  font-size: var(--font-14);
+  font-weight: 500;
+  border-radius: 3px;
+  display: flex;
+  gap: var(--spacer-5);
+  align-items: center;
+  padding: var(--spacer-5) var(--spacer-10);
+}

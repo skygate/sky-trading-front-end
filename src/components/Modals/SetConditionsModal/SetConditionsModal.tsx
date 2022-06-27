@@ -5,10 +5,10 @@ import DragBox from "components/DargBox/DragBox";
 import DoneButton from "components/Buttons/DoneButton/DoneButton";
 import styles from "./SetConditionsModal.module.scss";
 import { Droppable } from "react-beautiful-dnd";
-import { SetConditionsInterface } from "components/Modals/ConditionsModals/ConditionsModals";
 import Condition from "components/Condition/Condition";
 import { setConditionDroppableElements } from "constant/conditions";
 import { useCloseModal } from "store/hooks";
+import { SetConditionsInterface } from "components/Modals/SetConditionsModal/types";
 
 interface SetConditionsModalProps {
   conditions: SetConditionsInterface;

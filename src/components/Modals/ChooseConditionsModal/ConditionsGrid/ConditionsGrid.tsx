@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ConditionsGrid.module.scss";
 import cx from "classnames";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { ConditionsType } from "constant/conditions";
-import Condition from "components/Condition/Condition";
+import Condition from "components/Condition";
 
 interface ConditionsGridProps {
   data: ConditionsType;

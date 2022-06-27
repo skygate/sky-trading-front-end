@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import Calculate from "components/Calculate/Calculate";
-import DetailsDropDown from "components/SideBar/DetailsDropDown/DetailsDropDown";
-import OptimizeDropDown from "components/SideBar/OptimizeDropDown/OptimizeDropDown";
-import StrategyInterface from "components/StrategyInterface/StrategyInterface";
-import TestPreview from "components/TestPreview/TestPreview";
-import ToolsBar from "components/ToolsBar/ToolsBar";
+import { useEffect } from "react";
+import Calculate from "components/Calculate";
+import DetailsDropDown from "components/SideBar/DetailsDropDown";
+import OptimizeDropDown from "components/SideBar/OptimizeDropDown";
+import StrategyInterface from "components/StrategyInterface";
+import TestPreview from "components/TestPreview";
+import ToolsBar from "components/ToolsBar";
 import styles from "./CreateView.module.scss";
-import NavBar from "components/NavBar/NavBar";
+import NavBar from "components/NavBar";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "redux-undo";
 
@@ -28,24 +28,24 @@ const CreateView = () => {
 
   return (
     <>
-    <NavBar />
-    <div className={styles.wrapper}>
-      <div className={styles.leftSidebar}>
-        <DetailsDropDown />
-        <OptimizeDropDown />
-        <Calculate />
-      </div>
-      
-      <div className={styles.content}>
-        <StrategyInterface />
-      </div>
+      <NavBar />
+      <div className={styles.wrapper}>
+        <div className={styles.leftSidebar}>
+          <DetailsDropDown />
+          <OptimizeDropDown />
+          <Calculate />
+        </div>
 
-      <div className={styles.rightSidebar}>
-        <ToolsBar />
-        <TestPreview />
+        <div className={styles.content}>
+          <StrategyInterface />
+        </div>
+
+        <div className={styles.rightSidebar}>
+          <ToolsBar />
+          <TestPreview />
+        </div>
       </div>
-    </div>
-  </>
+    </>
   );
 };
 
