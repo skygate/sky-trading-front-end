@@ -1,16 +1,30 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import styles from "./ConditionsGrid.module.scss";
 import cx from "classnames";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { ConditionsType } from "constant/conditions";
 import Condition from "components/Condition";
+import { chosenModalOptions } from "../ChooseConditionsModal";
 
 interface ConditionsGridProps {
   data: ConditionsType;
+  setEmaValue: Dispatch<SetStateAction<string>>;
+  emaValue: string;
+  setSmaValue: Dispatch<SetStateAction<string>>;
+  smaValue: string;
+  activeOption: number;
+  setActiveOption: Dispatch<SetStateAction<number>>;
 }
 
-const ConditionsGrid = ({ data }: ConditionsGridProps) => {
-  const [activeOption, setActiveOption] = useState(0);
+const ConditionsGrid = ({
+  data,
+  setEmaValue,
+  setSmaValue,
+  emaValue,
+  smaValue,
+  activeOption,
+  setActiveOption,
+}: ConditionsGridProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -48,7 +62,13 @@ const ConditionsGrid = ({ data }: ConditionsGridProps) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <Condition condition={item} />
+                      <Condition
+                        condition={item}
+                        setEmaValue={setEmaValue}
+                        setSmaValue={setSmaValue}
+                        emaValue={emaValue}
+                        smaValue={smaValue}
+                      />
                     </div>
                   )}
                 </Draggable>

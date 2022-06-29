@@ -1,36 +1,63 @@
 import TinyInput from "components/Common/TinyInput";
-import { ConditionInterface } from "constant/conditions";
-import React from "react";
+import { ConditionInterface } from "types/ConditionTypes";
 import styles from "./Condition.module.scss";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 interface ConditionProps {
   condition: ConditionInterface;
-  inputValue?: string;
-  setInputValue?: React.Dispatch<React.SetStateAction<string>>;
   maxLength?: number;
+  setEmaValue: Dispatch<SetStateAction<string>>;
+  emaValue: string;
+  setSmaValue: Dispatch<SetStateAction<string>>;
+  smaValue: string;
 }
 
 const Condition = ({
   condition,
-  inputValue,
-  setInputValue,
   maxLength,
-}: ConditionProps) => (
-  <div className={styles.wrapper}>
-    {condition && (
-      <>
-        {condition.icon}
-        {condition.name}
-        {inputValue && setInputValue && (
-          <TinyInput
-            value={inputValue}
-            setValue={setInputValue}
-            maxLength={maxLength}
-          />
-        )}
-      </>
-    )}
-  </div>
-);
+  setEmaValue,
+  setSmaValue,
+  emaValue,
+  smaValue,
+}: ConditionProps) => {
+  useEffect(() => {
+    if (condition.value) {
+      if (condition.name === "EMA") setEmaValue(condition.value);
+      if (condition.name === "SMA") setSmaValue(condition.value);
+    }
+  }, [condition]);
+
+  return (
+    <div className={styles.wrapper}>
+      {condition && (
+        <>
+          {condition.icon}
+          {condition.name}
+          {condition.name === "EMA" && (
+            <TinyInput
+              value={emaValue}
+              setValue={setEmaValue}
+              maxLength={maxLength}
+            />
+          )}
+          {condition.name === "SMA" && (
+            <TinyInput
+              value={smaValue}
+              setValue={setSmaValue}
+              maxLength={maxLength}
+            />
+          )}
+          {condition.id === "interval-days" && (
+            <TinyInput
+              value={smaValue}
+              setValue={setSmaValue}
+              maxLength={maxLength}
+            />
+          )}
+        </>
+      )}
+    </div>
+  );
+};
 
 export default Condition;

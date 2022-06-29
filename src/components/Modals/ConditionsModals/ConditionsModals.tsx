@@ -3,22 +3,27 @@ import styles from "./ConditionsModals.module.scss";
 import SetConditionsModal from "components/Modals/SetConditionsModal";
 import ChooseConditionsModal from "components/Modals/ChooseConditionsModal";
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
-import {
-  ConditionTypes,
-  setConditionDroppableElements,
-} from "constant/conditions";
+import { setConditionDroppableElements } from "types/ConditionTypes";
 import { findCondition } from "helpers/findCondition";
 import { useAppDispatch, useConditionsSelector } from "store/hooks";
 import { updateConditionAction } from "store/conditionsSlice";
-import { SetConditionsInterface } from "components/Modals/SetConditionsModal/types";
+import {
+  ConditionTypes,
+  ConditionDetailsInterface,
+} from "types/ConditionTypes";
 
 interface ConditionsModalsProps {
   id: string;
 }
 
 const ConditionsModals = ({ id }: ConditionsModalsProps) => {
-  const [conditions, setConditions] = useState<SetConditionsInterface>({
-    if: [null, null, null],
+  const [emaValue, setEmaValue] = useState("");
+  const [smaValue, setSmaValue] = useState("");
+  const [isAllPlacesFill, setAllPlacesFill] = useState(false);
+  const [conditions, setConditions] = useState<ConditionDetailsInterface>({
+    if_0: null,
+    if_1: null,
+    if_2: null,
     then: null,
     chart: null,
     interval: null,
@@ -31,7 +36,19 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
     if (globalConditions) setConditions(globalConditions.details);
   }, [globalConditions]);
 
+  const CheckIsAllPlacesFill = (obj: ConditionDetailsInterface) => {
+    for (const key in obj) {
+      if (!obj[key]) return false;
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    setAllPlacesFill(CheckIsAllPlacesFill(conditions));
+  }, [conditions]);
+
   const handleOnDragEnd: OnDragEndResponder = (result) => {
+    console.log(result);
     const dragableElementId = result.draggableId;
     const dropType = result.destination?.droppableId;
     const foundCondition = findCondition(dragableElementId);
@@ -40,16 +57,38 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
     const temp = { ...conditions };
 
     switch (dropType) {
-      case setConditionDroppableElements.IF_2:
-        if (foundCondition.type === ConditionTypes.INDICATORS)
-          temp.if = [temp.if[0], temp.if[1], foundCondition];
+      case setConditionDroppableElements.IF_0:
+        if (foundCondition.type === ConditionTypes.PRICE_OPERATOR)
+          temp.if_0 = foundCondition;
         break;
-
+      case setConditionDroppableElements.IF_1:
+        if (foundCondition.type === ConditionTypes.CONDITION_OPERATOR)
+          temp.if_1 = foundCondition;
+        break;
+      case setConditionDroppableElements.IF_2:
+        if (foundCondition.type === ConditionTypes.INDICATORS) {
+          if (foundCondition.name === "EMA")
+            temp.if_2 = { ...foundCondition, value: emaValue };
+          else if (foundCondition.name === "SMA")
+            temp.if_2 = { ...foundCondition, value: smaValue };
+          else temp.if_2 = foundCondition;
+        }
+        break;
+      case setConditionDroppableElements.THEN:
+        if (foundCondition.type === ConditionTypes.THEN_OPERATOR)
+          temp.then = foundCondition;
+        break;
       case setConditionDroppableElements.CHART:
         if (foundCondition.type === ConditionTypes.CHART)
           temp.chart = foundCondition;
         break;
+      case setConditionDroppableElements.INTERVAL:
+        if (foundCondition.type === ConditionTypes.INTERVAL)
+          temp.interval = foundCondition;
+        break;
     }
+
+    setAllPlacesFill(CheckIsAllPlacesFill(temp));
 
     setConditions(temp);
     dispatch(
@@ -63,8 +102,22 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
   return (
     <div className={styles.modalsWrapper}>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <SetConditionsModal conditions={conditions} id={id} />
-        <ChooseConditionsModal id={id} />
+        <SetConditionsModal
+          conditions={conditions}
+          id={id}
+          setEmaValue={setEmaValue}
+          setSmaValue={setSmaValue}
+          emaValue={emaValue}
+          smaValue={smaValue}
+          isAllPlacesFill={isAllPlacesFill}
+        />
+        <ChooseConditionsModal
+          id={id}
+          setEmaValue={setEmaValue}
+          setSmaValue={setSmaValue}
+          emaValue={emaValue}
+          smaValue={smaValue}
+        />
       </DragDropContext>
     </div>
   );

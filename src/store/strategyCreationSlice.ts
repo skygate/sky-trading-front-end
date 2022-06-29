@@ -4,8 +4,10 @@ import { StrategyInterfaceElements } from "../constant";
 import { strategyPlaceholder } from "./strategyInitialState";
 
 export interface StrategyCreationState {
+  [index: string]: any;
   id: string;
   isExpanded: boolean;
+  text?: string;
   type: StrategyInterfaceElements;
   elements: StrategyCreationState[];
 }
@@ -13,6 +15,12 @@ export interface StrategyCreationState {
 interface PushElementPayload {
   parentId: string;
   element: StrategyCreationState;
+}
+
+interface UpdateElementPayload {
+  id: string;
+  key: string;
+  value: string;
 }
 
 const initialState: StrategyCreationState = strategyPlaceholder;
@@ -43,9 +51,23 @@ const strategyCreationSlice = createSlice({
       );
       if (parentElement) parentElement.elements.push(action.payload.element);
     },
+    updateStrategyElementAction(
+      state,
+      action: PayloadAction<UpdateElementPayload>
+    ) {
+      const elementToUpdate = findStrategyElement(
+        state.elements,
+        action.payload.id
+      );
+      if (elementToUpdate)
+        elementToUpdate[action.payload.key] = action.payload.value;
+    },
   },
 });
 
-export const { expandStrategyItemAction, pushStrategyElementAction } =
-  strategyCreationSlice.actions;
+export const {
+  expandStrategyItemAction,
+  pushStrategyElementAction,
+  updateStrategyElementAction,
+} = strategyCreationSlice.actions;
 export default strategyCreationSlice.reducer;

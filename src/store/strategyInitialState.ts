@@ -8,6 +8,7 @@ export const strategyPlaceholder = {
     {
       id: "condition-0",
       isExpanded: false,
+      text: "",
       type: StrategyInterfaceElements.CONDITION,
       elements: [
         {
@@ -39,6 +40,7 @@ export const strategyPlaceholder = {
         {
           id: "condition-1",
           isExpanded: false,
+          text: "",
           type: StrategyInterfaceElements.CONDITION,
           elements: [
             {

@@ -1,4 +1,3 @@
-import React from "react";
 import { CloseIcon } from "assets/icons";
 import ToggleButton from "components/Common/ToggleButton/ToggleButton";
 import DragBox from "components/DargBox/DragBox";
@@ -6,30 +5,74 @@ import DoneButton from "components/Buttons/DoneButton/DoneButton";
 import styles from "./SetConditionsModal.module.scss";
 import { Droppable } from "react-beautiful-dnd";
 import Condition from "components/Condition/Condition";
-import { setConditionDroppableElements } from "constant/conditions";
+import { setConditionDroppableElements } from "types/ConditionTypes";
 import { useCloseModal } from "store/hooks";
-import { SetConditionsInterface } from "components/Modals/SetConditionsModal/types";
+import { ConditionDetailsInterface } from "types/ConditionTypes";
+import { Dispatch, SetStateAction } from "react";
+import { useDispatch } from "react-redux";
+import { updateStrategyElementAction } from "store/strategyCreationSlice";
 
 interface SetConditionsModalProps {
-  conditions: SetConditionsInterface;
+  conditions: ConditionDetailsInterface;
   id: string;
+  setEmaValue: Dispatch<SetStateAction<string>>;
+  emaValue: string;
+  setSmaValue: Dispatch<SetStateAction<string>>;
+  smaValue: string;
+  isAllPlacesFill: boolean;
 }
 
-const SetConditionsModal = ({ conditions, id }: SetConditionsModalProps) => {
+const SetConditionsModal = ({
+  conditions,
+  id,
+  setEmaValue,
+  setSmaValue,
+  emaValue,
+  smaValue,
+  isAllPlacesFill,
+}: SetConditionsModalProps) => {
   const hideModal = useCloseModal(id);
-  const renderDragPlace = (type: setConditionDroppableElements) => (
-    <Droppable droppableId={type}>
-      {(provided) => (
-        <div ref={provided.innerRef} {...provided.droppableProps}>
-          {conditions[type] ? (
-            <Condition condition={conditions[type]} />
-          ) : (
-            <DragBox />
-          )}
-        </div>
-      )}
-    </Droppable>
-  );
+  const dispatch = useDispatch();
+
+  const renderDragPlace = (type: setConditionDroppableElements) => {
+    const conditionByType = conditions[type];
+    return (
+      <Droppable droppableId={type}>
+        {(provided) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            {conditionByType ? (
+              <Condition
+                condition={conditionByType}
+                setEmaValue={setEmaValue}
+                setSmaValue={setSmaValue}
+                emaValue={emaValue}
+                smaValue={smaValue}
+              />
+            ) : (
+              <DragBox />
+            )}
+          </div>
+        )}
+      </Droppable>
+    );
+  };
+
+  const handleSubmitCondition = () => {
+    if (isAllPlacesFill) {
+      dispatch(
+        updateStrategyElementAction({
+          id: id,
+          key: "text",
+          value: [
+            conditions.if_0?.name,
+            conditions.if_1?.name,
+            conditions.if_2?.name,
+          ].join(" "),
+        })
+      );
+      hideModal();
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -47,19 +90,9 @@ const SetConditionsModal = ({ conditions, id }: SetConditionsModalProps) => {
       </div>
       <div className={styles.sectionStart}>
         if
-        {conditions.if.map((item, index) => (
-          <Droppable droppableId={`if_${index}`} key={index}>
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className={styles.dropList}
-              >
-                {item ? <Condition condition={item} /> : <DragBox />}
-              </div>
-            )}
-          </Droppable>
-        ))}
+        {renderDragPlace(setConditionDroppableElements.IF_0)}
+        {renderDragPlace(setConditionDroppableElements.IF_1)}
+        {renderDragPlace(setConditionDroppableElements.IF_2)}
       </div>
       <div className={styles.sectionStart}>
         then open
@@ -79,7 +112,7 @@ const SetConditionsModal = ({ conditions, id }: SetConditionsModalProps) => {
         {renderDragPlace(setConditionDroppableElements.INTERVAL)}
       </div>
       <div className={styles.buttonWrapper}>
-        <DoneButton onClick={hideModal} active />
+        <DoneButton onClick={handleSubmitCondition} active={isAllPlacesFill} />
       </div>
     </div>
   );

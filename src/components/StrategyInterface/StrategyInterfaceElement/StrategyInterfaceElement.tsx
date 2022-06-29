@@ -14,6 +14,7 @@ interface ElementsInterface {
   id: string;
   type: StrategyInterfaceElements;
   isExpanded: boolean;
+  text?: string;
   elements: ElementsInterface[];
 }
 
@@ -27,6 +28,7 @@ const StrategyInterfaceElement = ({
   elements,
   isLastChild,
   isExpanded,
+  text,
 }: StrategyInterfaceElementProps) => {
   const dispatch = useAppDispatch();
 
@@ -55,7 +57,7 @@ const StrategyInterfaceElement = ({
             onClick={handleExpansion}
             id={id}
           >
-            set condition
+            {text || "set condition"}
           </ConditionButton>
         );
       case StrategyInterfaceElements.ASSETS:
@@ -85,6 +87,7 @@ const StrategyInterfaceElement = ({
             id={item.id}
             isExpanded={item.isExpanded}
             type={item.type}
+            text={item.text}
             elements={item.elements}
             isLastChild={arr.length - 1 === index}
           />

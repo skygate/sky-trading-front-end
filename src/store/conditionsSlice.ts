@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SetConditionsInterface } from "components/Modals/SetConditionsModal/types";
+import { ConditionDetailsInterface } from "types/ConditionTypes";
 
 interface ConditionsState {
   id: string;
   index: number;
-  details: SetConditionsInterface;
+  details: ConditionDetailsInterface;
   optimize: boolean;
   isAssetSet: boolean;
 }
 
 interface UpdateConditionActionPayload {
   id: string;
-  details: SetConditionsInterface;
+  details: ConditionDetailsInterface;
 }
 
 const initialState: ConditionsState[] = [
@@ -19,7 +19,9 @@ const initialState: ConditionsState[] = [
     id: "condition-0",
     index: 0,
     details: {
-      if: [null, null, null],
+      if_0: null,
+      if_1: null,
+      if_2: null,
       then: null,
       chart: null,
       interval: null,
@@ -31,7 +33,9 @@ const initialState: ConditionsState[] = [
     id: "condition-1",
     index: 1,
     details: {
-      if: [null, null, null],
+      if_0: null,
+      if_1: null,
+      if_2: null,
       then: null,
       chart: null,
       interval: null,

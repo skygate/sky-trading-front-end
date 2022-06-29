@@ -1,9 +1,9 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent } from "react";
 import styles from "./TinyInput.module.scss";
 
 interface TinyInputProps {
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  setValue: (value: string) => void;
   maxLength?: number;
   max?: number;
   min?: number;

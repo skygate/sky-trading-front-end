@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ChartIcon, CloseIcon, RecipeIcon, UserIcon } from "assets/icons";
 import SearchInput from "components/Common/SearchInput";
 import styles from "./ChooseConditionsModal.module.scss";
@@ -6,23 +6,36 @@ import cx from "classnames";
 import ConditionsGrid from "./ConditionsGrid";
 import { CONDITIONS, ConditionsType } from "constant/conditions";
 import { useCloseModal } from "store/hooks";
+import { OPERATORS } from "constant/operators";
 
-enum chosenModalOptions {
+export enum chosenModalOptions {
   SCRIPTS = "scripts",
   TECHNICALS = "technicals",
   FINANCIALS = "financials",
+  OPERATORS = "operators",
 }
 
 interface SetConditionsModalProps {
   id: string;
+  setEmaValue: Dispatch<SetStateAction<string>>;
+  emaValue: string;
+  setSmaValue: Dispatch<SetStateAction<string>>;
+  smaValue: string;
 }
 
-const ChooseConditionsModal = ({ id }: SetConditionsModalProps) => {
+const ChooseConditionsModal = ({
+  id,
+  setEmaValue,
+  setSmaValue,
+  emaValue,
+  smaValue,
+}: SetConditionsModalProps) => {
   const hideModal = useCloseModal(id);
   const [activeOption, setActiveOption] = useState(
-    chosenModalOptions.TECHNICALS
+    chosenModalOptions.OPERATORS
   );
-  const [currentData, setCurrentData] = useState<ConditionsType>(CONDITIONS);
+  const [activeSubOption, setActiveSubOption] = useState(0);
+  const [currentData, setCurrentData] = useState<ConditionsType>(OPERATORS);
 
   return (
     <div className={styles.wrapper}>
@@ -48,6 +61,7 @@ const ChooseConditionsModal = ({ id }: SetConditionsModalProps) => {
               activeOption === chosenModalOptions.SCRIPTS && styles.active
             )}
             onClick={() => {
+              setActiveSubOption(0);
               setActiveOption(chosenModalOptions.SCRIPTS);
               setCurrentData([]);
             }}
@@ -58,9 +72,23 @@ const ChooseConditionsModal = ({ id }: SetConditionsModalProps) => {
           <div
             className={cx(
               styles.sidebarElement,
+              activeOption === chosenModalOptions.OPERATORS && styles.active
+            )}
+            onClick={() => {
+              setActiveSubOption(0);
+              setActiveOption(chosenModalOptions.OPERATORS);
+              setCurrentData(OPERATORS);
+            }}
+          >
+            <ChartIcon /> Operators
+          </div>
+          <div
+            className={cx(
+              styles.sidebarElement,
               activeOption === chosenModalOptions.TECHNICALS && styles.active
             )}
             onClick={() => {
+              setActiveSubOption(0);
               setActiveOption(chosenModalOptions.TECHNICALS);
               setCurrentData(CONDITIONS);
             }}
@@ -73,6 +101,7 @@ const ChooseConditionsModal = ({ id }: SetConditionsModalProps) => {
               activeOption === chosenModalOptions.FINANCIALS && styles.active
             )}
             onClick={() => {
+              setActiveSubOption(0);
               setActiveOption(chosenModalOptions.FINANCIALS);
               setCurrentData([]);
             }}
@@ -81,7 +110,15 @@ const ChooseConditionsModal = ({ id }: SetConditionsModalProps) => {
             Financials
           </div>
         </div>
-        <ConditionsGrid data={currentData} />
+        <ConditionsGrid
+          data={currentData}
+          setEmaValue={setEmaValue}
+          setSmaValue={setSmaValue}
+          emaValue={emaValue}
+          smaValue={smaValue}
+          activeOption={activeSubOption}
+          setActiveOption={setActiveSubOption}
+        />
       </div>
     </div>
   );
