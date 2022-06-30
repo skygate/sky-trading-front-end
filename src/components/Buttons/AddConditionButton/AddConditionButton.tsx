@@ -20,70 +20,67 @@ const AddConditionButton = ({ parentId }: AddConditionButtonProps) => {
   const newAssetIndex = useNewAssetsIndex();
   const handleAddCondition = () => {
     if (parentId) {
-      dispatch(
-        pushStrategyConditionElementAction({
-          parentId,
-          element: {
-            id: ["condition", newConditionIndex].join("-"),
-            isExpanded: false,
-            type: StrategyInterfaceElements.CONDITION,
-            elements: [
-              {
-                id: ["asset", newConditionIndex].join("-"),
-                isExpanded: false,
-                type: StrategyInterfaceElements.ASSETS,
-                elements: [
-                  {
-                    id: ["assetBar", newAssetIndex].join("-"),
-                    isExpanded: true,
-                    type: StrategyInterfaceElements.ASSETS_BAR,
-                    elements: [],
-                  },
-                ],
-              },
-              {
-                id: ["addCondition", newConditionIndex].join("-"),
-                isExpanded: false,
-                type: StrategyInterfaceElements.ADD_CONDITION,
-                elements: [],
-              },
-            ],
-          },
-        })
-      );
-      dispatch(
-        pushConditionAction({
+      const startegyPayload = {
+        parentId,
+        element: {
           id: ["condition", newConditionIndex].join("-"),
-          index: newConditionIndex,
-          details: {
-            if_0: null,
-            if_1: null,
-            if_2: null,
-            then: null,
-            chart: null,
-            interval: null,
-          },
-          optimize: false,
-          isAssetSet: false,
-          indicators: {
-            EMA: null,
-            SMA: null,
-          },
-          intervals: {
-            day: null,
-          },
-          indicatorSet: null,
-          intervalSet: null,
-        })
-      );
-      dispatch(
-        pushAssetAction({
-          id: ["assetBar", newAssetIndex].join("-"),
-          index: newAssetIndex,
-          asset: null,
-          set: false,
-        })
-      );
+          isExpanded: false,
+          type: StrategyInterfaceElements.CONDITION,
+          elements: [
+            {
+              id: ["asset", newConditionIndex].join("-"),
+              isExpanded: false,
+              type: StrategyInterfaceElements.ASSETS,
+              elements: [
+                {
+                  id: ["assetBar", newAssetIndex].join("-"),
+                  isExpanded: true,
+                  type: StrategyInterfaceElements.ASSETS_BAR,
+                  elements: [],
+                },
+              ],
+            },
+            {
+              id: ["addCondition", newConditionIndex].join("-"),
+              isExpanded: false,
+              type: StrategyInterfaceElements.ADD_CONDITION,
+              elements: [],
+            },
+          ],
+        },
+      };
+      const conditionPayload = {
+        id: ["condition", newConditionIndex].join("-"),
+        index: newConditionIndex,
+        details: {
+          if_0: null,
+          if_1: null,
+          if_2: null,
+          then: null,
+          chart: null,
+          interval: null,
+        },
+        optimize: false,
+        isAssetSet: false,
+        indicators: {
+          EMA: null,
+          SMA: null,
+        },
+        intervals: {
+          day: null,
+        },
+        indicatorSet: null,
+        intervalSet: null,
+      };
+      const assetPayload = {
+        id: ["assetBar", newAssetIndex].join("-"),
+        index: newAssetIndex,
+        asset: null,
+        set: false,
+      };
+      dispatch(pushStrategyConditionElementAction(startegyPayload));
+      dispatch(pushConditionAction(conditionPayload));
+      dispatch(pushAssetAction(assetPayload));
     }
   };
 
