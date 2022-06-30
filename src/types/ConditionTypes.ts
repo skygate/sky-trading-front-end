@@ -13,7 +13,6 @@ export interface ConditionInterface {
   id: string;
   name: string;
   icon: null | JSX.Element;
-  value: null | string;
   needValue: boolean;
 }
 

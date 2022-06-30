@@ -56,6 +56,7 @@ const StrategyInterfaceElement = ({
             isExpanded={isExpanded}
             onClick={handleExpansion}
             id={id}
+            text={text}
           >
             {text || "set condition"}
           </ConditionButton>

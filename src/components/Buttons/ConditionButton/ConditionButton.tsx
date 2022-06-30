@@ -11,6 +11,7 @@ interface ConditionButtonProps {
   id: string;
   children: ReactNode;
   isExpanded: boolean;
+  text?: string;
   onClick: React.MouseEventHandler;
 }
 
@@ -19,6 +20,7 @@ const ConditionButton = ({
   children,
   isExpanded,
   onClick,
+  text,
 }: ConditionButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isErrorHovered, setErrorHovered] = useState(false);
@@ -35,7 +37,7 @@ const ConditionButton = ({
           onMouseEnter={() => setIsHovered(true)}
           className={cx(
             styles.insideWrapper,
-            condition?.isAssetSet && styles.errorWrapper
+            condition?.isAssetSet && !text && styles.errorWrapper
           )}
           onClick={onClick}
         >
@@ -48,7 +50,7 @@ const ConditionButton = ({
             </div>
           )}
         </div>
-        {condition?.isAssetSet && (
+        {condition?.isAssetSet && !text && (
           <>
             <div
               className={styles.errorIcon}

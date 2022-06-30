@@ -6,33 +6,25 @@ import styles from "./SetConditionsModal.module.scss";
 import { Droppable } from "react-beautiful-dnd";
 import Condition from "components/Condition/Condition";
 import { setConditionDroppableElements } from "types/ConditionTypes";
-import { useCloseModal } from "store/hooks";
+import { useCloseModal, useConditionsSelector } from "store/hooks";
 import { ConditionDetailsInterface } from "types/ConditionTypes";
-import { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
 import { updateStrategyElementAction } from "store/strategyCreationSlice";
 
 interface SetConditionsModalProps {
   conditions: ConditionDetailsInterface;
   id: string;
-  setEmaValue: Dispatch<SetStateAction<string>>;
-  emaValue: string;
-  setSmaValue: Dispatch<SetStateAction<string>>;
-  smaValue: string;
   isAllPlacesFill: boolean;
 }
 
 const SetConditionsModal = ({
   conditions,
   id,
-  setEmaValue,
-  setSmaValue,
-  emaValue,
-  smaValue,
   isAllPlacesFill,
 }: SetConditionsModalProps) => {
   const hideModal = useCloseModal(id);
   const dispatch = useDispatch();
+  const conditionsElements = useConditionsSelector(id);
 
   const renderDragPlace = (type: setConditionDroppableElements) => {
     const conditionByType = conditions[type];
@@ -41,13 +33,7 @@ const SetConditionsModal = ({
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {conditionByType ? (
-              <Condition
-                condition={conditionByType}
-                setEmaValue={setEmaValue}
-                setSmaValue={setSmaValue}
-                emaValue={emaValue}
-                smaValue={smaValue}
-              />
+              <Condition condition={conditionByType} id={id} />
             ) : (
               <DragBox />
             )}
@@ -58,7 +44,12 @@ const SetConditionsModal = ({
   };
 
   const handleSubmitCondition = () => {
-    if (isAllPlacesFill) {
+    if (
+      isAllPlacesFill &&
+      conditionsElements &&
+      conditionsElements.indicatorSet
+    ) {
+      console.log(conditionsElements);
       dispatch(
         updateStrategyElementAction({
           id: id,
@@ -67,6 +58,7 @@ const SetConditionsModal = ({
             conditions.if_0?.name,
             conditions.if_1?.name,
             conditions.if_2?.name,
+            conditionsElements.indicators[conditionsElements.indicatorSet],
           ].join(" "),
         })
       );

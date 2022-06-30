@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { ChartIcon, CloseIcon, RecipeIcon, UserIcon } from "assets/icons";
 import SearchInput from "components/Common/SearchInput";
 import styles from "./ChooseConditionsModal.module.scss";
@@ -17,19 +17,9 @@ export enum chosenModalOptions {
 
 interface SetConditionsModalProps {
   id: string;
-  setEmaValue: Dispatch<SetStateAction<string>>;
-  emaValue: string;
-  setSmaValue: Dispatch<SetStateAction<string>>;
-  smaValue: string;
 }
 
-const ChooseConditionsModal = ({
-  id,
-  setEmaValue,
-  setSmaValue,
-  emaValue,
-  smaValue,
-}: SetConditionsModalProps) => {
+const ChooseConditionsModal = ({ id }: SetConditionsModalProps) => {
   const hideModal = useCloseModal(id);
   const [activeOption, setActiveOption] = useState(
     chosenModalOptions.OPERATORS
@@ -112,10 +102,7 @@ const ChooseConditionsModal = ({
         </div>
         <ConditionsGrid
           data={currentData}
-          setEmaValue={setEmaValue}
-          setSmaValue={setSmaValue}
-          emaValue={emaValue}
-          smaValue={smaValue}
+          id={id}
           activeOption={activeSubOption}
           setActiveOption={setActiveSubOption}
         />

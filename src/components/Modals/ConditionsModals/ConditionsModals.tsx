@@ -6,7 +6,10 @@ import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import { setConditionDroppableElements } from "types/ConditionTypes";
 import { findCondition } from "helpers/findCondition";
 import { useAppDispatch, useConditionsSelector } from "store/hooks";
-import { updateConditionAction } from "store/conditionsSlice";
+import {
+  setIndicatorAction,
+  updateConditionAction,
+} from "store/conditionsSlice";
 import {
   ConditionTypes,
   ConditionDetailsInterface,
@@ -17,8 +20,6 @@ interface ConditionsModalsProps {
 }
 
 const ConditionsModals = ({ id }: ConditionsModalsProps) => {
-  const [emaValue, setEmaValue] = useState("");
-  const [smaValue, setSmaValue] = useState("");
   const [isAllPlacesFill, setAllPlacesFill] = useState(false);
   const [conditions, setConditions] = useState<ConditionDetailsInterface>({
     if_0: null,
@@ -48,7 +49,6 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
   }, [conditions]);
 
   const handleOnDragEnd: OnDragEndResponder = (result) => {
-    console.log(result);
     const dragableElementId = result.draggableId;
     const dropType = result.destination?.droppableId;
     const foundCondition = findCondition(dragableElementId);
@@ -66,13 +66,14 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
           temp.if_1 = foundCondition;
         break;
       case setConditionDroppableElements.IF_2:
-        if (foundCondition.type === ConditionTypes.INDICATORS) {
-          if (foundCondition.name === "EMA")
-            temp.if_2 = { ...foundCondition, value: emaValue };
-          else if (foundCondition.name === "SMA")
-            temp.if_2 = { ...foundCondition, value: smaValue };
-          else temp.if_2 = foundCondition;
-        }
+        if (foundCondition.type === ConditionTypes.INDICATORS)
+          temp.if_2 = foundCondition;
+        dispatch(
+          setIndicatorAction({
+            id,
+            value: foundCondition.name,
+          })
+        );
         break;
       case setConditionDroppableElements.THEN:
         if (foundCondition.type === ConditionTypes.THEN_OPERATOR)
@@ -105,19 +106,9 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
         <SetConditionsModal
           conditions={conditions}
           id={id}
-          setEmaValue={setEmaValue}
-          setSmaValue={setSmaValue}
-          emaValue={emaValue}
-          smaValue={smaValue}
           isAllPlacesFill={isAllPlacesFill}
         />
-        <ChooseConditionsModal
-          id={id}
-          setEmaValue={setEmaValue}
-          setSmaValue={setSmaValue}
-          emaValue={emaValue}
-          smaValue={smaValue}
-        />
+        <ChooseConditionsModal id={id} />
       </DragDropContext>
     </div>
   );

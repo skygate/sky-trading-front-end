@@ -1,31 +1,22 @@
 import TinyInput from "components/Common/TinyInput";
 import { ConditionInterface } from "types/ConditionTypes";
 import styles from "./Condition.module.scss";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { useAppDispatch, useConditionsSelector } from "store/hooks";
+import {
+  setIndicatorValueAction,
+  setIntervalsValueAction,
+} from "store/conditionsSlice";
+import { IndicatorsNames } from "constant/conditions";
 
 interface ConditionProps {
   condition: ConditionInterface;
   maxLength?: number;
-  setEmaValue: Dispatch<SetStateAction<string>>;
-  emaValue: string;
-  setSmaValue: Dispatch<SetStateAction<string>>;
-  smaValue: string;
+  id: string;
 }
 
-const Condition = ({
-  condition,
-  maxLength,
-  setEmaValue,
-  setSmaValue,
-  emaValue,
-  smaValue,
-}: ConditionProps) => {
-  useEffect(() => {
-    if (condition.value) {
-      if (condition.name === "EMA") setEmaValue(condition.value);
-      if (condition.name === "SMA") setSmaValue(condition.value);
-    }
-  }, [condition]);
+const Condition = ({ condition, maxLength, id }: ConditionProps) => {
+  const dispatch = useAppDispatch();
+  const conditionElements = useConditionsSelector(id);
 
   return (
     <div className={styles.wrapper}>
@@ -33,24 +24,48 @@ const Condition = ({
         <>
           {condition.icon}
           {condition.name}
-          {condition.name === "EMA" && (
+          {condition.name === IndicatorsNames.EMA && (
             <TinyInput
-              value={emaValue}
-              setValue={setEmaValue}
+              value={conditionElements?.indicators.EMA || ""}
+              setValue={(value) =>
+                dispatch(
+                  setIndicatorValueAction({
+                    id,
+                    key: IndicatorsNames.EMA,
+                    value,
+                  })
+                )
+              }
               maxLength={maxLength}
             />
           )}
-          {condition.name === "SMA" && (
+          {condition.name === IndicatorsNames.SMA && (
             <TinyInput
-              value={smaValue}
-              setValue={setSmaValue}
+              value={conditionElements?.indicators.SMA || ""}
+              setValue={(value) =>
+                dispatch(
+                  setIndicatorValueAction({
+                    id,
+                    key: IndicatorsNames.SMA,
+                    value,
+                  })
+                )
+              }
               maxLength={maxLength}
             />
           )}
           {condition.id === "interval-days" && (
             <TinyInput
-              value={smaValue}
-              setValue={setSmaValue}
+              value={conditionElements?.intervals.day || ""}
+              setValue={(value) =>
+                dispatch(
+                  setIntervalsValueAction({
+                    id,
+                    key: "day",
+                    value,
+                  })
+                )
+              }
               maxLength={maxLength}
             />
           )}

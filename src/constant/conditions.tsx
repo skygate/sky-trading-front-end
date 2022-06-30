@@ -13,6 +13,13 @@ import {
 
 export type ConditionsType = { name: string; elements: ConditionInterface[] }[];
 
+export enum IndicatorsNames {
+  EMA = "EMA",
+  SMA = "SMA",
+  STOCHASTIC = "Stochastic",
+  RSI = "RSI",
+}
+
 export const CONDITIONS: ConditionsType = [
   {
     name: "indicators",
@@ -21,36 +28,32 @@ export const CONDITIONS: ConditionsType = [
         type: ConditionTypes.INDICATORS,
         destination: setConditionDroppableElements.IF_2,
         id: "indicators-ema",
-        name: "EMA",
+        name: IndicatorsNames.EMA,
         icon: null,
-        value: null,
         needValue: true,
       },
       {
         type: ConditionTypes.INDICATORS,
         destination: setConditionDroppableElements.IF_2,
         id: "indicators-sma",
-        name: "SMA",
+        name: IndicatorsNames.SMA,
         icon: null,
-        value: null,
         needValue: true,
       },
       {
         type: ConditionTypes.INDICATORS,
         destination: setConditionDroppableElements.IF_2,
         id: "indicators-stochastic",
-        name: "Stochastic",
+        name: IndicatorsNames.STOCHASTIC,
         icon: null,
-        value: null,
         needValue: false,
       },
       {
         type: ConditionTypes.INDICATORS,
         destination: setConditionDroppableElements.IF_2,
         id: "indicators-rsi",
-        name: "RSI",
+        name: IndicatorsNames.RSI,
         icon: null,
-        value: null,
         needValue: false,
       },
     ],
@@ -64,7 +67,6 @@ export const CONDITIONS: ConditionsType = [
         id: "char-patterns-bars",
         name: "bars",
         icon: <BarChartIcon />,
-        value: null,
         needValue: false,
       },
       {
@@ -73,7 +75,6 @@ export const CONDITIONS: ConditionsType = [
         id: "char-patterns-candlestick",
         name: "Candlestick",
         icon: <CandlestickChartIcon />,
-        value: null,
         needValue: false,
       },
       {
@@ -82,7 +83,6 @@ export const CONDITIONS: ConditionsType = [
         id: "char-patterns-hollow-candlestick",
         name: "Hollow candlestick",
         icon: <HollowCandlestickChartIcon />,
-        value: null,
         needValue: false,
       },
       {
@@ -91,7 +91,6 @@ export const CONDITIONS: ConditionsType = [
         id: "char-patterns-line",
         name: "Line",
         icon: <LineChartIcon />,
-        value: null,
         needValue: false,
       },
       {
@@ -100,7 +99,6 @@ export const CONDITIONS: ConditionsType = [
         id: "char-patterns-area",
         name: "Area",
         icon: <AreaChartIcon />,
-        value: null,
         needValue: false,
       },
     ],
