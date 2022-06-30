@@ -17,21 +17,18 @@ interface ElementsInterface {
   text?: string;
   elements: ElementsInterface[];
   parentId?: string;
-}
-
-interface StrategyInterfaceElementProps extends ElementsInterface {
-  isLastChild: boolean;
+  parentType?: StrategyInterfaceElements;
 }
 
 const StrategyInterfaceElement = ({
   id,
   type,
   elements,
-  isLastChild,
   isExpanded,
   text,
   parentId,
-}: StrategyInterfaceElementProps) => {
+  parentType,
+}: ElementsInterface) => {
   const dispatch = useAppDispatch();
 
   const handleExpansion = () => {
@@ -77,14 +74,13 @@ const StrategyInterfaceElement = ({
   };
 
   return (
-    <div
-      className={cx(styles.wrapper, styles[`${type}Wrapper`])}
-      style={isLastChild ? { borderLeft: "2px solid transparent" } : {}}
-    >
-      <div className={cx(styles.element, styles[type])}>{renderItem()}</div>
+    <div className={cx(styles.wrapper, styles[`${parentType}Wrapper`])}>
+      <div className={cx(styles.element, parentType && styles[parentType])}>
+        {renderItem()}
+      </div>
       {elements &&
         isExpanded &&
-        elements.map((item, index, arr) => (
+        elements.map((item) => (
           <StrategyInterfaceElement
             key={item.id}
             id={item.id}
@@ -92,8 +88,8 @@ const StrategyInterfaceElement = ({
             type={item.type}
             text={item.text}
             elements={item.elements}
-            isLastChild={arr.length - 1 === index}
             parentId={id}
+            parentType={type}
           />
         ))}
     </div>

@@ -3,6 +3,7 @@ import StrategyBar from "components/StrategyBar";
 import StrategyInterfaceElement from "components/StrategyInterface/StrategyInterfaceElement";
 import { useStrategyCreationSelector } from "store/hooks";
 import styles from "./StrategyInterface.module.scss";
+import { StrategyInterfaceElements } from "constant";
 
 const StrategyInterface = () => {
   const [isStrategyExpanded, setStrategyExpanded] = useState(false);
@@ -23,7 +24,7 @@ const StrategyInterface = () => {
             isExpanded={strategyState.isExpanded}
             type={strategyState.type}
             elements={strategyState.elements}
-            isLastChild={true}
+            parentType={StrategyInterfaceElements.STRATEGY}
           />
         </div>
       )}

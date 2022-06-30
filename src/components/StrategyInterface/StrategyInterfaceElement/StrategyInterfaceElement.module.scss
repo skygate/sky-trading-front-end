@@ -37,20 +37,23 @@
     content: "";
     position: absolute;
     width: 2px;
-    height: 30px;
+    height: 31px;
     top: -1px;
     left: -2px;
+  }
+
+  &:last-child {
+    border-left: 2px solid transparent;
   }
 }
 
 $elementsMap: (
   "close": "openclose",
-  "condition": "openclose",
-  "assets": "conditions",
-  "addCondition": "conditions",
-  "open": "black2",
-  "assetsBar": "assets",
-  "allocation": "allocations",
+  "condition": "conditions",
+  "assets": "assets",
+  "open": "openclose",
+  "assetsBar": "allocations",
+  "strategy": "black2",
 );
 
 @each $name, $color in $elementsMap {
@@ -69,7 +72,7 @@ $elementsMap: (
     border-left: solid 2px var(--color-#{$color});
 
     &::before {
-      @if $name == "assetsBar" {
+      @if $name == "assets" {
         height: 42px;
       }
       background-color: var(--color-#{$color});
