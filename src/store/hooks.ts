@@ -38,9 +38,8 @@ export const useAssetsSelector = (id: string) =>
     state.undoReducer.present.assets.find((item) => item.id === id)
   );
 
-export const useNewAssetsIndex = () => {
+export const useNewAssetsIndex = () =>
   useAppSelector((state) => state.undoReducer.present.assets.length);
-};
 
 export const useAllocationSelector = (id: string) =>
   useAppSelector((state) =>

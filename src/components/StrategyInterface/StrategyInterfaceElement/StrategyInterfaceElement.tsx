@@ -16,6 +16,7 @@ interface ElementsInterface {
   isExpanded: boolean;
   text?: string;
   elements: ElementsInterface[];
+  parentId?: string;
 }
 
 interface StrategyInterfaceElementProps extends ElementsInterface {
@@ -29,6 +30,7 @@ const StrategyInterfaceElement = ({
   isLastChild,
   isExpanded,
   text,
+  parentId,
 }: StrategyInterfaceElementProps) => {
   const dispatch = useAppDispatch();
 
@@ -66,7 +68,7 @@ const StrategyInterfaceElement = ({
           <AssetsButton isExpanded={isExpanded} onClick={handleExpansion} />
         );
       case StrategyInterfaceElements.ASSETS_BAR:
-        return <AssetsBar id={id} />;
+        return <AssetsBar id={id} parentId={parentId} />;
       case StrategyInterfaceElements.ADD_CONDITION:
         return <AddConditionIcon />;
       case StrategyInterfaceElements.ALLOCATION:
@@ -91,6 +93,7 @@ const StrategyInterfaceElement = ({
             text={item.text}
             elements={item.elements}
             isLastChild={arr.length - 1 === index}
+            parentId={id}
           />
         ))}
     </div>

@@ -12,9 +12,10 @@ import DarkOverlay from "components/DarkOverlay";
 interface AssetsBarProps {
   width?: string;
   id: string;
+  parentId?: string;
 }
 
-const AssetsBar = ({ width, id }: AssetsBarProps) => {
+const AssetsBar = ({ width, id, parentId }: AssetsBarProps) => {
   const openModal = useOpenModal(id);
   const modal = useModalsSelector(id);
   const assetInfo = useAssetsSelector(id);
@@ -49,7 +50,7 @@ const AssetsBar = ({ width, id }: AssetsBarProps) => {
       {modal?.isOpen && (
         <>
           <DarkOverlay modal />
-          <SearchAssetsModal id={id} />
+          <SearchAssetsModal id={id} parentId={parentId} />
         </>
       )}
     </div>

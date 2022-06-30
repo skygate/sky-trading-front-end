@@ -7,10 +7,11 @@ import {
   useAppDispatch,
   useAssetsSelector,
   useCloseModal,
+  useNewAssetsIndex,
   useStrategyElementCreationSelector,
 } from "store/hooks";
 import { accessibleAssets, assetsElement } from "constant/assets";
-import { setAssetAction } from "store/assetsSlice";
+import { pushAssetAction, setAssetAction } from "store/assetsSlice";
 import { setIsAssetSetAction } from "store/conditionsSlice";
 import { pushStrategyElementAction } from "store/strategyCreationSlice";
 import { StrategyInterfaceElements } from "constant";
@@ -28,9 +29,10 @@ enum SearchAssetsModalOptions {
 
 interface SearchAssetsModalProps {
   id: string;
+  parentId?: string;
 }
 
-const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
+const SearchAssetsModal = ({ id, parentId }: SearchAssetsModalProps) => {
   const [activeOption, setActiveOption] = useState(
     SearchAssetsModalOptions.ALL
   );
@@ -40,16 +42,32 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
   const [searchValue, setSearchValue] = useState("");
   const closeModal = useCloseModal(id);
   const dispatch = useAppDispatch();
+  const newAssetBarIndex = useNewAssetsIndex();
   const asset = useAssetsSelector(id);
   const allocation = useStrategyElementCreationSelector(
     `allocation-${id.split("-")[1]}`
   );
 
   const setAssetsItem = (assetItem: assetsElement) => {
-    if (asset) {
+    if (asset && parentId) {
       const assetPayload = {
         id,
         asset: assetItem,
+      };
+      const newAssetinStrategyPayload = {
+        parentId,
+        element: {
+          id: ["assetBar", newAssetBarIndex].join("-"),
+          isExpanded: true,
+          type: StrategyInterfaceElements.ASSETS_BAR,
+          elements: [],
+        },
+      };
+      const newAssetBarPayload = {
+        id: ["assetBar", newAssetBarIndex].join("-"),
+        index: newAssetBarIndex,
+        asset: null,
+        set: false,
       };
       const allocationStrategyTreePayload = {
         parentId: id,
@@ -68,7 +86,11 @@ const SearchAssetsModal = ({ id }: SearchAssetsModalProps) => {
         submitted: false,
       };
       dispatch(setAssetAction(assetPayload));
-      dispatch(setIsAssetSetAction(id));
+      dispatch(setIsAssetSetAction(parentId));
+      if (!asset.set) {
+        dispatch(pushStrategyElementAction(newAssetinStrategyPayload));
+        dispatch(pushAssetAction(newAssetBarPayload));
+      }
       if (!allocation) {
         dispatch(pushStrategyElementAction(allocationStrategyTreePayload));
         dispatch(addAllocation(allocationPayload));
