@@ -72,14 +72,14 @@ const SearchAssetsModal = ({ id, parentId }: SearchAssetsModalProps) => {
       const allocationStrategyTreePayload = {
         parentId: id,
         element: {
-          id: `allocation-${asset.index}`,
+          id: ["allocation", asset.index].join("-"),
           isExpanded: false,
           type: StrategyInterfaceElements.ALLOCATION,
           elements: [],
         },
       };
       const allocationPayload = {
-        id: `allocation-${asset.index}`,
+        id: ["allocation", asset.index].join("-"),
         index: asset.index,
         type: null,
         value: null,

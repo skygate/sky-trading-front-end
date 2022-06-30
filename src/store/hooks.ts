@@ -24,9 +24,8 @@ export const useConditionsSelector = (id: string) =>
     state.undoReducer.present.conditions.find((item) => item.id === id)
   );
 
-export const useNewConditionIndex = () => {
+export const useNewConditionIndex = () =>
   useAppSelector((state) => state.undoReducer.present.conditions.length);
-};
 
 export const useModalsSelector = (id: string) =>
   useAppSelector((state) =>

@@ -4,11 +4,11 @@ import styles from "./StrategyInterfaceElement.module.scss";
 import cx from "classnames";
 import AssetsButton from "components/Buttons/AssetsButton";
 import AssetsBar from "components/AssetsBar";
-import { AddConditionIcon } from "assets/icons";
 import { useAppDispatch } from "store/hooks";
 import { expandStrategyItemAction } from "store/strategyCreationSlice";
 import { StrategyInterfaceElements } from "constant";
 import AllocationButton from "components/Buttons/AllocationButton";
+import AddConditionButton from "components/Buttons/AddConditionButton/AddConditionButton";
 
 interface ElementsInterface {
   id: string;
@@ -70,7 +70,7 @@ const StrategyInterfaceElement = ({
       case StrategyInterfaceElements.ASSETS_BAR:
         return <AssetsBar id={id} parentId={parentId} />;
       case StrategyInterfaceElements.ADD_CONDITION:
-        return <AddConditionIcon />;
+        return <AddConditionButton parentId={parentId} />;
       case StrategyInterfaceElements.ALLOCATION:
         return <AllocationButton id={id} />;
     }
