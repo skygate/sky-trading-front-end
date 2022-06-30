@@ -4,11 +4,11 @@ import styles from "./StrategyInterfaceElement.module.scss";
 import cx from "classnames";
 import AssetsButton from "components/Buttons/AssetsButton";
 import AssetsBar from "components/AssetsBar";
-import { AddConditionIcon } from "assets/icons";
 import { useAppDispatch } from "store/hooks";
 import { expandStrategyItemAction } from "store/strategyCreationSlice";
 import { StrategyInterfaceElements } from "constant";
 import AllocationButton from "components/Buttons/AllocationButton";
+import AddConditionButton from "components/Buttons/AddConditionButton/AddConditionButton";
 
 interface ElementsInterface {
   id: string;
@@ -16,20 +16,19 @@ interface ElementsInterface {
   isExpanded: boolean;
   text?: string;
   elements: ElementsInterface[];
-}
-
-interface StrategyInterfaceElementProps extends ElementsInterface {
-  isLastChild: boolean;
+  parentId?: string;
+  parentType?: StrategyInterfaceElements;
 }
 
 const StrategyInterfaceElement = ({
   id,
   type,
   elements,
-  isLastChild,
   isExpanded,
   text,
-}: StrategyInterfaceElementProps) => {
+  parentId,
+  parentType,
+}: ElementsInterface) => {
   const dispatch = useAppDispatch();
 
   const handleExpansion = () => {
@@ -66,23 +65,22 @@ const StrategyInterfaceElement = ({
           <AssetsButton isExpanded={isExpanded} onClick={handleExpansion} />
         );
       case StrategyInterfaceElements.ASSETS_BAR:
-        return <AssetsBar id={id} />;
+        return <AssetsBar id={id} parentId={parentId} />;
       case StrategyInterfaceElements.ADD_CONDITION:
-        return <AddConditionIcon />;
+        return <AddConditionButton parentId={parentId} />;
       case StrategyInterfaceElements.ALLOCATION:
         return <AllocationButton id={id} />;
     }
   };
 
   return (
-    <div
-      className={cx(styles.wrapper, styles[`${type}Wrapper`])}
-      style={isLastChild ? { borderLeft: "2px solid transparent" } : {}}
-    >
-      <div className={cx(styles.element, styles[type])}>{renderItem()}</div>
+    <div className={cx(styles.wrapper, styles[`${parentType}Wrapper`])}>
+      <div className={cx(styles.element, parentType && styles[parentType])}>
+        {renderItem()}
+      </div>
       {elements &&
         isExpanded &&
-        elements.map((item, index, arr) => (
+        elements.map((item) => (
           <StrategyInterfaceElement
             key={item.id}
             id={item.id}
@@ -90,7 +88,8 @@ const StrategyInterfaceElement = ({
             type={item.type}
             text={item.text}
             elements={item.elements}
-            isLastChild={arr.length - 1 === index}
+            parentId={id}
+            parentType={type}
           />
         ))}
     </div>

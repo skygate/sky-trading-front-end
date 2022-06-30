@@ -6,4 +6,5 @@ export enum StrategyInterfaceElements {
   ASSETS_BAR = "assetsBar",
   ADD_CONDITION = "addCondition",
   ALLOCATION = "allocation",
+  STRATEGY = "strategy",
 }

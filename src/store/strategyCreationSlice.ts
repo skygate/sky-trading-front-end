@@ -62,6 +62,20 @@ const strategyCreationSlice = createSlice({
       if (elementToUpdate)
         elementToUpdate[action.payload.key] = action.payload.value;
     },
+    pushStrategyConditionElementAction(
+      state,
+      action: PayloadAction<PushElementPayload>
+    ) {
+      const parentElement = findStrategyElement(
+        state.elements,
+        action.payload.parentId
+      );
+      if (parentElement) {
+        const poped = parentElement.elements.pop();
+        parentElement.elements.push(action.payload.element);
+        if (poped) parentElement.elements.push(poped);
+      }
+    },
   },
 });
 
@@ -69,5 +83,6 @@ export const {
   expandStrategyItemAction,
   pushStrategyElementAction,
   updateStrategyElementAction,
+  pushStrategyConditionElementAction,
 } = strategyCreationSlice.actions;
 export default strategyCreationSlice.reducer;

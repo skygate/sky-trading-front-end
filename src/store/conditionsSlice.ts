@@ -121,6 +121,9 @@ const conditionsSlice = createSlice({
       const found = state.find((item) => item.id === action.payload.id);
       if (found) found.indicatorSet = action.payload.value;
     },
+    pushConditionAction(state, action: PayloadAction<ConditionsState>) {
+      state.push(action.payload);
+    },
   },
 });
 
@@ -130,5 +133,6 @@ export const {
   setIndicatorValueAction,
   setIntervalsValueAction,
   setIndicatorAction,
+  pushConditionAction,
 } = conditionsSlice.actions;
 export default conditionsSlice.reducer;
