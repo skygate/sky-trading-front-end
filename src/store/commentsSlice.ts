@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface CommentsInterface {
+export interface CommentsInterface {
   id: number;
   content: string;
   posX: number;
@@ -8,17 +8,17 @@ interface CommentsInterface {
   isOpen: boolean;
 }
 
-interface CommentsState {
+export interface CommentsState {
   isActive: boolean;
   comments: CommentsInterface[];
 }
 
-interface HandleCommentVisibilityPayload {
+export interface HandleCommentVisibilityPayload {
   id: number;
   isOpen: boolean;
 }
 
-interface EditCommentContentPayload {
+export interface EditCommentContentPayload {
   id: number;
   content: string;
 }

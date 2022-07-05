@@ -53,13 +53,15 @@ const CommentBox = ({ id, content }: CommentBoxProps) => {
           User
         </div>
         <div className={styles.iconSection}>
-          <div
+          <button
+            type="button"
             className={styles.trashIcon}
             onClick={() => dispatch(deleteCommentAction(id))}
           >
             <TrashIcon />
-          </div>
-          <div
+          </button>
+          <button
+            type="button"
             className={styles.closeIcon}
             onClick={() => {
               if (!comment && !content)
@@ -68,7 +70,7 @@ const CommentBox = ({ id, content }: CommentBoxProps) => {
             }}
           >
             <CloseIcon />
-          </div>
+          </button>
         </div>
       </div>
       {!isInputModeActive ? (

@@ -9,7 +9,7 @@ import styles from "./CreateView.module.scss";
 import NavBar from "components/NavBar";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "redux-undo";
-import CommentsOverlay from "components/CommentsOverlay/CommentsOverlay";
+import CommentsOverlay from "components/CommentsOverlay";
 import { useModeSelector } from "store/hooks";
 
 const CreateView = () => {

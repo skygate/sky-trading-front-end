@@ -33,14 +33,15 @@ const CommentMarker = ({
         {isOpen ? (
           <CommentBox id={id} content={content} />
         ) : (
-          <div
+          <button
+            type="button"
             className={styles.marker}
             onClick={() =>
               dispatch(handleCommentVisibilityAction({ id, isOpen: true }))
             }
           >
             <UserIcon />
-          </div>
+          </button>
         )}
       </div>
     </>

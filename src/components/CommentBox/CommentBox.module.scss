@@ -36,12 +36,24 @@
   width: 22rem;
 }
 
-.closeIcon:hover {
-  cursor: pointer;
+.closeIcon {
+  background-color: inherit;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.trashIcon:hover {
-  cursor: pointer;
+.trashIcon {
+  background-color: inherit;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .iconSection {

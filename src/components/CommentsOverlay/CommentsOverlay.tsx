@@ -35,6 +35,7 @@ const CommentsOverlay = () => {
             id={item.id}
             content={item.content}
             isOpen={item.isOpen}
+            key={item.id}
           />
         ))}
     </div>
