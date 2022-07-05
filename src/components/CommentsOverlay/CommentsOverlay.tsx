@@ -3,14 +3,16 @@ import { pushCommentAction } from "store/commentsSlice";
 import { useCommentsSelector, useNewCommentIndex } from "store/hooks";
 import styles from "./CommentsOverlay.module.scss";
 import CommentMarker from "components/CommentMarker";
+import { MouseEvent } from "react";
 
 const CommentsOverlay = () => {
   const dispatch = useDispatch();
   const newCommentIndex = useNewCommentIndex();
   const comments = useCommentsSelector();
 
-  const addComment = (e: any) => {
-    const rect = e?.nativeEvent.target?.getBoundingClientRect();
+  const addComment = (e: MouseEvent) => {
+    const target = e.nativeEvent.target as Element;
+    const rect = target.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const newCommentPayload = {

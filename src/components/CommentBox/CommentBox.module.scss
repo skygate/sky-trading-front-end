@@ -6,7 +6,7 @@
   background-color: var(--color-black2);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacer-10);
   gap: var(--spacer-10);
 }
 
@@ -20,7 +20,7 @@
 
 .headerContent {
   display: flex;
-  gap: 10px;
+  gap: var(--spacer-10);
   align-items: center;
 }
 
@@ -33,7 +33,7 @@
 
 .contentWrapper {
   font-size: var(--font-12);
-  width: 220px;
+  width: 22rem;
 }
 
 .closeIcon:hover {
@@ -47,5 +47,5 @@
 .iconSection {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacer-10);
 }
