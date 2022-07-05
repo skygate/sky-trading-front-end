@@ -20,18 +20,18 @@ export interface ConditionsState {
   intervalSet: null | string;
 }
 
-interface UpdateConditionActionPayload {
+export interface UpdateConditionActionPayload {
   id: string;
   details: ConditionDetailsInterface;
 }
 
-interface SetValueActionPayload {
+export interface SetValueActionPayload {
   id: string;
   key: string;
   value: string;
 }
 
-interface SetIndicatorActionPayload {
+export interface SetIndicatorActionPayload {
   id: string;
   value: string;
 }

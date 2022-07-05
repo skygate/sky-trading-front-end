@@ -49,7 +49,6 @@ const SetConditionsModal = ({
       conditionsElements &&
       conditionsElements.indicatorSet
     ) {
-      console.log(conditionsElements);
       dispatch(
         updateStrategyElementAction({
           id: id,

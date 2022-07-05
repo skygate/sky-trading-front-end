@@ -6,6 +6,7 @@ import undoable from "redux-undo";
 import modalsReducer from "./modalsSlice";
 import assetsReducer from "./assetsSlice";
 import allocationReducer from "./allocationSlice";
+import commentsReducer from "./commentsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
         modals: modalsReducer,
         assets: assetsReducer,
         allocation: allocationReducer,
+        comments: commentsReducer,
       })
     ),
   },

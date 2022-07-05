@@ -12,12 +12,12 @@ export interface StrategyCreationState {
   elements: StrategyCreationState[];
 }
 
-interface PushElementPayload {
+export interface PushElementPayload {
   parentId: string;
   element: StrategyCreationState;
 }
 
-interface UpdateElementPayload {
+export interface UpdateElementPayload {
   id: string;
   key: string;
   value: string;

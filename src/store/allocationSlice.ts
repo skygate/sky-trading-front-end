@@ -7,7 +7,7 @@ export enum AllocationTypes {
   CAPITAL = "capital",
 }
 
-interface AllocationState {
+export interface AllocationState {
   id: string;
   index: number;
   type: AllocationTypes | null;
@@ -15,7 +15,7 @@ interface AllocationState {
   submitted?: boolean;
 }
 
-interface UpdateAllocationPayload {
+export interface UpdateAllocationPayload {
   id: string;
   type: AllocationTypes;
   value: string | null;

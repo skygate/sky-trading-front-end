@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { assetsElement } from "constant/assets";
 
-interface AssetsState {
+export interface AssetsState {
   id: string;
   index: number;
   asset: null | assetsElement;
   set: boolean;
 }
 
-interface SetAssetActionPayload {
+export interface SetAssetActionPayload {
   id: string;
   asset: assetsElement;
 }
