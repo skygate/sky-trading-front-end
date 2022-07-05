@@ -1,4 +1,13 @@
 .wrapper {
+  position: absolute;
+  z-index: var(--index-modal);
+}
+
+.markerWrapper {
+  z-index: 99;
+}
+
+.marker {
   background-color: var(--color-black3);
   width: 28px;
   height: 28px;

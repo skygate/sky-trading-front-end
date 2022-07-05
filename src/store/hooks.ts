@@ -70,3 +70,18 @@ export const useOpenModal = (id: string) => {
       })
     );
 };
+
+export const useNewCommentIndex = () =>
+  useAppSelector((state) => state.undoReducer.present.comments.comments.length);
+
+export const useCommentsSelector = (id?: number) =>
+  useAppSelector((state) => {
+    if (id)
+      return state.undoReducer.present.comments.comments.find(
+        (item) => item.id === id
+      );
+    return state.undoReducer.present.comments.comments;
+  });
+
+export const useModeSelector = () =>
+  useAppSelector((state) => state.undoReducer.present.comments.isActive);

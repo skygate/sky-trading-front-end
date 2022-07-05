@@ -9,7 +9,10 @@ interface DarkOveralyProps {
 const DarkOverlay = ({ onClick, modal }: DarkOveralyProps) => (
   <div
     className={cx(styles.overlay, modal && styles.modalOverlay)}
-    onClick={onClick}
+    onClick={(e) => {
+      e.stopPropagation();
+      if (onClick) onClick(e);
+    }}
   />
 );
 

@@ -9,9 +9,12 @@ import styles from "./CreateView.module.scss";
 import NavBar from "components/NavBar";
 import { useDispatch } from "react-redux";
 import { ActionCreators } from "redux-undo";
+import CommentsOverlay from "components/CommentsOverlay/CommentsOverlay";
+import { useModeSelector } from "store/hooks";
 
 const CreateView = () => {
   const dispatch = useDispatch();
+  const isCommentModeActive = useModeSelector();
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && !e.shiftKey && e.code === "KeyZ") {
@@ -38,6 +41,7 @@ const CreateView = () => {
 
         <div className={styles.content}>
           <StrategyInterface />
+          {isCommentModeActive && <CommentsOverlay />}
         </div>
 
         <div className={styles.rightSidebar}>
