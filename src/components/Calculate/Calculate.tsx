@@ -1,4 +1,3 @@
-import React from "react";
 import Button, { ButtonSize } from "components/Buttons";
 import styles from "./Calculate.module.scss";
 import { ActionCreators } from "redux-undo";

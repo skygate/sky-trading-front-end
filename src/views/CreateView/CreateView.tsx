@@ -39,8 +39,10 @@ const CreateView = () => {
           <Calculate />
         </div>
 
-        <div className={styles.content}>
-          <StrategyInterface />
+        <div className={styles.contentWrapper}>
+          <div className={styles.content}>
+            <StrategyInterface />
+          </div>
           {isCommentModeActive && <CommentsOverlay />}
         </div>
 

@@ -26,7 +26,7 @@ const CommentMarker = ({
     <>
       {isOpen && <DarkOverlay />}
       <div
-        style={{ top: posY, left: posX }}
+        style={{ top: `${posY}%`, left: `${posX}%` }}
         onClick={(e) => e.stopPropagation()}
         className={cx(styles.wrapper, !isOpen && styles.markerWrapper)}
       >
