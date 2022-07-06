@@ -18,8 +18,8 @@ const CommentsOverlay = () => {
     const newCommentPayload = {
       id: newCommentIndex,
       content: "",
-      posX: x,
-      posY: y,
+      posX: (x * 100) / target.clientWidth,
+      posY: (y * 100) / target.clientHeight,
       isOpen: true,
     };
     dispatch(pushCommentAction(newCommentPayload));
