@@ -1,3 +1,5 @@
+@import "../../../styles/main";
+
 .wrapper {
   background-color: var(--color-black2);
   padding: var(--spacer-10);
@@ -6,6 +8,10 @@
   display: flex;
   flex-direction: column;
   width: 273px;
+
+  @include breakpoint(large) {
+    width: 24rem;
+  }
 }
 
 .dropWrapper {

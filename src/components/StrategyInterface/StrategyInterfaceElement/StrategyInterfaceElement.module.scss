@@ -1,6 +1,7 @@
 .element {
   position: relative;
   padding-left: 12px;
+  width: 100%;
 
   &::before {
     content: "";
@@ -29,6 +30,8 @@
 
 .wrapper {
   position: relative;
+  width: calc(100% - 25px);
+
   margin: 0px 25px;
   padding-top: 15px;
   border-left: solid 2px var(--color-black2);
