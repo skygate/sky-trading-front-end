@@ -67,7 +67,7 @@ const NavBar = () => {
               <>
                 <DarkOverlay onClick={() => setCreateListExpanded(false)} />
                 <div className={styles.dropDown}>
-                  <NavLink className={cx(styles.listNavLink)} to="/create">
+                  <NavLink className={cx(styles.listNavLink)} to="/drafts">
                     <li className={styles.crateListElement}>
                       <GroupIcon />
                       Drafts
