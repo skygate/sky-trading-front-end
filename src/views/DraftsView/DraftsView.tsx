@@ -1,4 +1,5 @@
 import DraftCard from "components/DraftCard";
+import DrafCardPlaceholder from "components/DraftCard/DrafCardPlaceholder";
 import NavBar from "components/NavBar";
 import styles from "./DraftsView.module.scss";
 
@@ -16,9 +17,16 @@ const DraftsView = () => {
             </p>
             <button className={styles.seeAllButton}>see all</button>
           </div>
-          <DraftCard />
-          <DraftCard />
-          <DraftCard />
+          <div className={styles.listElementsWrapper}>
+            <ul className={styles.listElements}>
+              <DraftCard />
+              <DraftCard />
+              <DraftCard />
+              <DrafCardPlaceholder>
+                Start crate your strategy
+              </DrafCardPlaceholder>
+            </ul>
+          </div>
         </div>
         <div className={styles.list}>
           <div className={styles.header}>
@@ -28,9 +36,16 @@ const DraftsView = () => {
             </p>
             <button className={styles.seeAllButton}>see all</button>
           </div>
-          <DraftCard />
-          <DraftCard />
-          <DraftCard />
+          <div className={styles.listElementsWrapper}>
+            <ul className={styles.listElements}>
+              <DraftCard />
+              <DraftCard />
+              <DraftCard />
+              <DrafCardPlaceholder>
+                Crate and calculate strategy
+              </DrafCardPlaceholder>
+            </ul>
+          </div>
         </div>
       </div>
     </>

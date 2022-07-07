@@ -35,3 +35,14 @@
   border: 1px solid var(--color-white);
   border-radius: 5px;
 }
+
+.listElements {
+  list-style-type: none;
+  display: flex;
+  gap: 2.8rem;
+}
+
+.listElementsWrapper {
+  display: flex;
+  overflow-x: scroll;
+}

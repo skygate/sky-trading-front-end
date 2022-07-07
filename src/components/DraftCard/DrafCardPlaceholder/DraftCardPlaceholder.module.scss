@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-black2);
+  align-items: center;
+  justify-content: center;
+  width: 38.6rem;
+  height: 44.6rem;
+  gap: 20px;
+}
+
+.header {
+  font-weight: 600;
+  font-size: var(--font-20);
+  margin: 0;
+}

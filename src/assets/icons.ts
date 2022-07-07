@@ -32,3 +32,4 @@ export { ReactComponent as HistoryIcon } from "./icons/HistoryIcon.svg";
 export { ReactComponent as ErrorIcon } from "./icons/ErrorIcon.svg";
 export { ReactComponent as NewStrategyIcon } from "./icons/NewStrategyIcon.svg";
 export { ReactComponent as ClockIcon } from "./icons/ClockIcon.svg";
+export { ReactComponent as AddDraftCardIcon } from "./icons/AddDraftCardIcon.svg";
