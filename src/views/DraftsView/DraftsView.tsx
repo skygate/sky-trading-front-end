@@ -30,7 +30,7 @@ const DraftsView = () => {
         </div>
         <div className={styles.list}>
           <div className={styles.header}>
-            <h1 className={styles.title}>Clculated</h1>
+            <h1 className={styles.title}>Calculated</h1>
             <p className={styles.description}>
               Here you can find calculated strategies
             </p>
