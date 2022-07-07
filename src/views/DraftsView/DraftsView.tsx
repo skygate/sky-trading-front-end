@@ -1,9 +1,11 @@
 import DraftCard from "components/DraftCard";
 import DrafCardPlaceholder from "components/DraftCard/DrafCardPlaceholder";
 import NavBar from "components/NavBar";
+import { useDraftsSelector } from "store/hooks";
 import styles from "./DraftsView.module.scss";
 
 const DraftsView = () => {
+  const drafts = useDraftsSelector();
   return (
     <>
       <NavBar />
@@ -19,9 +21,11 @@ const DraftsView = () => {
           </div>
           <div className={styles.listElementsWrapper}>
             <ul className={styles.listElements}>
-              <DraftCard />
-              <DraftCard />
-              <DraftCard />
+              {drafts &&
+                Array.isArray(drafts) &&
+                drafts.map((item) => (
+                  <DraftCard id={item.id} name={item.name} date={item.date} />
+                ))}
               <DrafCardPlaceholder>
                 Start crate your strategy
               </DrafCardPlaceholder>
@@ -38,9 +42,6 @@ const DraftsView = () => {
           </div>
           <div className={styles.listElementsWrapper}>
             <ul className={styles.listElements}>
-              <DraftCard />
-              <DraftCard />
-              <DraftCard />
               <DrafCardPlaceholder>
                 Crate and calculate strategy
               </DrafCardPlaceholder>

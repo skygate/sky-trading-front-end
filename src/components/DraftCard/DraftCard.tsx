@@ -3,7 +3,13 @@ import Button, { ButtonSize } from "components/Buttons/Button";
 import draftCardVisualisation from "assets/Image/draftCardVisualisation.png";
 import { ClockIcon } from "assets/icons";
 
-const DraftCard = () => (
+interface DraftCardProps {
+  id: number;
+  name: string;
+  date: Date;
+}
+
+const DraftCard = ({ id, name, date }: DraftCardProps) => (
   <div className={styles.wrapper}>
     <div className={styles.chart}>
       <img src={draftCardVisualisation} alt="visualisation" />
