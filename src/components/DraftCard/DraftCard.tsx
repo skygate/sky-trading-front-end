@@ -27,7 +27,7 @@ const DraftCard = ({ id, name, date }: DraftCardProps) => {
   });
 
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <div className={styles.chart}>
         <img src={draftCardVisualisation} alt="visualisation" />
       </div>
@@ -63,7 +63,7 @@ const DraftCard = ({ id, name, date }: DraftCardProps) => {
           Edit
         </Button>
       </div>
-    </div>
+    </section>
   );
 };
 

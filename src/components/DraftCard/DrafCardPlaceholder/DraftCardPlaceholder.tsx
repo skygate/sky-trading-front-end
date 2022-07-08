@@ -10,10 +10,10 @@ const DraftCardPlaceholder = ({ children }: DraftCardPlaceholderProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.wrapper} onClick={() => navigate("/create")}>
+    <a className={styles.wrapper} onClick={() => navigate("/create")}>
       <AddDraftCardIcon />
       <h1 className={styles.header}>{children}</h1>
-    </div>
+    </a>
   );
 };
 
