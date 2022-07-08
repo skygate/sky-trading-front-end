@@ -12,7 +12,7 @@ const draftsSlice = createSlice({
   initialState,
   reducers: {
     deleteDraftAction(state, action: PayloadAction<number>) {
-      state = state.filter((item) => item.id !== action.payload);
+      return state.filter((item) => item.id !== action.payload);
     },
     pushDraftAction(state, action: PayloadAction<draftsState>) {
       state.push(action.payload);
@@ -20,4 +20,5 @@ const draftsSlice = createSlice({
   },
 });
 
+export const { deleteDraftAction, pushDraftAction } = draftsSlice.actions;
 export default draftsSlice.reducer;

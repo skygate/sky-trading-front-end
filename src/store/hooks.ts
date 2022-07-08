@@ -93,4 +93,4 @@ export const useDraftsSelector = (id?: number) =>
   });
 
 export const useNewDraftIndex = () =>
-  useAppSelector((state) => state.drafts[state.drafts.length - 1].id + 1);
+  useAppSelector((state) => state.drafts[state.drafts.length - 1]?.id + 1 || 0);

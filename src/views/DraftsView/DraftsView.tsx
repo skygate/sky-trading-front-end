@@ -6,6 +6,7 @@ import styles from "./DraftsView.module.scss";
 
 const DraftsView = () => {
   const drafts = useDraftsSelector();
+
   return (
     <>
       <NavBar />
@@ -24,7 +25,12 @@ const DraftsView = () => {
               {drafts &&
                 Array.isArray(drafts) &&
                 drafts.map((item) => (
-                  <DraftCard id={item.id} name={item.name} date={item.date} />
+                  <DraftCard
+                    id={item.id}
+                    name={item.name}
+                    date={item.date}
+                    key={item.id}
+                  />
                 ))}
               <DrafCardPlaceholder>
                 Start crate your strategy
