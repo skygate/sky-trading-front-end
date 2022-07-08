@@ -7,6 +7,7 @@ import modalsReducer from "./modalsSlice";
 import assetsReducer from "./assetsSlice";
 import allocationReducer from "./allocationSlice";
 import commentsReducer from "./commentsSlice";
+import draftsReducer from "./draftsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
         comments: commentsReducer,
       })
     ),
+    drafts: draftsReducer,
   },
 });
 

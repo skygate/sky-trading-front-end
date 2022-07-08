@@ -19,10 +19,15 @@ import DarkOverlay from "components/DarkOverlay";
 const NavBar = () => {
   const [isCreateListExpanded, setCreateListExpanded] = useState(false);
   const [isCreateViewDisplayed, setCreateViewDisplayed] = useState(false);
+  const [isDraftsDisplayed, setDraftsDisplayed] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    setCreateViewDisplayed(location.pathname.includes("/create"));
+    setCreateViewDisplayed(
+      location.pathname.includes("/create") ||
+        location.pathname.includes("/drafts")
+    );
+    setDraftsDisplayed(location.pathname.includes("/drafts"));
   }, [location.pathname]);
 
   return (
@@ -59,7 +64,7 @@ const NavBar = () => {
             >
               <div className={styles.listHeaderRow}>
                 <EditIcon />
-                Create
+                {isDraftsDisplayed ? "Drafts" : "Create"}
               </div>
               {isCreateListExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
             </li>
@@ -67,7 +72,7 @@ const NavBar = () => {
               <>
                 <DarkOverlay onClick={() => setCreateListExpanded(false)} />
                 <div className={styles.dropDown}>
-                  <NavLink className={cx(styles.listNavLink)} to="/create">
+                  <NavLink className={cx(styles.listNavLink)} to="/drafts">
                     <li className={styles.crateListElement}>
                       <GroupIcon />
                       Drafts

@@ -85,3 +85,12 @@ export const useCommentsSelector = (id?: number) =>
 
 export const useModeSelector = () =>
   useAppSelector((state) => state.undoReducer.present.comments.isActive);
+
+export const useDraftsSelector = (id?: number) =>
+  useAppSelector((state) => {
+    if (id) return state.drafts.find((item) => item.id === id);
+    return state.drafts;
+  });
+
+export const useNewDraftIndex = () =>
+  useAppSelector((state) => state.drafts[state.drafts.length - 1]?.id + 1 || 0);
