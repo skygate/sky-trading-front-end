@@ -7,7 +7,6 @@ import {
   useNewAssetsIndex,
   useNewConditionIndex,
 } from "store/hooks";
-import { pushStrategyConditionElementAction } from "store/strategyCreationSlice";
 import styles from "./AddConditionButton.module.scss";
 
 interface AddConditionButtonProps {
@@ -78,7 +77,6 @@ const AddConditionButton = ({ parentId }: AddConditionButtonProps) => {
         asset: null,
         set: false,
       };
-      dispatch(pushStrategyConditionElementAction(startegyPayload));
       dispatch(pushConditionAction(conditionPayload));
       dispatch(pushAssetAction(assetPayload));
     }

@@ -7,9 +7,10 @@ import styles from "./StrategyBar.module.scss";
 
 interface StrategyBarProps {
   isExpanded: boolean;
+  name: string;
 }
 
-const StrategyBar = ({ isExpanded }: StrategyBarProps) => {
+const StrategyBar = ({ isExpanded, name }: StrategyBarProps) => {
   const [isInputActive, setInputActive] = useState(false);
   const ref: RefObject<HTMLInputElement> = useRef(null);
   const [strategyName, setStrategyName] = useState("");
@@ -21,8 +22,8 @@ const StrategyBar = ({ isExpanded }: StrategyBarProps) => {
   }, [isInputActive]);
 
   useEffect(() => {
-    setStrategyName(globalStateName);
-  }, [globalStateName]);
+    setStrategyName(name);
+  }, [name]);
 
   const handleFocusOff = () => {
     setInputActive(false);

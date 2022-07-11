@@ -1,4 +1,3 @@
-import { findStrategyElement } from "helpers/findStrategyElement";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./index";
 import { handleModalVisibilityAction } from "./modalsSlice";
@@ -13,7 +12,7 @@ export const useStrategyElementCreationSelector = (id: string) => {
   const elements = useAppSelector(
     (state) => state.undoReducer.present.strategyCreation
   );
-  return findStrategyElement([elements], id);
+  return id;
 };
 
 export const useStrategyDetailsSelector = () =>

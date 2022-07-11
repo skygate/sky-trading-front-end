@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import { ArrowDownIcon, ArrowUpIcon, ErrorIcon } from "assets/icons";
+import { ErrorIcon } from "assets/icons";
 import styles from "./ConditionButton.module.scss";
 import EditGroup from "components/EditGroups";
 import ConditionsModals from "components/Modals/ConditionsModals";
@@ -10,7 +10,6 @@ import DarkOverlay from "components/DarkOverlay";
 interface ConditionButtonProps {
   id: string;
   children: ReactNode;
-  isExpanded: boolean;
   text?: string;
   onClick: React.MouseEventHandler;
 }
@@ -18,7 +17,6 @@ interface ConditionButtonProps {
 const ConditionButton = ({
   id,
   children,
-  isExpanded,
   onClick,
   text,
 }: ConditionButtonProps) => {
@@ -41,7 +39,6 @@ const ConditionButton = ({
           )}
           onClick={onClick}
         >
-          {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
           <span className={styles.ifText}>If</span>
           {children}
           {isHovered && !modal?.isOpen && (

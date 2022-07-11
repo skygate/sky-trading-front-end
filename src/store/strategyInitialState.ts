@@ -1,70 +1,64 @@
-import { StrategyInterfaceElements } from "../constant";
+export interface ConditionsStrategyElement {}
 
-export const strategyPlaceholder = {
-  id: "open",
+export interface TimeFrameStrategyElement {
+  unit: string;
+  value: number;
+}
+
+export interface IntervalStrategyElement {
+  unit: string;
+  value: number;
+}
+
+export interface OpenCloseStartegyElement {
+  isExpanded: boolean;
+  chartType: null | string;
+  timeFrame: null | TimeFrameStrategyElement;
+  conditions: null | ConditionsStrategyElement;
+  risk: null;
+}
+
+export interface AssetStrategyElement {
+  isExpanded: boolean;
+  symbol: null | string;
+  description: null | string;
+  market: null | string;
+}
+
+export interface StrategyState {
+  [key: string]: any;
+  name: string;
+  description: string;
+  isExpanded: boolean;
+  open: OpenCloseStartegyElement;
+  close: OpenCloseStartegyElement;
+  asset: AssetStrategyElement;
+  interval: null | IntervalStrategyElement;
+}
+
+export const strategyInitialState: StrategyState = {
+  name: "",
+  description: "",
   isExpanded: false,
-  type: StrategyInterfaceElements.OPEN,
-  elements: [
-    {
-      id: "condition-0",
-      isExpanded: false,
-      text: "",
-      type: StrategyInterfaceElements.CONDITION,
-      elements: [
-        {
-          id: "asset-0",
-          isExpanded: false,
-          type: StrategyInterfaceElements.ASSETS,
-          elements: [
-            {
-              id: "assetBar-0",
-              isExpanded: true,
-              type: StrategyInterfaceElements.ASSETS_BAR,
-              elements: [],
-            },
-          ],
-        },
-        {
-          id: "addCondition-0",
-          isExpanded: false,
-          type: StrategyInterfaceElements.ADD_CONDITION,
-          elements: [],
-        },
-      ],
-    },
-    {
-      id: "close",
-      isExpanded: false,
-      type: StrategyInterfaceElements.CLOSE,
-      elements: [
-        {
-          id: "condition-1",
-          isExpanded: false,
-          text: "",
-          type: StrategyInterfaceElements.CONDITION,
-          elements: [
-            {
-              id: "asset-1",
-              isExpanded: false,
-              type: StrategyInterfaceElements.ASSETS,
-              elements: [
-                {
-                  id: "assetBar-1",
-                  isExpanded: true,
-                  type: StrategyInterfaceElements.ASSETS_BAR,
-                  elements: [],
-                },
-              ],
-            },
-            {
-              id: "addCondition-1",
-              isExpanded: false,
-              type: StrategyInterfaceElements.ADD_CONDITION,
-              elements: [],
-            },
-          ],
-        },
-      ],
-    },
-  ],
+  open: {
+    isExpanded: false,
+    chartType: null,
+    timeFrame: null,
+    conditions: null,
+    risk: null,
+  },
+  close: {
+    isExpanded: false,
+    chartType: null,
+    timeFrame: null,
+    conditions: null,
+    risk: null,
+  },
+  asset: {
+    isExpanded: false,
+    market: null,
+    symbol: null,
+    description: null,
+  },
+  interval: null,
 };
