@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, RefObject } from "react";
-import { useAppDispatch, useStrategyDetailsSelector } from "store/hooks";
-import { editNameAction } from "store/strategyDetailsSlice";
+import { useAppDispatch } from "store/hooks";
 import { ArrowDownIcon, ArrowUpIcon, GroupIcon } from "assets/icons";
 import Bar from "components/Common/Bar";
 import styles from "./StrategyBar.module.scss";
+import { editNameAction } from "store/strategyCreationSlice";
 
 interface StrategyBarProps {
   isExpanded: boolean;
@@ -14,7 +14,6 @@ const StrategyBar = ({ isExpanded, name }: StrategyBarProps) => {
   const [isInputActive, setInputActive] = useState(false);
   const ref: RefObject<HTMLInputElement> = useRef(null);
   const [strategyName, setStrategyName] = useState("");
-  const { name: globalStateName } = useStrategyDetailsSelector();
   const dispatch = useAppDispatch();
 
   useEffect(() => {

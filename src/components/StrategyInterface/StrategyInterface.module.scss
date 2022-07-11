@@ -6,7 +6,7 @@
 
 .element {
   position: relative;
-  padding-left: 12px;
+  padding-left: var(--spacer-12);
   width: 100%;
 
   &::before {
@@ -17,16 +17,16 @@
     left: 0px;
     border-right: 2px solid var(--color-black2);
     border-bottom: 2px solid var(--color-black2);
-    width: 10px;
-    height: 10px;
+    width: var(--spacer-10);
+    height: var(--spacer-10);
     background-color: inherit;
   }
 
   &::after {
     content: "";
     position: absolute;
-    width: 10px;
-    height: 2px;
+    width: var(--spacer-10);
+    height: var(--spacer-2);
     background-color: var(--color-black2);
     left: 0px;
     top: 50%;
@@ -36,16 +36,16 @@
 
 .elementsWrapper {
   position: relative;
-  width: calc(100% - 25px);
-  margin: 0px 25px;
-  padding-top: 15px;
+  width: calc(100% - var(--spacer-25));
+  margin: 0px var(--spacer-25);
+  padding-top: var(--spacer-15);
   border-left: solid 2px var(--color-black2);
 
   &::before {
     content: "";
     position: absolute;
-    width: 2px;
-    height: 31px;
+    width: var(--spacer-2);
+    height: 3.1rem;
     top: -1px;
     left: -2px;
   }
@@ -65,14 +65,14 @@ $elementsMap: (
 @each $name, $color in $elementsMap {
   .#{$name} {
     @if $name == "strategy" {
-      padding-left: 37px;
+      padding-left: 3.7rem;
 
       &:before {
-        left: 27px;
+        left: 2.7rem;
       }
 
       &:after {
-        width: 37px;
+        width: 3.7rem;
       }
     }
 
@@ -91,7 +91,7 @@ $elementsMap: (
 
     &::before {
       @if $color != "openclose" {
-        height: 42px;
+        height: 4.2rem;
       }
       background-color: var(--color-#{$color});
     }

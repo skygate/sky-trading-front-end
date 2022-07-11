@@ -15,9 +15,6 @@ export const useStrategyElementCreationSelector = (id: string) => {
   return id;
 };
 
-export const useStrategyDetailsSelector = () =>
-  useAppSelector((state) => state.undoReducer.present.strategyDetails);
-
 export const useConditionsSelector = (id: string) =>
   useAppSelector((state) =>
     state.undoReducer.present.conditions.find((item) => item.id === id)

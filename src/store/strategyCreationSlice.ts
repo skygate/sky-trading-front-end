@@ -7,6 +7,12 @@ const strategyCreationSlice = createSlice({
   name: "strategyCreation",
   initialState,
   reducers: {
+    editNameAction(state, action: PayloadAction<string>) {
+      state.name = action.payload;
+    },
+    editDescriptionAction(state, action: PayloadAction<string>) {
+      state.description = action.payload;
+    },
     setStrategyExpanded(state, action: PayloadAction<boolean>) {
       state.isExpanded = action.payload;
     },
@@ -17,6 +23,10 @@ const strategyCreationSlice = createSlice({
   },
 });
 
-export const { setStrategyExpanded, setStrategyElementExpanded } =
-  strategyCreationSlice.actions;
+export const {
+  setStrategyExpanded,
+  setStrategyElementExpanded,
+  editNameAction,
+  editDescriptionAction,
+} = strategyCreationSlice.actions;
 export default strategyCreationSlice.reducer;
