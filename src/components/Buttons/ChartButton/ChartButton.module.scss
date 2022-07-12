@@ -1,0 +1,25 @@
+.wrapper {
+  background-color: var(--color-chart);
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button {
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  font-size: var(--font-14);
+  font-weight: 500;
+  padding: var(--spacer-5) var(--spacer-10);
+  border-radius: 5px;
+}
+
+.typeText {
+  font-weight: 300;
+}

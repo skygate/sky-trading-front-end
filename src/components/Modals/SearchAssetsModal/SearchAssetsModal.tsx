@@ -13,7 +13,6 @@ import {
 import { accessibleAssets, assetsElement } from "constant/assets";
 import { pushAssetAction, setAssetAction } from "store/assetsSlice";
 import { setIsAssetSetAction } from "store/conditionsSlice";
-import { pushStrategyElementAction } from "store/strategyCreationSlice";
 import { StrategyInterfaceElements } from "constant";
 import { addAllocation } from "store/allocationSlice";
 
@@ -88,11 +87,9 @@ const SearchAssetsModal = ({ id, parentId }: SearchAssetsModalProps) => {
       dispatch(setAssetAction(assetPayload));
       dispatch(setIsAssetSetAction(parentId));
       if (!asset.set) {
-        dispatch(pushStrategyElementAction(newAssetinStrategyPayload));
         dispatch(pushAssetAction(newAssetBarPayload));
       }
       if (!allocation) {
-        dispatch(pushStrategyElementAction(allocationStrategyTreePayload));
         dispatch(addAllocation(allocationPayload));
       }
       closeModal();

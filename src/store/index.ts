@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import strategyCreationReducer from "./strategyCreationSlice";
-import strategyDetailsReducer from "./strategyDetailsSlice";
 import conditionsReducer from "./conditionsSlice";
 import undoable from "redux-undo";
 import modalsReducer from "./modalsSlice";
@@ -14,7 +13,6 @@ export const store = configureStore({
     undoReducer: undoable(
       combineReducers({
         strategyCreation: strategyCreationReducer,
-        strategyDetails: strategyDetailsReducer,
         conditions: conditionsReducer,
         modals: modalsReducer,
         assets: assetsReducer,

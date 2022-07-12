@@ -9,7 +9,6 @@ import { setConditionDroppableElements } from "types/ConditionTypes";
 import { useCloseModal, useConditionsSelector } from "store/hooks";
 import { ConditionDetailsInterface } from "types/ConditionTypes";
 import { useDispatch } from "react-redux";
-import { updateStrategyElementAction } from "store/strategyCreationSlice";
 
 interface SetConditionsModalProps {
   conditions: ConditionDetailsInterface;
@@ -49,18 +48,6 @@ const SetConditionsModal = ({
       conditionsElements &&
       conditionsElements.indicatorSet
     ) {
-      dispatch(
-        updateStrategyElementAction({
-          id: id,
-          key: "text",
-          value: [
-            conditions.if_0?.name,
-            conditions.if_1?.name,
-            conditions.if_2?.name,
-            conditionsElements.indicators[conditionsElements.indicatorSet],
-          ].join(" "),
-        })
-      );
       hideModal();
     }
   };

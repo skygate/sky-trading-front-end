@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, RefObject } from "react";
 import { ArrowDownIcon, ArrowUpIcon } from "assets/icons";
 import styles from "./DetailsDropDown.module.scss";
-import { useAppDispatch, useStrategyDetailsSelector } from "store/hooks";
+import { useAppDispatch, useStrategyCreationSelector } from "store/hooks";
 import {
   editDescriptionAction,
   editNameAction,
-} from "store/strategyDetailsSlice";
+} from "store/strategyCreationSlice";
 
 const DetailsDropDown = () => {
   const [isListShown, setListShown] = useState(false);
@@ -16,12 +16,13 @@ const DetailsDropDown = () => {
   const nameRef: RefObject<HTMLInputElement> = useRef(null);
   const descriptionRef: RefObject<HTMLTextAreaElement> = useRef(null);
   const dispatch = useAppDispatch();
-  const details = useStrategyDetailsSelector();
+  const { name: globalName, description: globalDescription } =
+    useStrategyCreationSelector();
 
   useEffect(() => {
-    setName(details.name);
-    setDescription(details.description);
-  }, [details.name, details.description]);
+    setName(globalName);
+    setDescription(globalDescription);
+  }, [globalName, globalDescription]);
 
   useEffect(() => {
     if (nameRef.current && isNameInputActive) nameRef.current.focus();
