@@ -8,33 +8,18 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useStrategyCreationSelector = () =>
   useAppSelector((state) => state.undoReducer.present.strategyCreation);
 
-export const useStrategyElementCreationSelector = (id: string) => {
-  const elements = useAppSelector(
-    (state) => state.undoReducer.present.strategyCreation
-  );
-  return id;
-};
-
-export const useConditionsSelector = (id: string) =>
+export const useConditionsSelector = (sectionType: string) =>
   useAppSelector((state) =>
-    state.undoReducer.present.conditions.find((item) => item.id === id)
+    state.undoReducer.present.conditions.find(
+      (item) => item.section === sectionType
+    )
   );
 
 export const useNewConditionIndex = () =>
   useAppSelector((state) => state.undoReducer.present.conditions.length);
 
-export const useModalsSelector = (id: string) =>
-  useAppSelector((state) =>
-    state.undoReducer.present.modals.find((item) => item.id === id)
-  );
-
-export const useAssetsSelector = (id: string) =>
-  useAppSelector((state) =>
-    state.undoReducer.present.assets.find((item) => item.id === id)
-  );
-
-export const useNewAssetsIndex = () =>
-  useAppSelector((state) => state.undoReducer.present.assets.length);
+export const useModalsSelector = () =>
+  useAppSelector((state) => state.undoReducer.present.modals);
 
 export const useAllocationSelector = (id: string) =>
   useAppSelector((state) =>
@@ -45,24 +30,26 @@ export const useNewAllocationIndex = () => {
   useAppSelector((state) => state.undoReducer.present.allocation.length);
 };
 
-export const useCloseModal = (id: string) => {
-  const dispatch = useDispatch();
+export const useOpenModal = (key1: string, key2?: string) => {
+  const dispatch = useAppDispatch();
   return () =>
     dispatch(
       handleModalVisibilityAction({
-        id,
-        isOpen: false,
+        key1,
+        key2,
+        value: true,
       })
     );
 };
 
-export const useOpenModal = (id: string) => {
-  const dispatch = useDispatch();
+export const useCloseModal = (key1: string, key2?: string) => {
+  const dispatch = useAppDispatch();
   return () =>
     dispatch(
       handleModalVisibilityAction({
-        id,
-        isOpen: true,
+        key1,
+        key2,
+        value: false,
       })
     );
 };

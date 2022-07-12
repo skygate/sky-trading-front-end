@@ -1,8 +1,10 @@
 import ChartButton from "components/Buttons/ChartButton";
 import OpenCloseButton from "components/Buttons/OpenCloseButton";
-import { useAppDispatch } from "store/hooks";
-import { setStrategyElementExpanded } from "store/strategyCreationSlice";
-import { OpenCloseStartegyElement } from "store/strategyInitialState";
+import { useAppDispatch, useOpenModal } from "store/hooks";
+import {
+  OpenCloseStartegyElement,
+  setStrategyElementExpandedAction,
+} from "store/strategyCreationSlice";
 import styles from "../StrategyInterface.module.scss";
 import cx from "classnames";
 import ConditionButton from "components/Buttons/ConditionButton";
@@ -26,12 +28,14 @@ const OpenCloseSection = ({
   risk,
 }: OpenCloseSectionProps & OpenCloseStartegyElement) => {
   const dispatch = useAppDispatch();
+  const openModal = useOpenModal("conditions");
+
   return (
     <div className={styles.elementsWrapper}>
       <div className={styles.element}>
         <OpenCloseButton
           isExpanded={isExpanded}
-          onClick={() => dispatch(setStrategyElementExpanded(type))}
+          onClick={() => dispatch(setStrategyElementExpandedAction(type))}
         >
           {type}
         </OpenCloseButton>
@@ -45,7 +49,7 @@ const OpenCloseSection = ({
           </div>
           <div className={cx(styles.elementsWrapper, styles.openWrapper)}>
             <div className={cx(styles.element, styles.open)}>
-              <ConditionButton onClick={() => {}} id="id">
+              <ConditionButton onClick={openModal} type={type}>
                 set conditions
               </ConditionButton>
             </div>

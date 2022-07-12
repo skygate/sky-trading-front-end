@@ -2,8 +2,8 @@ import StrategyBar from "components/StrategyBar";
 import { useAppDispatch, useStrategyCreationSelector } from "store/hooks";
 import styles from "./StrategyInterface.module.scss";
 import {
-  setStrategyElementExpanded,
-  setStrategyExpanded,
+  setStrategyElementExpandedAction,
+  setStrategyExpandedAction,
 } from "store/strategyCreationSlice";
 import AssetsButton from "components/Buttons/AssetsButton";
 import AssetsBar from "components/AssetsBar";
@@ -21,7 +21,7 @@ const StrategyInterface = () => {
     <>
       <div
         className={styles.strategyBarWrapper}
-        onClick={() => dispatch(setStrategyExpanded(!isExpanded))}
+        onClick={() => dispatch(setStrategyExpandedAction(!isExpanded))}
       >
         <StrategyBar isExpanded={isExpanded} name={name} />
       </div>
@@ -34,14 +34,16 @@ const StrategyInterface = () => {
             <div className={styles.element}>
               <AssetsButton
                 isExpanded={asset.isExpanded}
-                onClick={() => dispatch(setStrategyElementExpanded("asset"))}
+                onClick={() =>
+                  dispatch(setStrategyElementExpandedAction("asset"))
+                }
               />
             </div>
 
             {asset.isExpanded && (
               <div className={cx(styles.elementsWrapper, styles.assetsWrapper)}>
                 <div className={cx(styles.element, styles.assets)}>
-                  <AssetsBar id="id2" parentId="id3" />
+                  <AssetsBar {...asset} />
                 </div>
               </div>
             )}

@@ -1,38 +1,32 @@
 import React, { ReactNode, useState } from "react";
 import { ErrorIcon } from "assets/icons";
 import styles from "./ConditionButton.module.scss";
-import EditGroup from "components/EditGroups";
-import ConditionsModals from "components/Modals/ConditionsModals";
 import { useConditionsSelector, useModalsSelector } from "store/hooks";
 import cx from "classnames";
 import DarkOverlay from "components/DarkOverlay";
+import { OpenCloseSectionTypes } from "components/StrategyInterface/OpenCloseSection/OpenCloseSection";
 
 interface ConditionButtonProps {
-  id: string;
   children: ReactNode;
   text?: string;
   onClick: React.MouseEventHandler;
+  type: OpenCloseSectionTypes;
 }
 
 const ConditionButton = ({
-  id,
   children,
   onClick,
   text,
+  type,
 }: ConditionButtonProps) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [isErrorHovered, setErrorHovered] = useState(false);
-  const modal = useModalsSelector(id);
-  const condition = useConditionsSelector(id);
+  const { [type]: modal } = useModalsSelector();
+  const condition = useConditionsSelector(type);
 
   return (
-    <div
-      className={styles.hoverWrapper}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className={styles.hoverWrapper}>
       <div className={styles.wrapper}>
         <div
-          onMouseEnter={() => setIsHovered(true)}
           className={cx(
             styles.insideWrapper,
             condition?.isAssetSet && !text && styles.errorWrapper
@@ -41,11 +35,6 @@ const ConditionButton = ({
         >
           <span className={styles.ifText}>If</span>
           {children}
-          {isHovered && !modal?.isOpen && (
-            <div className={styles.editGroup}>
-              <EditGroup id={id} />
-            </div>
-          )}
         </div>
         {condition?.isAssetSet && !text && (
           <>
@@ -66,10 +55,9 @@ const ConditionButton = ({
           </>
         )}
       </div>
-      {modal?.isOpen && (
+      {modal.conditions && (
         <>
           <DarkOverlay modal />
-          <ConditionsModals id={id} />
         </>
       )}
     </div>

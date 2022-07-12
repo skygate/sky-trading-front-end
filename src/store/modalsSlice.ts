@@ -1,43 +1,59 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface ModalsState {
-  id: string;
-  isOpen: boolean;
+interface OpenCloseModals {
+  [key: string]: any;
+  chart: boolean;
+  timeFrame: boolean;
+  conditions: boolean;
+  risk: boolean;
 }
 
-const initialState: ModalsState[] = [
-  {
-    id: "condition-0",
-    isOpen: false,
+export interface ModalsState {
+  [key: string]: any;
+  open: OpenCloseModals;
+  close: OpenCloseModals;
+  asset: boolean;
+  interval: boolean;
+  allocation: boolean;
+}
+
+export interface HandleModalVisibilityPayload {
+  key1: string;
+  key2?: string;
+  value: boolean;
+}
+
+const initialState: ModalsState = {
+  open: {
+    chart: false,
+    timeFrame: false,
+    conditions: false,
+    risk: false,
   },
-  {
-    id: "condition-1",
-    isOpen: false,
+  close: {
+    chart: false,
+    timeFrame: false,
+    conditions: false,
+    risk: false,
   },
-  {
-    id: "assetBar-0",
-    isOpen: false,
-  },
-  {
-    id: "assetBar-1",
-    isOpen: false,
-  },
-];
+  asset: false,
+  interval: false,
+  allocation: false,
+};
 
 const modalsSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
-    handleModalVisibilityAction(state, action: PayloadAction<ModalsState>) {
-      const found = state.find((item) => item.id === action.payload.id);
-      if (found) {
-        found.isOpen = action.payload.isOpen;
-        return;
+    handleModalVisibilityAction(
+      state,
+      action: PayloadAction<HandleModalVisibilityPayload>
+    ) {
+      if (action.payload.key2) {
+        state[action.payload.key1][action.payload.key2] = !action.payload.value;
+      } else {
+        state[action.payload.key1] = action.payload.value;
       }
-      state.push({
-        id: action.payload.id,
-        isOpen: action.payload.isOpen,
-      });
     },
   },
 });

@@ -3,18 +3,9 @@ import { CloseIcon, HistoryIcon } from "assets/icons";
 import SearchInput from "components/Common/SearchInput";
 import styles from "./SearchAssetsModal.module.scss";
 import cx from "classnames";
-import {
-  useAppDispatch,
-  useAssetsSelector,
-  useCloseModal,
-  useNewAssetsIndex,
-  useStrategyElementCreationSelector,
-} from "store/hooks";
+import { useAppDispatch, useCloseModal, useOpenModal } from "store/hooks";
 import { accessibleAssets, assetsElement } from "constant/assets";
-import { pushAssetAction, setAssetAction } from "store/assetsSlice";
-import { setIsAssetSetAction } from "store/conditionsSlice";
-import { StrategyInterfaceElements } from "constant";
-import { addAllocation } from "store/allocationSlice";
+import { updateAssetAction } from "store/strategyCreationSlice";
 
 enum SearchAssetsModalOptions {
   ALL = "all",
@@ -26,12 +17,9 @@ enum SearchAssetsModalOptions {
   BOND = "bond",
 }
 
-interface SearchAssetsModalProps {
-  id: string;
-  parentId?: string;
-}
+interface SearchAssetsModalProps {}
 
-const SearchAssetsModal = ({ id, parentId }: SearchAssetsModalProps) => {
+const SearchAssetsModal = ({}: SearchAssetsModalProps) => {
   const [activeOption, setActiveOption] = useState(
     SearchAssetsModalOptions.ALL
   );
@@ -39,61 +27,18 @@ const SearchAssetsModal = ({ id, parentId }: SearchAssetsModalProps) => {
   const [assetsFilteredByType, setAssetsFilteredByType] =
     useState(accessibleAssets);
   const [searchValue, setSearchValue] = useState("");
-  const closeModal = useCloseModal(id);
   const dispatch = useAppDispatch();
-  const newAssetBarIndex = useNewAssetsIndex();
-  const asset = useAssetsSelector(id);
-  const allocation = useStrategyElementCreationSelector(
-    `allocation-${id.split("-")[1]}`
-  );
+  const openModal = useOpenModal("asset");
+  const closeModal = useCloseModal("asset");
 
   const setAssetsItem = (assetItem: assetsElement) => {
-    if (asset && parentId) {
-      const assetPayload = {
-        id,
-        asset: assetItem,
-      };
-      const newAssetinStrategyPayload = {
-        parentId,
-        element: {
-          id: ["assetBar", newAssetBarIndex].join("-"),
-          isExpanded: true,
-          type: StrategyInterfaceElements.ASSETS_BAR,
-          elements: [],
-        },
-      };
-      const newAssetBarPayload = {
-        id: ["assetBar", newAssetBarIndex].join("-"),
-        index: newAssetBarIndex,
-        asset: null,
-        set: false,
-      };
-      const allocationStrategyTreePayload = {
-        parentId: id,
-        element: {
-          id: ["allocation", asset.index].join("-"),
-          isExpanded: false,
-          type: StrategyInterfaceElements.ALLOCATION,
-          elements: [],
-        },
-      };
-      const allocationPayload = {
-        id: ["allocation", asset.index].join("-"),
-        index: asset.index,
-        type: null,
-        value: null,
-        submitted: false,
-      };
-      dispatch(setAssetAction(assetPayload));
-      dispatch(setIsAssetSetAction(parentId));
-      if (!asset.set) {
-        dispatch(pushAssetAction(newAssetBarPayload));
-      }
-      if (!allocation) {
-        dispatch(addAllocation(allocationPayload));
-      }
-      closeModal();
-    }
+    dispatch(
+      updateAssetAction({
+        isExpanded: true,
+        ...assetItem,
+      })
+    );
+    closeModal();
   };
 
   const filterByText = () => {

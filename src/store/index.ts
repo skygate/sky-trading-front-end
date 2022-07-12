@@ -3,7 +3,6 @@ import strategyCreationReducer from "./strategyCreationSlice";
 import conditionsReducer from "./conditionsSlice";
 import undoable from "redux-undo";
 import modalsReducer from "./modalsSlice";
-import assetsReducer from "./assetsSlice";
 import allocationReducer from "./allocationSlice";
 import commentsReducer from "./commentsSlice";
 import draftsReducer from "./draftsSlice";
@@ -15,7 +14,6 @@ export const store = configureStore({
         strategyCreation: strategyCreationReducer,
         conditions: conditionsReducer,
         modals: modalsReducer,
-        assets: assetsReducer,
         allocation: allocationReducer,
         comments: commentsReducer,
       })

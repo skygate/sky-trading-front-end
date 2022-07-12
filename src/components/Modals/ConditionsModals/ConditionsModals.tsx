@@ -6,10 +6,7 @@ import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import { setConditionDroppableElements } from "types/ConditionTypes";
 import { findCondition } from "helpers/findCondition";
 import { useAppDispatch, useConditionsSelector } from "store/hooks";
-import {
-  setIndicatorAction,
-  updateConditionAction,
-} from "store/conditionsSlice";
+
 import {
   ConditionTypes,
   ConditionDetailsInterface,
@@ -68,12 +65,7 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
       case setConditionDroppableElements.IF_2:
         if (foundCondition.type === ConditionTypes.INDICATORS)
           temp.if_2 = foundCondition;
-        dispatch(
-          setIndicatorAction({
-            id,
-            value: foundCondition.name,
-          })
-        );
+
         break;
       case setConditionDroppableElements.THEN:
         if (foundCondition.type === ConditionTypes.THEN_OPERATOR)
@@ -92,12 +84,6 @@ const ConditionsModals = ({ id }: ConditionsModalsProps) => {
     setAllPlacesFill(CheckIsAllPlacesFill(temp));
 
     setConditions(temp);
-    dispatch(
-      updateConditionAction({
-        id: id,
-        details: temp,
-      })
-    );
   };
 
   return (

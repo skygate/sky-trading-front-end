@@ -1,44 +1,31 @@
 import { AddAssetIcon, OkIcon, SeparatorIcon } from "assets/icons";
 import Bar from "components/Common/Bar";
-import {
-  useOpenModal,
-  useModalsSelector,
-  useAssetsSelector,
-} from "store/hooks";
+import { useOpenModal, useModalsSelector } from "store/hooks";
 import SearchAssetsModal from "components/Modals/SearchAssetsModal";
 import styles from "./AssetsBar.module.scss";
 import DarkOverlay from "components/DarkOverlay";
+import { AssetStrategyElement } from "store/strategyCreationSlice";
 
-interface AssetsBarProps {
-  width?: string;
-  id: string;
-  parentId?: string;
-}
-
-const AssetsBar = ({ width, id, parentId }: AssetsBarProps) => {
-  const openModal = useOpenModal(id);
-  const modal = useModalsSelector(id);
-  const assetInfo = useAssetsSelector(id);
+const AssetsBar = ({ symbol, description, market }: AssetStrategyElement) => {
+  const openModal = useOpenModal("asset");
+  const { asset } = useModalsSelector();
 
   return (
     <div className={styles.wrapper}>
       <Bar
-        width={width}
         className={styles.bar}
         onClick={(e) => {
           e.stopPropagation();
           openModal();
         }}
       >
-        {assetInfo && assetInfo.asset ? (
+        {symbol && description && market ? (
           <>
             <OkIcon />
-            <span style={{ paddingLeft: "2px" }}>
-              {assetInfo.asset?.symbol}
-            </span>
-            <span>{assetInfo.asset?.description}</span>
+            <span style={{ paddingLeft: "2px" }}>{symbol}</span>
+            <span>{description}</span>
             <SeparatorIcon />
-            <span>{assetInfo.asset?.market}</span>
+            <span>{market}</span>
           </>
         ) : (
           <>
@@ -47,10 +34,10 @@ const AssetsBar = ({ width, id, parentId }: AssetsBarProps) => {
           </>
         )}
       </Bar>
-      {modal?.isOpen && (
+      {asset && (
         <>
           <DarkOverlay modal />
-          <SearchAssetsModal id={id} parentId={parentId} />
+          <SearchAssetsModal />
         </>
       )}
     </div>
