@@ -3,6 +3,13 @@ import { strategyInitialState } from "./strategyInitialState";
 
 const initialState: StrategyState = strategyInitialState;
 
+export enum AllocationTypes {
+  PERCENT = "%",
+  AMOUNT = "amount",
+  SIZE = "size",
+  CAPITAL = "capital",
+}
+
 export interface ConditionsStrategyElement {}
 
 export interface TimeFrameStrategyElement {
@@ -30,6 +37,12 @@ export interface AssetStrategyElement {
   market: null | string;
 }
 
+export interface AllocationStrategyElement {
+  type: AllocationTypes | null;
+  value: string | null;
+  submitted: boolean;
+}
+
 export interface StrategyState {
   [key: string]: any;
   name: string;
@@ -38,7 +51,8 @@ export interface StrategyState {
   open: OpenCloseStartegyElement;
   close: OpenCloseStartegyElement;
   asset: AssetStrategyElement;
-  interval: null | IntervalStrategyElement;
+  allocation: AllocationStrategyElement | null;
+  interval: IntervalStrategyElement | null;
 }
 
 const strategyCreationSlice = createSlice({
@@ -61,6 +75,15 @@ const strategyCreationSlice = createSlice({
     updateAssetAction(state, action: PayloadAction<AssetStrategyElement>) {
       state.asset = action.payload;
     },
+    updateAllocationAction(
+      state,
+      action: PayloadAction<AllocationStrategyElement>
+    ) {
+      state.allocation = action.payload;
+    },
+    submitAllocationAction(state) {
+      if (state.allocation) state.allocation.submitted = true;
+    },
   },
 });
 
@@ -70,5 +93,7 @@ export const {
   editNameAction,
   editDescriptionAction,
   updateAssetAction,
+  updateAllocationAction,
+  submitAllocationAction,
 } = strategyCreationSlice.actions;
 export default strategyCreationSlice.reducer;

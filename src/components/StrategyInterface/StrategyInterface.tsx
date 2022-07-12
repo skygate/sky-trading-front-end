@@ -11,10 +11,11 @@ import cx from "classnames";
 import Bar from "components/Common/Bar";
 import OpenCloseSection from "./OpenCloseSection";
 import { OpenCloseSectionTypes } from "./OpenCloseSection/OpenCloseSection";
+import AllocationButton from "components/Buttons/AllocationButton";
 
 const StrategyInterface = () => {
   const dispatch = useAppDispatch();
-  const { name, isExpanded, open, close, asset, interval } =
+  const { name, isExpanded, open, close, asset, interval, allocation } =
     useStrategyCreationSelector();
 
   return (
@@ -45,6 +46,18 @@ const StrategyInterface = () => {
                 <div className={cx(styles.element, styles.assets)}>
                   <AssetsBar {...asset} />
                 </div>
+                {asset.symbol && (
+                  <div
+                    className={cx(
+                      styles.elementsWrapper,
+                      styles.allocationWrapper
+                    )}
+                  >
+                    <div className={cx(styles.element, styles.allocation)}>
+                      <AllocationButton {...allocation} />
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

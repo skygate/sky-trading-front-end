@@ -5,15 +5,12 @@ import FoundAllocationModal, { putAllocationId } from "./FoundAllocationModal";
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AllocationTypes, updateAllocationAction } from "store/allocationSlice";
+import {
+  AllocationTypes,
+  updateAllocationAction,
+} from "store/strategyCreationSlice";
 
-interface FoundAllocationModalsProps {
-  allocationId: string;
-}
-
-const FoundAllocationModals = ({
-  allocationId,
-}: FoundAllocationModalsProps) => {
+const FoundAllocationModals = () => {
   const [percentageInputValue, setPercentageInputValue] = useState("");
   const [amountInputValue, setAmountInputValue] = useState("");
   const [sizeInputValue, setSizeInputValue] = useState("");
@@ -35,7 +32,7 @@ const FoundAllocationModals = ({
     if (result.destination?.droppableId === putAllocationId && isValueValid) {
       dispatch(
         updateAllocationAction({
-          id: allocationId,
+          submitted: false,
           type,
           value: switchValue[type],
         })
@@ -46,9 +43,8 @@ const FoundAllocationModals = ({
     <>
       <div className={styles.wrapper}>
         <DragDropContext onDragEnd={handleOnDragEnd}>
-          <FoundAllocationModal id={allocationId} />
+          <FoundAllocationModal />
           <ChooseFoundAllocationModal
-            id={allocationId}
             percentageInputValue={percentageInputValue}
             setPercentageInputValue={setPercentageInputValue}
             amountInputValue={amountInputValue}

@@ -25,4 +25,5 @@ export const strategyInitialState: StrategyState = {
     description: null,
   },
   interval: null,
+  allocation: null,
 };

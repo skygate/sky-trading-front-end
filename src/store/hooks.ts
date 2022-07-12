@@ -21,15 +21,6 @@ export const useNewConditionIndex = () =>
 export const useModalsSelector = () =>
   useAppSelector((state) => state.undoReducer.present.modals);
 
-export const useAllocationSelector = (id: string) =>
-  useAppSelector((state) =>
-    state.undoReducer.present.allocation.find((item) => item.id === id)
-  );
-
-export const useNewAllocationIndex = () => {
-  useAppSelector((state) => state.undoReducer.present.allocation.length);
-};
-
 export const useOpenModal = (key1: string, key2?: string) => {
   const dispatch = useAppDispatch();
   return () =>

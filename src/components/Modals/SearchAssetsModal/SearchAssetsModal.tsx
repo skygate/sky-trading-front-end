@@ -3,7 +3,7 @@ import { CloseIcon, HistoryIcon } from "assets/icons";
 import SearchInput from "components/Common/SearchInput";
 import styles from "./SearchAssetsModal.module.scss";
 import cx from "classnames";
-import { useAppDispatch, useCloseModal, useOpenModal } from "store/hooks";
+import { useAppDispatch, useCloseModal } from "store/hooks";
 import { accessibleAssets, assetsElement } from "constant/assets";
 import { updateAssetAction } from "store/strategyCreationSlice";
 
@@ -28,7 +28,6 @@ const SearchAssetsModal = ({}: SearchAssetsModalProps) => {
     useState(accessibleAssets);
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useAppDispatch();
-  const openModal = useOpenModal("asset");
   const closeModal = useCloseModal("asset");
 
   const setAssetsItem = (assetItem: assetsElement) => {
