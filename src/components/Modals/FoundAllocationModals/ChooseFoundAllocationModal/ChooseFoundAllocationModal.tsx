@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { AllocationTypes } from "store/allocationSlice";
 import { useCloseModal } from "store/hooks";
 import { CloseIcon } from "assets/icons";
 import TinyInput from "components/Common/TinyInput";
 import styles from "./ChooseFoundAllocationModal.module.scss";
+import { AllocationTypes } from "store/strategyCreationSlice";
 
 interface ChooseFoundAllocationModalProps {
-  id: string;
   percentageInputValue: string;
   setPercentageInputValue: Dispatch<SetStateAction<string>>;
   amountInputValue: string;
@@ -17,7 +16,6 @@ interface ChooseFoundAllocationModalProps {
 }
 
 const ChooseFoundAllocationModal = ({
-  id,
   percentageInputValue,
   setPercentageInputValue,
   amountInputValue,
@@ -25,7 +23,7 @@ const ChooseFoundAllocationModal = ({
   sizeInputValue,
   setSizeInputValue,
 }: ChooseFoundAllocationModalProps) => {
-  const closeModal = useCloseModal(id);
+  const closeModal = useCloseModal("allocation");
 
   return (
     <div className={styles.wrapper}>

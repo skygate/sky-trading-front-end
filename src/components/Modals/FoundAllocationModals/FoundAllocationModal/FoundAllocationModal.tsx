@@ -1,28 +1,23 @@
-import React from "react";
 import styles from "./FoundAllocationModal.module.scss";
 import { CloseIcon } from "assets/icons";
 import DragBox from "components/DargBox/DragBox";
 import ToggleButton from "components/Common/ToggleButton/ToggleButton";
 import DoneButton from "components/Buttons/DoneButton";
-import { useAllocationSelector, useCloseModal } from "store/hooks";
+import { useCloseModal, useStrategyCreationSelector } from "store/hooks";
 import { Droppable } from "react-beautiful-dnd";
 import { formatAllocationType } from "helpers/formatAllocationType";
 import { useDispatch } from "react-redux";
-import { submitAllocationAction } from "store/allocationSlice";
-
-interface FoundAllocationModalProps {
-  id: string;
-}
+import { submitAllocationAction } from "store/strategyCreationSlice";
 
 export const putAllocationId = "putAllocation";
 
-const FoundAllocationModal = ({ id }: FoundAllocationModalProps) => {
-  const closeModal = useCloseModal(id);
-  const allocation = useAllocationSelector(id);
+const FoundAllocationModal = () => {
+  const closeModal = useCloseModal("allocation");
+  const { allocation } = useStrategyCreationSelector();
   const dispatch = useDispatch();
 
   const handleSubmitAllocation = () => {
-    dispatch(submitAllocationAction(id));
+    dispatch(submitAllocationAction());
     closeModal();
   };
 

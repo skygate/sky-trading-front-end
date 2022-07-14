@@ -1,21 +1,23 @@
 import styles from "./AllocationButton.module.scss";
 import { ArrowDownIcon } from "assets/icons";
-import {
-  useAllocationSelector,
-  useModalsSelector,
-  useOpenModal,
-} from "store/hooks";
+import { useModalsSelector, useOpenModal } from "store/hooks";
 import FoundAllocationModals from "components/Modals/FoundAllocationModals";
 import { formatAllocationType } from "helpers/formatAllocationType";
+import { AllocationTypes } from "store/strategyCreationSlice";
 
 interface AllocationButtonProps {
-  id: string;
+  submitted?: boolean;
+  type?: AllocationTypes | null;
+  value?: string | null;
 }
 
-const AllocationButton = ({ id }: AllocationButtonProps) => {
-  const modal = useModalsSelector(id);
-  const openModal = useOpenModal(id);
-  const allocation = useAllocationSelector(id);
+const AllocationButton = ({
+  submitted,
+  type,
+  value,
+}: AllocationButtonProps) => {
+  const { allocation } = useModalsSelector();
+  const openModal = useOpenModal("allocation");
 
   return (
     <>
@@ -23,12 +25,10 @@ const AllocationButton = ({ id }: AllocationButtonProps) => {
         <ArrowDownIcon />
         <span className={styles.title}>FoundAllocation</span>
         <span className={styles.content}>
-          {allocation?.submitted && allocation?.type
-            ? formatAllocationType(allocation.type, allocation.value)
-            : "set type"}
+          {submitted && type ? formatAllocationType(type, value) : "set type"}
         </span>
       </div>
-      {modal?.isOpen && <FoundAllocationModals allocationId={id} />}
+      {allocation && <FoundAllocationModals />}
     </>
   );
 };

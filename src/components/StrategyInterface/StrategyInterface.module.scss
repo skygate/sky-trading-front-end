@@ -46,7 +46,7 @@
     position: absolute;
     width: var(--spacer-2);
     height: 3.1rem;
-    top: -1px;
+    top: -2px;
     left: -2px;
   }
 
@@ -60,6 +60,7 @@ $elementsMap: (
   "assets": "assets",
   "open": "openclose",
   "strategy": "black2",
+  "allocation": "allocations",
 );
 
 @each $name, $color in $elementsMap {
@@ -90,8 +91,8 @@ $elementsMap: (
     border-left: solid 2px var(--color-#{$color});
 
     &::before {
-      @if $color != "openclose" {
-        height: 4.2rem;
+      @if $color != "openclose" and $color != "allocations" {
+        height: 4.3rem;
       }
       background-color: var(--color-#{$color});
     }

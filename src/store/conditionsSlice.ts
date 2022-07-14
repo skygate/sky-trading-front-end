@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { OpenCloseSectionTypes } from "components/StrategyInterface/OpenCloseSection/OpenCloseSection";
 import { ConditionDetailsInterface } from "types/ConditionTypes";
 
 export interface ConditionsState {
-  id: string;
-  index: number;
+  section: OpenCloseSectionTypes;
   details: ConditionDetailsInterface;
   optimize: boolean;
   isAssetSet: boolean;
@@ -38,8 +38,7 @@ export interface SetIndicatorActionPayload {
 
 const initialState: ConditionsState[] = [
   {
-    id: "condition-0",
-    index: 0,
+    section: OpenCloseSectionTypes.OPEN,
     details: {
       if_0: null,
       if_1: null,
@@ -61,8 +60,7 @@ const initialState: ConditionsState[] = [
     intervalSet: null,
   },
   {
-    id: "condition-1",
-    index: 1,
+    section: OpenCloseSectionTypes.CLOSE,
     details: {
       if_0: null,
       if_1: null,
@@ -88,51 +86,8 @@ const initialState: ConditionsState[] = [
 const conditionsSlice = createSlice({
   name: "conditions",
   initialState,
-  reducers: {
-    updateConditionAction(
-      state,
-      action: PayloadAction<UpdateConditionActionPayload>
-    ) {
-      const found = state.find((item) => item.id === action.payload.id);
-      if (found) found.details = action.payload.details;
-    },
-    setIsAssetSetAction(state, action: PayloadAction<string>) {
-      const index = Number(action.payload.split("-")[1]);
-      if (!isNaN(index)) state[index].isAssetSet = true;
-    },
-    setIndicatorValueAction(
-      state,
-      action: PayloadAction<SetValueActionPayload>
-    ) {
-      const found = state.find((item) => item.id === action.payload.id);
-      if (found) found.indicators[action.payload.key] = action.payload.value;
-    },
-    setIntervalsValueAction(
-      state,
-      action: PayloadAction<SetValueActionPayload>
-    ) {
-      const found = state.find((item) => item.id === action.payload.id);
-      if (found) found.intervals[action.payload.key] = action.payload.value;
-    },
-    setIndicatorAction(
-      state,
-      action: PayloadAction<SetIndicatorActionPayload>
-    ) {
-      const found = state.find((item) => item.id === action.payload.id);
-      if (found) found.indicatorSet = action.payload.value;
-    },
-    pushConditionAction(state, action: PayloadAction<ConditionsState>) {
-      state.push(action.payload);
-    },
-  },
+  reducers: {},
 });
 
-export const {
-  updateConditionAction,
-  setIsAssetSetAction,
-  setIndicatorValueAction,
-  setIntervalsValueAction,
-  setIndicatorAction,
-  pushConditionAction,
-} = conditionsSlice.actions;
+export const {} = conditionsSlice.actions;
 export default conditionsSlice.reducer;
