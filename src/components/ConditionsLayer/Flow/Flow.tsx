@@ -5,11 +5,14 @@ import ReactFlow, {
   Edge,
   Node,
 } from "react-flow-renderer";
-import ConditionNode, { ConditionNodeTypes } from "components/ConditionNode";
+import ConditionNode, {
+  ConditionNodeTypes,
+} from "components/ConditionsLayer/Nodes/ConditionNode";
 import DashedEdge from "components/Edges/DashedEdge";
 import { initialEdges, initialNodes } from "./initialElements";
+import StartEndNode from "../Nodes/StartEndNode";
 
-const nodeTypes = { condition: ConditionNode };
+const nodeTypes = { condition: ConditionNode, startEnd: StartEndNode };
 const edgeTypes = {
   dashed: DashedEdge,
 };
@@ -17,6 +20,53 @@ const edgeTypes = {
 interface FlowProps {
   arePlaceholdersVisible: boolean;
 }
+
+const findLastColumn = (nodes: Node[]) => {
+  let lastCol = 0;
+  for (let item of nodes) {
+    if (item.data.col > lastCol) lastCol = item.data.col;
+  }
+  return lastCol;
+};
+
+interface ColumnData {
+  col: number;
+  row: number;
+  id: string | null;
+}
+
+const lastElementInEachRow = (nodes: Node[]) => {
+  let colArr: ColumnData[] = [];
+  const preparedNodes = nodes.filter(
+    (item) => item.data.type !== ConditionNodeTypes.PLACEHOLDER
+  );
+
+  for (const { data } of preparedNodes) {
+    if (!colArr.find((item) => item.row === data.row))
+      colArr.push({ col: 0, row: data.row, id: null });
+  }
+
+  console.log(colArr);
+
+  colArr = colArr.map(({ row }) => {
+    let colMax = 0;
+    let tempId = "";
+    for (const { id, data } of preparedNodes) {
+      if (row === data.row && data.col > colMax) {
+        colMax = data.col;
+        tempId = id;
+      }
+    }
+    return {
+      row,
+      col: colMax,
+      id: tempId,
+    };
+  });
+
+  console.log(colArr);
+  return colArr;
+};
 
 const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
@@ -29,12 +79,33 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
       setFiltretedNodes(nodes);
       setFiltretedEdges(edges);
     } else {
-      setFiltretedNodes(
-        nodes.filter(
+      const endNodeIndex = (
+        parseInt(nodes[nodes.length - 1].id) + 1
+      ).toString();
+      setFiltretedNodes([
+        ...nodes.filter(
           (item) => item.data.type !== ConditionNodeTypes.PLACEHOLDER
-        )
-      );
-      setFiltretedEdges(edges.filter((item) => item.type !== "dashed"));
+        ),
+        {
+          id: endNodeIndex,
+          type: "startEnd",
+          data: {
+            type: "end",
+            col: findLastColumn(nodes) + 1,
+            row: 0,
+          },
+          position: { x: 110 + findLastColumn(nodes) * 200, y: 10 },
+        },
+      ]);
+      setFiltretedEdges([
+        ...edges.filter((item) => item.type !== "dashed"),
+        ...lastElementInEachRow(nodes).map(({ id }) => ({
+          id: ["e", id, "-", endNodeIndex].join(""),
+          source: id || "",
+          target: endNodeIndex,
+          type: "default",
+        })),
+      ]);
     }
   }, [arePlaceholdersVisible, nodes, edges]);
 

@@ -3,7 +3,6 @@ import styles from "./ConditionNode.module.scss";
 import cx from "classnames";
 
 export enum ConditionNodeTypes {
-  START = "start",
   PLACEHOLDER = "placeholder",
   DEFAULT = "default",
 }
@@ -33,12 +32,6 @@ const ConditionNode = ({ data }: ConditionNodeProps) => {
             If set conditions
           </div>
           <Handle type="target" position={Position.Left} />
-        </>
-      )}
-      {type === ConditionNodeTypes.START && (
-        <>
-          <Handle type="source" position={Position.Right} />
-          <div className={styles.wrapper}>If set conditions</div>
         </>
       )}
     </>

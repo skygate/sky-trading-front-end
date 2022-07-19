@@ -1,19 +1,18 @@
-import { ConditionNodeTypes } from "components/ConditionNode/ConditionNode";
+import { ConditionNodeTypes } from "components/ConditionsLayer/Nodes/ConditionNode/ConditionNode";
 import { Edge, Node } from "react-flow-renderer";
 
 export const initialNodes: Node[] = [
   {
     id: "1",
-    type: "condition",
-    data: { type: ConditionNodeTypes.START, col: 0, row: 0 },
-    position: { x: 10, y: 25 },
+    type: "startEnd",
+    data: { type: "start" },
+    position: { x: 10, y: 10 },
   },
-
   {
     id: "2",
     type: "condition",
-    data: { type: ConditionNodeTypes.PLACEHOLDER, col: 1, row: 0 },
-    position: { x: 210, y: 25 },
+    data: { type: ConditionNodeTypes.PLACEHOLDER, col: 0, row: 0 },
+    position: { x: 110, y: 25 },
   },
 ];
 
