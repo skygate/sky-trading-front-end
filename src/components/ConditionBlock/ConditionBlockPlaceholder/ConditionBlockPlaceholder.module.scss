@@ -1,0 +1,10 @@
+.wrapper {
+  width: 100px;
+  height: 100px;
+  border: 4px dashed var(--color-black2);
+  background-color: var(--color-conditions);
+  opacity: 0.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

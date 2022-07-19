@@ -50,7 +50,7 @@ const modalsSlice = createSlice({
       action: PayloadAction<HandleModalVisibilityPayload>
     ) {
       if (action.payload.key2) {
-        state[action.payload.key1][action.payload.key2] = !action.payload.value;
+        state[action.payload.key1][action.payload.key2] = action.payload.value;
       } else {
         state[action.payload.key1] = action.payload.value;
       }

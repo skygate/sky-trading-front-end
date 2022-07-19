@@ -1,0 +1,13 @@
+.wrapper {
+  background-color: var(--color-conditions);
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacer-5) var(--spacer-10);
+}
+
+.placeholderWrapper {
+  background-color: var(--color-conditions-placeholder);
+  border: 1px dashed var(--color-conditions);
+}

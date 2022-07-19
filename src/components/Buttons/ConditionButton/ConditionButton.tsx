@@ -5,6 +5,7 @@ import { useConditionsSelector, useModalsSelector } from "store/hooks";
 import cx from "classnames";
 import DarkOverlay from "components/DarkOverlay";
 import { OpenCloseSectionTypes } from "components/StrategyInterface/OpenCloseSection/OpenCloseSection";
+import ConditionsLayer from "components/ConditionsLayer/ConditionsLayer";
 
 interface ConditionButtonProps {
   children: ReactNode;
@@ -57,6 +58,7 @@ const ConditionButton = ({
       </div>
       {modal.conditions && (
         <>
+          <ConditionsLayer type={type} />
           <DarkOverlay modal />
         </>
       )}

@@ -28,7 +28,7 @@ const OpenCloseSection = ({
   risk,
 }: OpenCloseSectionProps & OpenCloseStartegyElement) => {
   const dispatch = useAppDispatch();
-  const openModal = useOpenModal("conditions");
+  const openModal = useOpenModal(type, "conditions");
 
   return (
     <div className={styles.elementsWrapper}>
