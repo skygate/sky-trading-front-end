@@ -1,6 +1,11 @@
 import { Handle, Position } from "react-flow-renderer";
 import styles from "./StartEndNode.module.scss";
 
+export enum StartEndNodeTypes {
+  START = "start",
+  END = "end",
+}
+
 export interface ConditionNodeData {
   type: string;
 }
@@ -12,10 +17,12 @@ interface StartEndNodeProps {
 const StartEndNode = ({ data }: StartEndNodeProps) => (
   <>
     <div className={styles.wrapper}>{data.type}</div>
-    {data.type === "start" && (
+    {data.type === StartEndNodeTypes.START && (
       <Handle type="source" position={Position.Right} />
     )}
-    {data.type === "end" && <Handle type="target" position={Position.Left} />}
+    {data.type === StartEndNodeTypes.END && (
+      <Handle type="target" position={Position.Left} />
+    )}
   </>
 );
 
