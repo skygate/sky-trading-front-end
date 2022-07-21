@@ -27,23 +27,23 @@ interface FlowProps {
   arePlaceholdersVisible: boolean;
 }
 
-const findLastColumn = (nodes: Node[]) => {
-  let lastCol = 0;
-  nodes.map(({ data }) => (data.col > lastCol ? (lastCol = data.col) : null));
-  return lastCol;
-};
+enum ItemTypes {
+  COLUMN = "col",
+  ROW = "row",
+}
+
+const findLastItem = (nodes: Node[], type: ItemTypes) =>
+  Math.max(
+    ...nodes.map(({ data }) => {
+      return data[type] || 0;
+    })
+  );
 
 interface ColumnData {
   col: number;
   row: number;
   id: string | null;
 }
-
-const findLastRow = (nodes: Node[]) => {
-  let maxRow = 0;
-  nodes.map(({ data }) => (data.row > maxRow ? (maxRow = data.row) : null));
-  return maxRow;
-};
 
 const lastElementInEachRow = (nodes: Node[]) => {
   let colArr: ColumnData[] = [];
@@ -78,48 +78,93 @@ const lastElementInEachRow = (nodes: Node[]) => {
 const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
-  const [filtratedNodes, setFiltretedNodes] = useState<Node[]>(initialNodes);
-  const [filtratedEdges, setFiltretedEdges] = useState<Edge[]>(initialEdges);
+  const [filteredNodes, setFilteredNodes] = useState<Node[]>(initialNodes);
+  const [filteredEdges, setFilteredEdgesd] = useState<Edge[]>(initialEdges);
+  const [formattedNodes, setFormattedNodes] = useState<Node[]>(initialNodes);
+  const [formattedEdges, setFormattedEdges] = useState<Edge[]>(initialEdges);
 
   useEffect(() => {
     if (arePlaceholdersVisible) {
-      setFiltretedNodes(nodes);
-      setFiltretedEdges(edges);
+      setFormattedNodes(nodes);
+      setFormattedEdges(edges);
     } else {
+      const emptyRows: number[] = [];
+      const rows: number[] = [];
+      let maxRow = 0;
+
       const endNodeIndex = (
-        parseInt(nodes[nodes.length - 1].id) + 1
+        parseInt(filteredNodes[filteredNodes.length - 1].id) + 1
       ).toString();
 
-      const lastColumn = findLastColumn(nodes);
-      const lastRow = findLastRow(nodes);
+      const lastColumn = findLastItem(filteredNodes, ItemTypes.COLUMN);
+      const lastRow = findLastItem(filteredNodes, ItemTypes.ROW);
 
-      setFiltretedNodes([
-        ...nodes.filter(
-          (item) => item.data.type !== ConditionNodeTypes.PLACEHOLDER
-        ),
+      filteredNodes.forEach(({ data }) => {
+        if (rows.indexOf(data.row) < 0) rows.push(data.row);
+        if (data.row > maxRow) maxRow = data.row;
+      });
+
+      for (let i = 0; i <= maxRow; i++) {
+        if (rows.indexOf(i) < 0) emptyRows.push(i);
+      }
+
+      setFormattedNodes([
+        ...filteredNodes.map((item) => {
+          item = { ...item };
+          if (item.type === NodeTypes.CONDITION) {
+            let rowsToPass = 0;
+            emptyRows.forEach((row) => {
+              if (row < item.data.row) rowsToPass++;
+            });
+
+            item.position = {
+              ...item.position,
+              y: item.position.y - rowsToPass * 50,
+            };
+            item.data = {
+              ...item.data,
+              row: item.data.row - rowsToPass,
+            };
+          }
+          return item;
+        }),
         {
           id: endNodeIndex,
           type: NodeTypes.START_END,
           data: {
             type: StartEndNodeTypes.END,
-            col: findLastColumn(nodes) + 1,
+            col: lastColumn + 1,
             row: 0,
           },
           position: {
-            x: 110 + lastColumn * 200 + 10 * lastRow,
+            x: 310 + lastColumn * 200 + 10 * lastRow,
             y: 10 + 25 * lastRow,
           },
         },
       ]);
-      setFiltretedEdges([
-        ...edges.filter((item) => item.type !== EdgeTypes.DASHED),
+      setFormattedEdges([
+        ...filteredEdges,
         ...lastElementInEachRow(nodes).map(({ id }) => ({
-          id: ["e", id, "-", endNodeIndex].join(""),
+          id: `e${id}-${endNodeIndex}`,
           source: id || "",
           target: endNodeIndex,
           type: EdgeTypes.DEFAULT,
         })),
       ]);
+    }
+  }, [filteredNodes, filteredEdges]);
+
+  useEffect(() => {
+    if (arePlaceholdersVisible) {
+      setFilteredNodes(nodes);
+      setFilteredEdgesd(edges);
+    } else {
+      setFilteredNodes(
+        nodes.filter(
+          (item) => item.data.type !== ConditionNodeTypes.PLACEHOLDER
+        )
+      );
+      setFilteredEdgesd(edges.filter((item) => item.type !== EdgeTypes.DASHED));
     }
   }, [arePlaceholdersVisible, nodes, edges]);
 
@@ -143,8 +188,8 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
           ...nds.map((item) => {
             if (item.type === NodeTypes.START_END) {
               item.position = {
-                x: -10 * findLastRow(nodes),
-                y: 10 + 25 * findLastRow(nodes),
+                x: -10 * findLastItem(nodes, ItemTypes.ROW),
+                y: 10 + 25 * findLastItem(nodes, ItemTypes.ROW),
               };
             }
             if (item.id === node.id) {
@@ -196,18 +241,13 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
           return item;
         }),
         {
-          id: ["e", node.id, "-", placeholderIds.forward].join(""),
+          id: `e${node.id}-${placeholderIds.forward}`,
           source: node.id.toString(),
           target: placeholderIds.forward.toString(),
           type: EdgeTypes.DASHED,
         },
         {
-          id: [
-            "e",
-            placeholderIds.edgeDownStart,
-            "-",
-            placeholderIds.down,
-          ].join(""),
+          id: `e${placeholderIds.edgeDownStart}-${placeholderIds.down}`,
           source: placeholderIds.edgeDownStart,
           target: placeholderIds.down.toString(),
           type: EdgeTypes.DASHED,
@@ -219,8 +259,8 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
 
   return (
     <ReactFlow
-      nodes={filtratedNodes}
-      edges={filtratedEdges}
+      nodes={formattedNodes}
+      edges={formattedEdges}
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       onNodeClick={onNodeClick}
