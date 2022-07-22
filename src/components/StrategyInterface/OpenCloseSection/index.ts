@@ -1,1 +1,1 @@
-export { default } from "./OpenCloseSection";
+export { default, OpenCloseSectionTypes } from "./OpenCloseSection";
