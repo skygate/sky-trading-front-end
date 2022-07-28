@@ -69,7 +69,6 @@ const strategyCreationSlice = createSlice({
       state.isExpanded = action.payload;
     },
     setStrategyElementExpandedAction(state, action: PayloadAction<string>) {
-      console.log(state.isExpanded);
       state[action.payload].isExpanded = !state[action.payload].isExpanded;
     },
     updateAssetAction(state, action: PayloadAction<AssetStrategyElement>) {
