@@ -1,11 +1,28 @@
+import axios from "axios";
 import DraftCard from "components/DraftCard";
 import DrafCardPlaceholder from "components/DraftCard/DrafCardPlaceholder";
 import NavBar from "components/NavBar";
-import { useDraftsSelector } from "store/hooks";
+import { BASE_URL } from "constant/config";
+import { useEffect, useState } from "react";
+import { StrategyType } from "types/StrategyTypes";
 import styles from "./DraftsView.module.scss";
 
 const DraftsView = () => {
-  const drafts = useDraftsSelector();
+  const [strategies, setStrategies] = useState<StrategyType[]>([]);
+
+  const getAllStrategy = async () => {
+    try {
+      const { data } = await axios.get(`${BASE_URL}strategy`);
+      console.log(data);
+      setStrategies(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getAllStrategy();
+  }, []);
 
   return (
     <>
@@ -22,16 +39,14 @@ const DraftsView = () => {
           </div>
           <div className={styles.listElementsWrapper}>
             <ul className={styles.listElements}>
-              {drafts &&
-                Array.isArray(drafts) &&
-                drafts.map((item) => (
-                  <DraftCard
-                    id={item.id}
-                    name={item.name}
-                    date={item.date}
-                    key={item.id}
-                  />
-                ))}
+              {strategies.map((item) => (
+                <DraftCard
+                  id={item._id}
+                  name={item.name}
+                  date={item.date}
+                  key={item._id}
+                />
+              ))}
               <DrafCardPlaceholder>
                 Start crate your strategy
               </DrafCardPlaceholder>

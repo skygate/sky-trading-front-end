@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface draftsState {
-  id: number;
+  id: number | string;
   name: string;
   date: Date;
 }
@@ -11,7 +11,7 @@ const draftsSlice = createSlice({
   name: "drafts",
   initialState,
   reducers: {
-    deleteDraftAction(state, action: PayloadAction<number>) {
+    deleteDraftAction(state, action: PayloadAction<number | string>) {
       return state.filter((item) => item.id !== action.payload);
     },
     pushDraftAction(state, action: PayloadAction<draftsState>) {

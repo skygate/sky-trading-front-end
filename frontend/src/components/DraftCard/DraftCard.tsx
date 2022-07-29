@@ -3,18 +3,27 @@ import Button, { ButtonSize } from "components/Buttons/Button";
 import draftCardVisualisation from "assets/Image/draftCardVisualisation.png";
 import { ClockIcon } from "assets/icons";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "store/hooks";
-import { deleteDraftAction } from "store/draftsSlice";
+
+import axios from "axios";
+import { BASE_URL } from "constant/config";
 
 interface DraftCardProps {
-  id: number;
+  id: number | string;
   name: string;
   date: Date;
 }
 
 const DraftCard = ({ id, name, date }: DraftCardProps) => {
   const [formattedDate, setFormattedDate] = useState("");
-  const dispatch = useAppDispatch();
+
+  const deleteStrategy = async () => {
+    try {
+      const result = await axios.delete(`${BASE_URL}strategy/${id}`);
+      console.log(result);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     setFormattedDate(
@@ -22,9 +31,9 @@ const DraftCard = ({ id, name, date }: DraftCardProps) => {
         year: "numeric",
         month: "short",
         day: "2-digit",
-      }).format(date)
+      }).format(new Date(date))
     );
-  });
+  }, [date]);
 
   return (
     <section className={styles.wrapper}>
@@ -53,10 +62,7 @@ const DraftCard = ({ id, name, date }: DraftCardProps) => {
         </div>
       </div>
       <div className={styles.buttonsWrapper}>
-        <Button
-          size={ButtonSize.MEDIUM}
-          onClick={() => dispatch(deleteDraftAction(id))}
-        >
+        <Button size={ButtonSize.MEDIUM} onClick={deleteStrategy}>
           Delete
         </Button>
         <Button size={ButtonSize.MEDIUM} color>
