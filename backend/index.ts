@@ -1,12 +1,19 @@
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
+import connectDB from "./config/db";
 import cors from "cors";
 import dotenv from "dotenv";
-import router from "./routes";
+import router from "./routes/strategyRoutes";
 
 dotenv.config();
+connectDB();
 
 const app: Express = express();
 const port = process.env.PORT;
+
+const logger = (req: Request, res: Response, next: NextFunction) => {
+  console.log(`${req.method}  ${req.path}`);
+  next();
+};
 
 app.use(
   cors({
@@ -15,6 +22,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(logger);
 app.use("/", router);
 
 app.listen(port, () => {

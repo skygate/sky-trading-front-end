@@ -1,11 +1,13 @@
 import express from "express";
 import {
   createStrategy,
+  deleteStrategy,
   getStrategy,
 } from "../controllers/strategyControllers";
 
 const router = express.Router();
 
-router.post("/strategy", createStrategy).get("/strategy", getStrategy);
+router.route("/strategy").post(createStrategy).get(getStrategy);
+router.route("/strategy/:id").delete(deleteStrategy);
 
 export default router;
