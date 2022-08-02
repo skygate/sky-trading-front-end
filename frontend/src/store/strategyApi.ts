@@ -6,16 +6,24 @@ export interface CreateStreategyMutation {
   description: string;
 }
 
+export interface CreateStrategyMutationResponse {
+  acknowledged: boolean;
+  deletedCount: number;
+}
+
 export const strategyApi = createApi({
   reducerPath: "strategyApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
   tagTypes: ["Strategies"],
   endpoints: (builder) => ({
-    getStrategy: builder.query<StrategyType[], number | void>({
-      query: (limit = 10) => `/strategy?limit=${limit}`,
+    getStrategy: builder.query<StrategyType[], void>({
+      query: () => `/strategy`,
       providesTags: ["Strategies"],
     }),
-    createStrategy: builder.mutation<any, CreateStreategyMutation>({
+    createStrategy: builder.mutation<
+      CreateStrategyMutationResponse,
+      CreateStreategyMutation
+    >({
       query: (body) => ({
         url: `/strategy`,
         method: "POST",

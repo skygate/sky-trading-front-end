@@ -12,7 +12,6 @@ import conditionsReducer, { ConditionsState } from "./conditionsSlice";
 import undoable, { StateWithHistory } from "redux-undo";
 import modalsReducer, { ModalsState } from "./modalsSlice";
 import commentsReducer, { CommentsState } from "./commentsSlice";
-import draftsReducer from "./draftsSlice";
 import { strategyApi } from "./strategyApi";
 
 export const store = configureStore({
@@ -36,7 +35,6 @@ export const store = configureStore({
       AnyAction
     >,
     [strategyApi.reducerPath]: strategyApi.reducer,
-    drafts: draftsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(strategyApi.middleware),

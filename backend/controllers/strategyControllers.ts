@@ -26,7 +26,6 @@ export const deleteStrategy = async (req: Request, res: Response) => {
   try {
     if (!req.params.id) throw new Error("There is no id in request!");
     const deleted = await StrategyModel.deleteOne({ id: req.params.id });
-    console.log(deleted);
     res.status(200).json(deleted);
   } catch (e) {
     console.log(e);

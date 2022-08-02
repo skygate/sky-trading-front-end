@@ -9,7 +9,6 @@ import styles from "./DraftsView.module.scss";
 const DraftsView = () => {
   const [strategies, setStrategies] = useState<StrategyType[]>([]);
   const { data = [] } = useGetStrategyQuery();
-  console.log(useGetStrategyQuery());
 
   useEffect(() => {
     setStrategies([...data]);
