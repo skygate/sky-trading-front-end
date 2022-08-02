@@ -3,7 +3,6 @@ import Button, { ButtonSize } from "components/Buttons/Button";
 import draftCardVisualisation from "assets/Image/draftCardVisualisation.png";
 import { ClockIcon } from "assets/icons";
 import { useEffect, useState } from "react";
-
 import axios from "axios";
 import { BASE_URL } from "constant/config";
 
