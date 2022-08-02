@@ -1,10 +1,19 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import strategyCreationReducer from "./strategyCreationSlice";
-import conditionsReducer from "./conditionsSlice";
-import undoable from "redux-undo";
-import modalsReducer from "./modalsSlice";
-import commentsReducer from "./commentsSlice";
+import {
+  AnyAction,
+  combineReducers,
+  configureStore,
+  Reducer,
+  CombinedState,
+} from "@reduxjs/toolkit";
+import strategyCreationReducer, {
+  StrategyState,
+} from "./strategyCreationSlice";
+import conditionsReducer, { ConditionsState } from "./conditionsSlice";
+import undoable, { StateWithHistory } from "redux-undo";
+import modalsReducer, { ModalsState } from "./modalsSlice";
+import commentsReducer, { CommentsState } from "./commentsSlice";
 import draftsReducer from "./draftsSlice";
+import { strategyApi } from "./strategyApi";
 
 export const store = configureStore({
   reducer: {
@@ -15,9 +24,22 @@ export const store = configureStore({
         modals: modalsReducer,
         comments: commentsReducer,
       })
-    ),
+    ) as Reducer<
+      StateWithHistory<
+        CombinedState<{
+          strategyCreation: StrategyState;
+          conditions: ConditionsState[];
+          modals: ModalsState;
+          comments: CommentsState;
+        }>
+      >,
+      AnyAction
+    >,
+    [strategyApi.reducerPath]: strategyApi.reducer,
     drafts: draftsReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(strategyApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
