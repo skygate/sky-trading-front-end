@@ -1,24 +1,20 @@
 import Button, { ButtonSize } from "components/Buttons";
 import styles from "./Calculate.module.scss";
 import { ActionCreators } from "redux-undo";
-import { useAppDispatch } from "store/hooks";
-import { pushDraftAction } from "store/draftsSlice";
-import { useNewDraftIndex } from "store/hooks";
 import { useNavigate } from "react-router-dom";
+import { useCreateStrategyMutation } from "store/strategyApi";
+import { useDispatch } from "react-redux";
 
 const Calculate = () => {
-  const dispatch = useAppDispatch();
-  const newDraftIndex = useNewDraftIndex();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [createStrategy, result] = useCreateStrategyMutation();
 
   const saveDraft = () => {
-    dispatch(
-      pushDraftAction({
-        id: newDraftIndex,
-        name: "x",
-        date: new Date(),
-      })
-    );
+    createStrategy({
+      name: "dsazaf",
+      description: "sada",
+    });
     navigate("/drafts");
   };
 

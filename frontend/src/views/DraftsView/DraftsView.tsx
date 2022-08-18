@@ -1,28 +1,18 @@
-import axios from "axios";
 import DraftCard from "components/DraftCard";
 import DrafCardPlaceholder from "components/DraftCard/DrafCardPlaceholder";
 import NavBar from "components/NavBar";
-import { BASE_URL } from "constant/config";
 import { useEffect, useState } from "react";
+import { useGetStrategyQuery } from "store/strategyApi";
 import { StrategyType } from "types/StrategyTypes";
 import styles from "./DraftsView.module.scss";
 
 const DraftsView = () => {
   const [strategies, setStrategies] = useState<StrategyType[]>([]);
-
-  const getAllStrategy = async () => {
-    try {
-      const { data } = await axios.get(`${BASE_URL}strategy`);
-      console.log(data);
-      setStrategies(data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const { data = [] } = useGetStrategyQuery();
 
   useEffect(() => {
-    getAllStrategy();
-  }, []);
+    setStrategies([...data]);
+  }, [data]);
 
   return (
     <>
