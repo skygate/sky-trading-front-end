@@ -29,6 +29,14 @@ const ConditionsLayer = ({ type }: ConditionsLayerProps) => {
       <div className={styles.flowBoxWrapper}>
         <Flow arePlaceholdersVisible={arePlaceholdersVisible} />
       </div>
+      <div className={styles.saveButtons}>
+        <button type="button" className={styles.saveButton}>
+          Preview
+        </button>
+        <button type="button" className={styles.saveButton}>
+          Save
+        </button>
+      </div>
     </div>,
     document.getElementById("modal") as HTMLElement
   );

@@ -5,7 +5,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--color-white);
+  background-color: var(--color-black2);
   z-index: var(--index-modalOverlay);
   padding: 1%;
   display: flex;
@@ -16,13 +16,10 @@
 .closeButton {
   position: absolute;
   z-index: var(--index-modal);
-  right: 20px;
-  top: 20px;
+  right: var(--spacer-30);
+  top: var(--spacer-30);
   border: none;
-  background: var(--color-red);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  background: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,17 +29,42 @@
   }
 }
 
+.saveButtons {
+  position: absolute;
+  z-index: 1000;
+  right: var(--spacer-30);
+  bottom: var(--spacer-30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacer-10);
+}
+
+.saveButton {
+  background-color: var(--color-black3);
+  color: inherit;
+  padding: var(--spacer-10) var(--spacer-30);
+  border: none;
+  font-size: var(--font-16);
+  font-weight: 500;
+  border-radius: var(--spacer-5);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .placeholdersButton {
   position: absolute;
   z-index: var(--index-modal);
-  left: 20px;
-  top: 20px;
+  left: var(--spacer-20);
+  top: var(--spacer-20);
   border: none;
   background-color: var(--color-black2);
   width: fit-content;
   padding: var(--spacer-5) var(--spacer-10);
   color: inherit;
-  border-radius: 5px;
+  border-radius: var(--spacer-5);
 
   &:hover {
     cursor: pointer;
