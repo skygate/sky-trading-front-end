@@ -16,10 +16,10 @@
 
 .textInput {
   width: 80%;
-  height: 40px;
+  height: var(--spacer-40);
   background-color: inherit;
   border: none;
-  border-bottom: 2px solid var(--color-primary);
+  border-bottom: var(--spacer-2) solid var(--color-primary);
   color: inherit;
   font-size: var(--font-20);
 }
@@ -44,8 +44,8 @@
   color: inherit;
   font-size: var(--font-16);
   position: absolute;
-  right: 30px;
-  bottom: 20px;
+  right: var(--spacer-30);
+  bottom: var(--spacer-20);
 
   &:hover {
     cursor: pointer;

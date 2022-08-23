@@ -16,8 +16,8 @@
 .closeButton {
   position: absolute;
   z-index: var(--index-modal);
-  right: 30px;
-  top: 30px;
+  right: var(--spacer-30);
+  top: var(--spacer-30);
   border: none;
   background: none;
   display: flex;
@@ -32,8 +32,8 @@
 .saveButtons {
   position: absolute;
   z-index: 1000;
-  right: 30px;
-  bottom: 30px;
+  right: var(--spacer-30);
+  bottom: var(--spacer-30);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,14 +57,14 @@
 .placeholdersButton {
   position: absolute;
   z-index: var(--index-modal);
-  left: 20px;
-  top: 20px;
+  left: var(--spacer-20);
+  top: var(--spacer-20);
   border: none;
   background-color: var(--color-black2);
   width: fit-content;
   padding: var(--spacer-5) var(--spacer-10);
   color: inherit;
-  border-radius: 5px;
+  border-radius: var(--spacer-5);
 
   &:hover {
     cursor: pointer;
