@@ -1,10 +1,5 @@
 import { MouseEvent, useCallback, useEffect, useState } from "react";
-import ReactFlow, {
-  Background,
-  Controls,
-  Edge,
-  Node,
-} from "react-flow-renderer";
+import ReactFlow, { Controls, Edge, Node } from "react-flow-renderer";
 import ConditionNode, {
   ConditionNodeTypes,
 } from "components/ConditionsLayer/Nodes/ConditionNode";
@@ -17,6 +12,8 @@ import {
 } from "./initialElements";
 import StartEndNode from "../Nodes/StartEndNode";
 import { StartEndNodeTypes } from "../Nodes/StartEndNode/StartEndNode";
+import styles from "./Flow.module.scss";
+import SetConditionModal from "../SetConditionModal";
 
 const nodeTypes = { condition: ConditionNode, startEnd: StartEndNode };
 const edgeTypes = {
@@ -76,6 +73,7 @@ const lastElementInEachRow = (nodes: Node[]) => {
 };
 
 const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
+  const [activeNodeModal, setActiveNodeModal] = useState<null | Node>(null);
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
   const [filteredNodes, setFilteredNodes] = useState<Node[]>(initialNodes);
@@ -168,8 +166,11 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
     }
   }, [arePlaceholdersVisible, nodes, edges]);
 
-  const onNodeClick = useCallback(
-    (e: MouseEvent, node: Node) => {
+  const onNodeClick = (e: MouseEvent, node: Node) => setActiveNodeModal(node);
+  const onNodeModalClose = () => setActiveNodeModal(null);
+
+  const onNodeSubmit = useCallback(
+    (node: Node) => {
       if (node.data.type !== ConditionNodeTypes.PLACEHOLDER) return;
       const placeholderIds: any = {
         down: null,
@@ -259,6 +260,7 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
 
   return (
     <ReactFlow
+      style={{ background: "#20222D", padding: 0 }}
       nodes={formattedNodes}
       edges={formattedEdges}
       nodeTypes={nodeTypes}
@@ -266,8 +268,14 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
       onNodeClick={onNodeClick}
       fitView
     >
-      <Background />
-      <Controls />
+      <Controls showInteractive={false} className={styles.controls} />
+      {activeNodeModal && (
+        <SetConditionModal
+          node={activeNodeModal}
+          submitFn={onNodeSubmit}
+          closeFn={onNodeModalClose}
+        />
+      )}
     </ReactFlow>
   );
 };

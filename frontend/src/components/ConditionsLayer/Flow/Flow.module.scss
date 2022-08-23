@@ -1,0 +1,21 @@
+.controls {
+  border-radius: var(--spacer-10);
+  background-color: var(--color-black3);
+
+  button {
+    background-color: inherit;
+    width: fit-content;
+    height: auto;
+    padding: var(--spacer-15);
+    border: none;
+    border-radius: var(--spacer-10);
+  }
+
+  *:hover {
+    background-color: var(--color-black3);
+  }
+
+  svg {
+    fill: var(--color-white);
+  }
+}
