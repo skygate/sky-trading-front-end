@@ -80,6 +80,7 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
   const [filteredEdges, setFilteredEdgesd] = useState<Edge[]>(initialEdges);
   const [formattedNodes, setFormattedNodes] = useState<Node[]>(initialNodes);
   const [formattedEdges, setFormattedEdges] = useState<Edge[]>(initialEdges);
+  const [currentSetConditionValue, setCurrentSetConditionValue] = useState("");
 
   useEffect(() => {
     if (arePlaceholdersVisible) {
@@ -170,7 +171,7 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
   const onNodeModalClose = () => setActiveNodeModal(null);
 
   const onNodeSubmit = useCallback(
-    (node: Node) => {
+    (node: Node, words: string[]) => {
       if (node.data.type !== ConditionNodeTypes.PLACEHOLDER) return;
       const placeholderIds: any = {
         down: null,
@@ -197,6 +198,7 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
               item.data = {
                 ...item.data,
                 type: ConditionNodeTypes.DEFAULT,
+                value: words.join(" "),
               };
             }
             if (item.data.row > node.data.row) {
@@ -254,6 +256,8 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
           type: EdgeTypes.DASHED,
         },
       ]);
+
+      setCurrentSetConditionValue("");
     },
     [nodes, edges]
   );
@@ -274,6 +278,7 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
           node={activeNodeModal}
           submitFn={onNodeSubmit}
           closeFn={onNodeModalClose}
+          setCurrentSetConditionValue={setCurrentSetConditionValue}
         />
       )}
     </ReactFlow>

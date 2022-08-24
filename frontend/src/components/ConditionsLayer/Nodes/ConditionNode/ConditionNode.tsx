@@ -9,6 +9,7 @@ export enum ConditionNodeTypes {
 
 export interface ConditionNodeData {
   type: ConditionNodeTypes;
+  value?: string;
 }
 
 interface ConditionNodeProps {
@@ -16,13 +17,13 @@ interface ConditionNodeProps {
 }
 
 const ConditionNode = ({ data }: ConditionNodeProps) => {
-  const { type } = data;
+  const { type, value } = data;
   return (
     <>
       {type === ConditionNodeTypes.DEFAULT && (
         <>
           <Handle type="source" position={Position.Right} />
-          <div className={styles.wrapper}>If set conditions</div>
+          <div className={styles.wrapper}>{value || "If set conditions"}</div>
           <Handle type="target" position={Position.Left} />
         </>
       )}

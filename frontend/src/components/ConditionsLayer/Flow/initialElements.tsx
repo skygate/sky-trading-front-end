@@ -22,7 +22,7 @@ export const initialNodes: Node[] = [
   {
     id: "2",
     type: NodeTypes.CONDITION,
-    data: { type: ConditionNodeTypes.PLACEHOLDER, col: 0, row: 0 },
+    data: { type: ConditionNodeTypes.PLACEHOLDER, col: 0, row: 0, value: "" },
     position: { x: 110, y: 25 },
   },
 ];
