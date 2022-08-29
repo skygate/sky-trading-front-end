@@ -16,24 +16,26 @@ const ConditionsLayer = ({ type }: ConditionsLayerProps) => {
 
   return createPortal(
     <div className={styles.wrapper}>
+      <h2 className={styles.header}>Set conditions</h2>
       <button onClick={closeModal} className={styles.closeButton} type="button">
         <CloseIcon />
-      </button>
-      <button
-        onClick={() => setPlaceholdersVisible((prev) => !prev)}
-        className={styles.placeholdersButton}
-        type="button"
-      >
-        Show/Hide Placeholders
       </button>
       <div className={styles.flowBoxWrapper}>
         <Flow arePlaceholdersVisible={arePlaceholdersVisible} />
       </div>
       <div className={styles.saveButtons}>
-        <button type="button" className={styles.saveButton}>
+        <button
+          type="button"
+          className={styles.saveButton}
+          onClick={() => setPlaceholdersVisible((prev) => !prev)}
+        >
           Preview
         </button>
-        <button type="button" className={styles.saveButton}>
+        <button
+          type="button"
+          className={styles.saveButton}
+          disabled={arePlaceholdersVisible}
+        >
           Save
         </button>
       </div>

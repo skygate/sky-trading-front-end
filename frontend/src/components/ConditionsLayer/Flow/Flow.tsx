@@ -14,6 +14,7 @@ import StartEndNode from "../Nodes/StartEndNode";
 import { StartEndNodeTypes } from "../Nodes/StartEndNode/StartEndNode";
 import styles from "./Flow.module.scss";
 import SetConditionModal from "../SetConditionModal";
+import DarkOverlay from "components/DarkOverlay";
 
 const nodeTypes = { condition: ConditionNode, startEnd: StartEndNode };
 const edgeTypes = {
@@ -274,12 +275,15 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
     >
       <Controls showInteractive={false} className={styles.controls} />
       {activeNodeModal && (
-        <SetConditionModal
-          node={activeNodeModal}
-          submitFn={onNodeSubmit}
-          closeFn={onNodeModalClose}
-          setCurrentSetConditionValue={setCurrentSetConditionValue}
-        />
+        <>
+          <SetConditionModal
+            node={activeNodeModal}
+            submitFn={onNodeSubmit}
+            closeFn={onNodeModalClose}
+            setCurrentSetConditionValue={setCurrentSetConditionValue}
+          />
+          <DarkOverlay />
+        </>
       )}
     </ReactFlow>
   );

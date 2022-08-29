@@ -1,19 +1,39 @@
 .wrapper {
   position: absolute;
   width: 400px;
-  height: 500px;
   background-color: var(--color-black2);
   z-index: var(--index-modal);
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  align-items: center;
-  gap: var(--spacer-30);
+  align-items: flex-start;
+  gap: var(--spacer-15);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: var(--spacer-20);
   padding: var(--spacer-20);
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.closeButton {
+  background-color: inherit;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.buttons {
+  align-self: flex-end;
+  display: flex;
+  gap: var(--spacer-10);
 }
 
 .inputWrapper {
@@ -23,8 +43,11 @@
 }
 
 .input {
-  width: 100px;
-  height: 40px;
+  color: inherit;
+  padding: var(--spacer-10);
+  width: 60px;
+  background-color: var(--color-black3);
+  height: var(--spacer-40);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--spacer-5);
 }

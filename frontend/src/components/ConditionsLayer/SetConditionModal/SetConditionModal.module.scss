@@ -1,23 +1,42 @@
 .wrapper {
   position: absolute;
-  width: 80%;
-  height: 80%;
-  background-color: var(--color-black3);
+  width: 60%;
+  min-height: 40%;
+  background-color: var(--color-black2);
   z-index: var(--index-modal);
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--spacer-30);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: var(--spacer-20);
+  padding: var(--spacer-15);
+}
+
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.modalLabel {
+  font-size: var(--font-16);
+  font-weight: 400;
+}
+
+.mainSection {
+  padding: var(--spacer-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacer-15);
 }
 
 .textInputWrapper {
   width: 80%;
   height: var(--spacer-40);
-  border-bottom: var(--spacer-2) solid var(--color-green);
+  border-bottom: var(--spacer-2) solid var(--color-black3);
   font-size: var(--font-20);
   display: flex;
   gap: var(--spacer-15);
@@ -43,9 +62,6 @@
 }
 
 .closeButton {
-  position: absolute;
-  right: var(--spacer-20);
-  top: var(--spacer-20);
   border: none;
   background-color: inherit;
 
@@ -54,20 +70,12 @@
   }
 }
 
-.submitButton {
-  background-color: var(--color-primary);
-  padding: var(--spacer-10) var(--spacer-20);
-  border: none;
-  border-radius: var(--spacer-5);
-  color: inherit;
-  font-size: var(--font-16);
+.buttonsWrapper {
+  display: flex;
+  gap: var(--spacer-10);
   position: absolute;
   right: var(--spacer-30);
   bottom: var(--spacer-20);
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 .hintsWrapper {
@@ -76,12 +84,13 @@
 }
 
 .hint {
-  background-color: var(--color-conditions);
+  background-color: var(--color-primary);
   color: inherit;
   font-size: var(--font-16);
+  font-weight: 500;
   border: none;
   border-radius: var(--spacer-5);
-  padding: var(--spacer-10) var(--spacer-20);
+  padding: var(--spacer-5) var(--spacer-10);
 
   &:hover {
     cursor: pointer;

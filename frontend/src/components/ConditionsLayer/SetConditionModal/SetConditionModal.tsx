@@ -11,6 +11,7 @@ import styles from "./SetConditionModal.module.scss";
 import cx from "classnames";
 import SetIndicatorModal from "./SetIndicatorModal";
 import DarkOverlay from "components/DarkOverlay";
+import Button, { ButtonSize } from "components/Buttons/Button";
 
 export enum HintTypes {
   INDICATOR = "INDICATOR",
@@ -146,58 +147,74 @@ const SetConditionModal = ({
 
   return (
     <div className={styles.wrapper}>
-      <h2>Set condition</h2>
-      <button className={styles.closeButton} type="button" onClick={closeFn}>
-        <CloseIcon />
-      </button>
-      <div
-        className={cx(
-          styles.textInputWrapper,
-          typingError && styles.textInputWrapperError
-        )}
-      >
-        {words.map((item) => (
-          <span>{item}</span>
-        ))}
-        <input
-          className={styles.textInput}
-          type="text"
-          value={conditionText}
-          onChange={(e) => setConditionText(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-      </div>
       {displayedIndicator && (
         <>
           <SetIndicatorModal
             indicator={displayedIndicator}
             setDisplayedIndicator={setDisplayedIndicator}
             setCurrentIndicatorParameters={setCurrentIndicatorParameters}
+            setWords={setWords}
           />
           <DarkOverlay />
         </>
       )}
-      <div className={styles.hintsWrapper}>
-        {currentHints.map((item) => (
-          <button
-            type="button"
-            className={styles.hint}
-            onClick={() => clickHint(item)}
-          >
-            {item.name}
-          </button>
-        ))}
+      <div className={styles.headerWrapper}>
+        <h2 className={styles.modalLabel}>Set condition</h2>
+        <button className={styles.closeButton} type="button" onClick={closeFn}>
+          <CloseIcon />
+        </button>
       </div>
-      <button
-        className={styles.submitButton}
-        type="button"
-        onClick={() => {
-          closeFn();
-          submitFn(node, words);
-        }}
-      >
-        Submit condition
-      </button>
+      <div className={styles.mainSection}>
+        <div
+          className={cx(
+            styles.textInputWrapper,
+            typingError && styles.textInputWrapperError
+          )}
+        >
+          {words.map((item) => (
+            <span>{item}</span>
+          ))}
+          <input
+            className={styles.textInput}
+            type="text"
+            value={conditionText}
+            onChange={(e) => setConditionText(e.target.value)}
+            onKeyDown={handleKeyPress}
+          />
+        </div>
+        <div className={styles.hintsWrapper}>
+          {currentHints.map((item) => (
+            <button
+              type="button"
+              className={styles.hint}
+              onClick={() => clickHint(item)}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className={styles.buttonsWrapper}>
+        <Button
+          size={ButtonSize.SMALL}
+          onClick={() => {
+            closeFn();
+            submitFn(node, words);
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          size={ButtonSize.SMALL}
+          color
+          onClick={() => {
+            closeFn();
+            submitFn(node, words);
+          }}
+        >
+          Ok
+        </Button>
+      </div>
     </div>
   );
 };
