@@ -1,14 +1,15 @@
 import { CloseIcon } from "assets/icons";
 import Button, { ButtonSize } from "components/Buttons";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Hint } from "../SetConditionModal";
+import { Hint, HintTypes, Word } from "../SetConditionModal";
 import styles from "./SetIndicatorModal.module.scss";
 
 interface SetIndicatorModalProps {
   indicator: Hint;
   setDisplayedIndicator: Dispatch<SetStateAction<null | Hint>>;
   setCurrentIndicatorParameters: Dispatch<SetStateAction<any>>;
-  setWords: Dispatch<SetStateAction<string[]>>;
+  setWords: Dispatch<SetStateAction<Word[]>>;
+  setHintsType: Dispatch<SetStateAction<HintTypes>>;
 }
 
 const SetIndicatorModal = ({
@@ -16,12 +17,15 @@ const SetIndicatorModal = ({
   setDisplayedIndicator,
   setCurrentIndicatorParameters,
   setWords,
+  setHintsType,
 }: SetIndicatorModalProps) => {
   const [inputValue, setInputValue] = useState("");
 
   const submitIndicator = () => {
+    if (parseInt(inputValue) <= 0 || !inputValue) return;
     setDisplayedIndicator(null);
     setCurrentIndicatorParameters(`(${inputValue})`);
+    setHintsType(HintTypes.OPERATOR);
   };
 
   const cancelIndicator = () => {
@@ -33,7 +37,11 @@ const SetIndicatorModal = ({
     <div className={styles.wrapper}>
       <header className={styles.header}>
         <h3>{indicator.name}</h3>
-        <button type="button" className={styles.closeButton}>
+        <button
+          type="button"
+          className={styles.closeButton}
+          onClick={cancelIndicator}
+        >
           <CloseIcon />
         </button>
       </header>
@@ -42,6 +50,7 @@ const SetIndicatorModal = ({
           <label>{item.name}</label>
           <input
             type="number"
+            min="0"
             className={styles.input}
             value={inputValue}
             placeholder="10"
@@ -53,7 +62,12 @@ const SetIndicatorModal = ({
         <Button size={ButtonSize.SMALL} onClick={cancelIndicator}>
           Cancel
         </Button>
-        <Button color size={ButtonSize.SMALL} onClick={submitIndicator}>
+        <Button
+          color
+          size={ButtonSize.SMALL}
+          onClick={submitIndicator}
+          disabled={!inputValue}
+        >
           Ok
         </Button>
       </div>

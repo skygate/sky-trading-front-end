@@ -16,6 +16,7 @@ import Button, { ButtonSize } from "components/Buttons/Button";
 export enum HintTypes {
   INDICATOR = "INDICATOR",
   OPERATOR = "OPERATOR",
+  VALUE = "VALUE",
 }
 
 export interface IndicatorParameter {
@@ -35,7 +36,7 @@ interface SetConditionModalProps {
   setCurrentSetConditionValue: Dispatch<SetStateAction<string>>;
 }
 
-const allHints: Hint[] = [
+export const allHints: Hint[] = [
   {
     name: "EMA",
     type: HintTypes.INDICATOR,
@@ -55,7 +56,7 @@ const allHints: Hint[] = [
     ],
   },
   {
-    name: "STOCHASTIC",
+    name: "Stochastic",
     type: HintTypes.INDICATOR,
     parameters: [
       {
@@ -77,6 +78,14 @@ const allHints: Hint[] = [
     type: HintTypes.OPERATOR,
   },
   {
+    name: ">=",
+    type: HintTypes.OPERATOR,
+  },
+  {
+    name: "<=",
+    type: HintTypes.OPERATOR,
+  },
+  {
     name: "<",
     type: HintTypes.OPERATOR,
   },
@@ -84,7 +93,30 @@ const allHints: Hint[] = [
     name: "=",
     type: HintTypes.OPERATOR,
   },
+  {
+    name: "cross from above",
+    type: HintTypes.OPERATOR,
+  },
+  {
+    name: "cross from below",
+    type: HintTypes.OPERATOR,
+  },
+  {
+    name: "rises by",
+    type: HintTypes.OPERATOR,
+  },
 ];
+
+export interface Word {
+  content: string;
+  type: HintTypes;
+}
+
+const formatWords = (items: Word[]) =>
+  items
+    .map(({ content }) => content)
+    .join(" ")
+    .slice(0, 14) + "... ";
 
 const SetConditionModal = ({
   node,
@@ -95,8 +127,9 @@ const SetConditionModal = ({
   const [currentHints, setCurrentHints] = useState<Hint[]>(
     allHints.filter((item) => item.type === HintTypes.INDICATOR)
   );
+  const [currentHintsType, setCurrentHintsType] = useState(HintTypes.INDICATOR);
   const [conditionText, setConditionText] = useState("");
-  const [words, setWords] = useState<string[]>([]);
+  const [words, setWords] = useState<Word[]>([]);
   const [typingError, setTypingError] = useState(false);
   const [displayedIndicator, setDisplayedIndicator] = useState<null | Hint>(
     null
@@ -106,42 +139,64 @@ const SetConditionModal = ({
 
   useEffect(() => {
     if (currentIndicatorParameters) {
-      setWords((prev) => [...prev, currentIndicatorParameters]);
+      setWords((prev) => [
+        ...prev,
+        { content: currentIndicatorParameters, type: HintTypes.VALUE },
+      ]);
       setCurrentIndicatorParameters(null);
     }
   }, [currentIndicatorParameters]);
 
+  useEffect(() => {
+    setCurrentHints(
+      allHints.filter(
+        (item) =>
+          item.type === currentHintsType &&
+          item.name.toLowerCase().includes(conditionText.toLowerCase())
+      )
+    );
+  }, [conditionText, currentHintsType]);
+
   const clickHint = (hint: Hint) => {
-    if (hint.type === HintTypes.INDICATOR) {
-      setDisplayedIndicator(hint);
-    }
+    if (hint.type === HintTypes.INDICATOR) setDisplayedIndicator(hint);
     setConditionText("");
     setTypingError(false);
-    setWords((prev) => [...prev, hint.name]);
-    setCurrentHints(allHints.filter((item) => item.type !== hint.type));
+    setWords((prev) => [...prev, { content: hint.name, type: hint.type }]);
+    if (hint.type === HintTypes.OPERATOR)
+      setCurrentHintsType(HintTypes.INDICATOR);
   };
 
   const handleKeyPress: KeyboardEventHandler<HTMLElement> = ({ key }) => {
     if (key === "Enter" || key === " ") {
-      if (
-        allHints.filter(
-          (item) => item.name.toUpperCase() === conditionText.toUpperCase()
-        ).length > 0
-      ) {
-        const found = allHints.find(
-          (item) => item.name.toUpperCase() === conditionText.toUpperCase()
-        );
-        if (found && found.type === HintTypes.INDICATOR)
-          setDisplayedIndicator(found);
+      const found = allHints.find(
+        (item) => item.name.toUpperCase() === conditionText.toUpperCase()
+      );
+      if (found) {
+        if (found.type === HintTypes.INDICATOR) setDisplayedIndicator(found);
         setTypingError(false);
-        setWords((prev) => [...prev, conditionText]);
+        setWords((prev) => [
+          ...prev,
+          { content: conditionText, type: found.type },
+        ]);
         setConditionText("");
       } else {
         setTypingError(true);
       }
-    } else if (key === "Backspace" && conditionText === "") {
-      setConditionText(words.at(-1) || "");
-      setWords((prev) => prev.slice(0, -1));
+    } else if (
+      key === "Backspace" &&
+      conditionText === "" &&
+      words.length > 0
+    ) {
+      if (words.at(-1)?.type === HintTypes.VALUE) {
+        setConditionText(words.at(-2)?.content || "");
+        setWords((prev) => prev.slice(0, -2));
+      } else {
+        setConditionText(words.at(-1)?.content || "");
+        setWords((prev) => prev.slice(0, -1));
+      }
+      setCurrentHintsType((prev) =>
+        prev === HintTypes.OPERATOR ? HintTypes.INDICATOR : HintTypes.OPERATOR
+      );
     }
   };
 
@@ -154,6 +209,7 @@ const SetConditionModal = ({
             setDisplayedIndicator={setDisplayedIndicator}
             setCurrentIndicatorParameters={setCurrentIndicatorParameters}
             setWords={setWords}
+            setHintsType={setCurrentHintsType}
           />
           <DarkOverlay />
         </>
@@ -171,8 +227,10 @@ const SetConditionModal = ({
             typingError && styles.textInputWrapperError
           )}
         >
-          {words.map((item) => (
-            <span>{item}</span>
+          {words.map((item, index) => (
+            <span className={styles.wordSpan} key={`${item.content}${index}`}>
+              {item.content}
+            </span>
           ))}
           <input
             className={styles.textInput}
@@ -188,6 +246,7 @@ const SetConditionModal = ({
               type="button"
               className={styles.hint}
               onClick={() => clickHint(item)}
+              key={item.name}
             >
               {item.name}
             </button>
@@ -199,7 +258,6 @@ const SetConditionModal = ({
           size={ButtonSize.SMALL}
           onClick={() => {
             closeFn();
-            submitFn(node, words);
           }}
         >
           Cancel
@@ -209,7 +267,7 @@ const SetConditionModal = ({
           color
           onClick={() => {
             closeFn();
-            submitFn(node, words);
+            submitFn(node, formatWords(words));
           }}
         >
           Ok

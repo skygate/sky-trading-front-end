@@ -10,6 +10,7 @@ export enum ButtonSize {
 
 interface RestButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 interface ButtonProps extends RestButtonProps {

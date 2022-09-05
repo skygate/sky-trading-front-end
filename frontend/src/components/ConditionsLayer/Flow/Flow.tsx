@@ -172,7 +172,7 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
   const onNodeModalClose = () => setActiveNodeModal(null);
 
   const onNodeSubmit = useCallback(
-    (node: Node, words: string[]) => {
+    (node: Node, text: string) => {
       if (node.data.type !== ConditionNodeTypes.PLACEHOLDER) return;
       const placeholderIds: any = {
         down: null,
@@ -199,7 +199,7 @@ const Flow = ({ arePlaceholdersVisible }: FlowProps) => {
               item.data = {
                 ...item.data,
                 type: ConditionNodeTypes.DEFAULT,
-                value: words.join(" "),
+                value: text,
               };
             }
             if (item.data.row > node.data.row) {
