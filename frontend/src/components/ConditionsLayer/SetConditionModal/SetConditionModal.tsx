@@ -12,6 +12,7 @@ import cx from "classnames";
 import SetIndicatorModal from "./SetIndicatorModal";
 import DarkOverlay from "components/DarkOverlay";
 import Button, { ButtonSize } from "components/Buttons/Button";
+import SetConditionList from "./SetConditionList";
 
 export enum HintTypes {
   INDICATOR = "INDICATOR",
@@ -253,6 +254,10 @@ const SetConditionModal = ({
           ))}
         </div>
       </div>
+      <SetConditionList
+        currentHintsType={currentHintsType}
+        clickHint={clickHint}
+      />
       <div className={styles.buttonsWrapper}>
         <Button
           size={ButtonSize.SMALL}

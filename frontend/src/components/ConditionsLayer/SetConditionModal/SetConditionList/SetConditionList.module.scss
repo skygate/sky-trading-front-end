@@ -1,0 +1,82 @@
+.wrapper {
+    width: 100%;
+    height: 250px;
+    padding: var(--spacer-10);
+    display: flex;
+    gap: var(--spacer-15);
+}
+
+.menu {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacer-10);
+    list-style-type: none;
+}
+
+.sideMenuHeader {
+    font-weight: 400;
+    font-size: var(--font-13);
+    opacity: 0.75;
+}
+
+.menuItem {
+    padding: var(--spacer-5) var(--spacer-7);
+    border: none;
+    background-color: inherit;
+    color: inherit;
+    border-radius: var(--spacer-3);
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.activeMenuItem {
+    background-color: var(--color-primary);
+}
+
+.list {
+    flex: 1;
+    padding: 0;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.list::-webkit-scrollbar {
+    display: none;
+}
+
+.listItem {
+    padding: var(--spacer-10) var(--spacer-40);
+    border-bottom: 1px solid var(--color-white);
+    display: flex;
+    position: relative;
+}
+
+.listItemSymbol {
+    display: block;
+    width: 20%;
+}
+
+.favouriteButton {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background-color: inherit;
+}
+
+.helpButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background-color: inherit;
+}
