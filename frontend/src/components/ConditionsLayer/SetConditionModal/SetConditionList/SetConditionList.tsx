@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import styles from "./SetConditionList.module.scss";
 import cx from "classnames";
 import { HelpIcon, StarIcon } from "assets/icons";
@@ -65,14 +65,22 @@ const dummyIndicatorsList = [
 interface SetConditionListProps {
   currentHintsType: HintTypes;
   clickHint: (hint: Hint) => void;
+  favouriteIndicators: any;
+  setFavouriteIndicators: Dispatch<SetStateAction<any>>;
 }
 
 const SetConditionList = ({
   currentHintsType,
   clickHint,
+  favouriteIndicators,
+  setFavouriteIndicators,
 }: SetConditionListProps) => {
   const [activeOption, setActiveOption] = useState(MenuOptions.FAVOURITES);
   const [hoveredOption, setHoveredOption] = useState<null | string>(null);
+  const dummyToOption = {
+    FAVOURITES: favouriteIndicators,
+    INDICATORS: dummyIndicatorsList,
+  };
 
   const clickListItem = (item: any) => {
     if (currentHintsType === HintTypes.INDICATOR)
@@ -106,28 +114,39 @@ const SetConditionList = ({
         ))}
       </ul>
       <ul className={styles.list}>
-        {dummyIndicatorsList.map((item) => (
-          <li
-            className={styles.listItem}
-            key={item.symbol}
-            onMouseEnter={() => setHoveredOption(item.symbol)}
-            onMouseLeave={() => setHoveredOption(null)}
-            onClick={() => clickListItem(item)}
-          >
-            <span className={styles.listItemSymbol}>{item.symbol}</span>
-            <span>{item.name}</span>
-            {hoveredOption === item.symbol && (
-              <>
-                <button className={styles.favouriteButton}>
+        {(activeOption === MenuOptions.INDICATORS ||
+          activeOption === MenuOptions.FAVOURITES) &&
+          dummyToOption[activeOption].map((item: any) => (
+            <li
+              className={styles.listItem}
+              key={item.symbol}
+              onMouseEnter={() => setHoveredOption(item.symbol)}
+              onMouseLeave={() => setHoveredOption(null)}
+              onClick={() => clickListItem(item)}
+            >
+              <span className={styles.listItemSymbol}>{item.symbol}</span>
+              <span>{item.name}</span>
+              {(hoveredOption === item.symbol ||
+                favouriteIndicators.find(
+                  (element: any) => element.name === item.name
+                )) && (
+                <button
+                  className={styles.favouriteButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFavouriteIndicators((prev: any) => [...prev, item]);
+                  }}
+                >
                   <StarIcon />
                 </button>
+              )}
+              {hoveredOption === item.symbol && (
                 <button className={styles.helpButton}>
                   <HelpIcon />
                 </button>
-              </>
-            )}
-          </li>
-        ))}
+              )}
+            </li>
+          ))}
       </ul>
     </div>
   );

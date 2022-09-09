@@ -137,6 +137,7 @@ const SetConditionModal = ({
   );
   const [currentIndicatorParameters, setCurrentIndicatorParameters] =
     useState<any>(null);
+  const [favouriteIndicators, setFavouriteIndicators] = useState<any>([]);
 
   useEffect(() => {
     if (currentIndicatorParameters) {
@@ -241,6 +242,7 @@ const SetConditionModal = ({
             onKeyDown={handleKeyPress}
           />
         </div>
+        <header className={styles.hintHeader}>Suggestions</header>
         <div className={styles.hintsWrapper}>
           {currentHints.map((item) => (
             <button
@@ -257,6 +259,8 @@ const SetConditionModal = ({
       <SetConditionList
         currentHintsType={currentHintsType}
         clickHint={clickHint}
+        favouriteIndicators={favouriteIndicators}
+        setFavouriteIndicators={setFavouriteIndicators}
       />
       <div className={styles.buttonsWrapper}>
         <Button

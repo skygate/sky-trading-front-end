@@ -24,6 +24,7 @@
 .modalLabel {
   font-size: var(--font-16);
   font-weight: 400;
+  margin: 0;
 }
 
 .mainSection {
@@ -97,4 +98,9 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.hintHeader {
+  opacity: 0.75;
+  font-size: var(--font-13);
 }
