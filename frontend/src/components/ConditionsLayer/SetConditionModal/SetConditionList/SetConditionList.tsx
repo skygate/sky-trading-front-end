@@ -5,7 +5,7 @@ import { HelpIcon, StarIcon } from "assets/icons";
 import { Hint, HintTypes } from "../SetConditionModal";
 
 enum MenuOptions {
-  FAVOURITES = "FAVOURITES",
+  FAVORITES = "FAVORITES",
   INDICATORS = "INDICATORS",
   VOLUME = "VOLUME",
   AUTO = "AUTO",
@@ -14,8 +14,8 @@ enum MenuOptions {
 
 const menuOptions = [
   {
-    id: MenuOptions.FAVOURITES,
-    name: "Favourites",
+    id: MenuOptions.FAVORITES,
+    name: "Favorites",
   },
   {
     id: MenuOptions.INDICATORS,
@@ -75,10 +75,10 @@ const SetConditionList = ({
   favouriteIndicators,
   setFavouriteIndicators,
 }: SetConditionListProps) => {
-  const [activeOption, setActiveOption] = useState(MenuOptions.FAVOURITES);
+  const [activeOption, setActiveOption] = useState(MenuOptions.FAVORITES);
   const [hoveredOption, setHoveredOption] = useState<null | string>(null);
   const dummyToOption = {
-    FAVOURITES: favouriteIndicators,
+    FAVORITES: favouriteIndicators,
     INDICATORS: dummyIndicatorsList,
   };
 
@@ -115,7 +115,7 @@ const SetConditionList = ({
       </ul>
       <ul className={styles.list}>
         {(activeOption === MenuOptions.INDICATORS ||
-          activeOption === MenuOptions.FAVOURITES) &&
+          activeOption === MenuOptions.FAVORITES) &&
           dummyToOption[activeOption].map((item: any) => (
             <li
               className={styles.listItem}
